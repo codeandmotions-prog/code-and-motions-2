@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Circle } from "lucide-react";
 import LabNovaVisual from "@/components/labnova/LabNovaVisual";
 import MotionStreaks from "@/components/MotionStreaks";
 import { getSoftwareProduct } from "@/data/softwareProducts";
@@ -40,6 +40,7 @@ export default function FeaturedLabNova() {
       >
         <MotionStreaks className="h-full w-full" />
       </div>
+
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-2 lg:gap-16 lg:px-10">
         <motion.div
           variants={fadeUp}
@@ -103,7 +104,17 @@ export default function FeaturedLabNova() {
           transition={{ delay: 0.15 }}
           className="mx-auto w-full max-w-md lg:max-w-none"
         >
-          <LabNovaVisual className="h-full w-full" />
+          {/* app-window frame around the product visual, for a real SaaS-showcase feel */}
+          <div className="overflow-hidden rounded-[24px] border border-(--color-line) bg-white shadow-[0_40px_80px_-40px_rgba(11,28,77,0.35)]">
+            <div className="flex items-center gap-1.5 border-b border-(--color-line) bg-(--color-surface) px-4 py-3">
+              <Circle size={9} className="fill-(--color-line) text-(--color-line)" />
+              <Circle size={9} className="fill-(--color-line) text-(--color-line)" />
+              <Circle size={9} className="fill-(--color-line) text-(--color-line)" />
+            </div>
+            <div className="p-4">
+              <LabNovaVisual className="h-full w-full" />
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

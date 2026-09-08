@@ -6,16 +6,17 @@ import type { Service } from "@/data/services";
 
 type ServiceCardProps = {
   service: Service;
+  index: number;
 };
 
-export default function ServiceCard({ service }: ServiceCardProps) {
+export default function ServiceCard({ service, index }: ServiceCardProps) {
   const Icon = service.icon;
 
   return (
     <motion.article
       whileHover={{ y: -8 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex h-[360px] w-[260px] shrink-0 snap-center-item flex-col justify-between overflow-hidden rounded-[28px] p-7 sm:h-[380px] sm:w-[280px]"
+      className="group relative flex h-[380px] w-[270px] shrink-0 snap-center-item flex-col justify-between overflow-hidden rounded-[28px] p-7 shadow-[0_30px_60px_-40px_rgba(11,28,77,0.5)] sm:h-[400px] sm:w-[290px]"
       style={{
         background: service.gradient,
         color: service.ink,
@@ -32,11 +33,19 @@ export default function ServiceCard({ service }: ServiceCardProps) {
         <rect x="40" y="60" width="90" height="12" rx="6" transform="rotate(-28 40 60)" fill="currentColor" />
       </svg>
 
-      <div
-        className="flex h-12 w-12 items-center justify-center rounded-2xl"
-        style={{ backgroundColor: "rgba(255,255,255,0.16)" }}
-      >
-        <Icon size={22} color={service.ink} strokeWidth={1.75} />
+      <div className="flex items-start justify-between">
+        <div
+          className="flex h-12 w-12 items-center justify-center rounded-2xl"
+          style={{ backgroundColor: "rgba(255,255,255,0.16)" }}
+        >
+          <Icon size={22} color={service.ink} strokeWidth={1.75} />
+        </div>
+        <span
+          className="text-[13px] font-bold tracking-[0.05em]"
+          style={{ color: "rgba(255,255,255,0.5)" }}
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
       </div>
 
       <div>

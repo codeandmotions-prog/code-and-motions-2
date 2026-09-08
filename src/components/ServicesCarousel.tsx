@@ -75,8 +75,8 @@ export default function ServicesCarousel() {
         role="region"
         aria-label="Popular services, scrollable"
       >
-        {services.map((service) => (
-          <ServiceCard key={service.id} service={service} />
+        {services.map((service, index) => (
+          <ServiceCard key={service.id} service={service} index={index} />
         ))}
         {/* spacer so the last card can be centered/fully revealed */}
         <div className="w-px shrink-0" aria-hidden="true" />
