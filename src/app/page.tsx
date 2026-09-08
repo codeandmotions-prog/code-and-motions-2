@@ -3,6 +3,8 @@ import Hero from "@/components/Hero";
 import ServicesCarousel from "@/components/ServicesCarousel";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import TrustedPartners from "@/components/home/TrustedPartners";
+import FeaturedLabNova from "@/components/home/FeaturedLabNova";
 
 export default function Home() {
   return (
@@ -11,6 +13,8 @@ export default function Home() {
 
       <main id="main" className="flex-1">
         <Hero />
+
+        <TrustedPartners />
 
         <section id="services" className="py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -29,6 +33,8 @@ export default function Home() {
             <ServicesCarousel />
           </div>
         </section>
+
+        <FeaturedLabNova />
 
         <CTA />
       </main>
