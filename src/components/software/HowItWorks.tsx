@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { labnovaWorkflow } from "@/data/labnova";
+import { getSoftwareProduct } from "@/data/softwareProducts";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -21,13 +21,21 @@ const item: Variants = {
   },
 };
 
-export default function HowItWorks() {
+type HowItWorksProps = {
+  slug: string;
+};
+
+export default function HowItWorks({ slug }: HowItWorksProps) {
+  const product = getSoftwareProduct(slug);
+  if (!product) return null;
+  const { name: productName, workflow, accentColor } = product;
+
   return (
     <section className="bg-(--color-surface-raised) py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-xl">
           <h2 className="text-[28px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[34px]">
-            How LabNova Works
+            How {productName} Works
           </h2>
           <p className="mt-3 text-[16px] leading-relaxed text-(--color-ink-soft)">
             From setup to growth, in four simple steps.
@@ -47,12 +55,21 @@ export default function HowItWorks() {
             className="pointer-events-none absolute left-0 right-0 top-[26px] hidden h-px bg-(--color-line) lg:block"
           />
 
-          {labnovaWorkflow.map(({ id, step, title, description, icon: Icon }) => (
+          {workflow.map(({ id, step, title, description, icon: Icon }) => (
             <motion.div key={id} variants={item} className="relative flex flex-col items-start">
-              <span className="relative z-10 flex h-[52px] w-[52px] items-center justify-center rounded-2xl bg-[#0070FE] text-white shadow-[0_16px_32px_-16px_rgba(0,112,254,0.6)]">
+              <span
+                className="relative z-10 flex h-[52px] w-[52px] items-center justify-center rounded-2xl text-white"
+                style={{
+                  backgroundColor: accentColor,
+                  boxShadow: `0 16px 32px -16px ${accentColor}99`,
+                }}
+              >
                 <Icon size={22} strokeWidth={1.9} />
               </span>
-              <span className="mt-4 text-[12.5px] font-bold uppercase tracking-[0.12em] text-[#0070FE]">
+              <span
+                className="mt-4 text-[12.5px] font-bold uppercase tracking-[0.12em]"
+                style={{ color: accentColor }}
+              >
                 Step {step}
               </span>
               <h3 className="mt-1.5 text-[19px] font-bold text-(--color-ink)">{title}</h3>

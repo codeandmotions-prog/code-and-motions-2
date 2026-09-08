@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import LabNovaVisual from "@/components/labnova/LabNovaVisual";
-import { labnova } from "@/data/labnova";
+import { getSoftwareProduct } from "@/data/softwareProducts";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -19,8 +19,20 @@ const fadeUp: Variants = {
 };
 
 export default function FeaturedLabNova() {
+  const labnova = getSoftwareProduct("labnova");
+
+  if (!labnova) {
+    return null;
+  }
+
   return (
-    <section className="bg-(--color-surface-raised) py-20 lg:py-28">
+    <section
+      className="relative overflow-hidden border-y border-(--color-line) py-20 lg:py-28"
+      style={{
+        background:
+          "radial-gradient(120% 100% at 15% 0%, #EAF2FF 0%, #F5F6FA 55%)",
+      }}
+    >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-2 lg:gap-16 lg:px-10">
         <motion.div
           variants={fadeUp}
@@ -28,13 +40,16 @@ export default function FeaturedLabNova() {
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <span className="inline-flex items-center rounded-full bg-[#0070FE]/10 px-4 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.14em] text-[#0070FE]">
+          <span
+            className="inline-flex items-center rounded-full px-4 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.14em]"
+            style={{ backgroundColor: `${labnova.accentColor}1A`, color: labnova.accentColor }}
+          >
             Featured Software
           </span>
 
           <div className="mt-6 flex items-center gap-3">
             <Image
-              src="/images/labnova-icon.png"
+              src={labnova.logoIcon}
               alt=""
               width={420}
               height={414}
@@ -54,16 +69,17 @@ export default function FeaturedLabNova() {
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link
-              href="/software"
-              className="inline-flex items-center gap-2 rounded-full border border-(--color-line) px-7 py-4 text-[15px] font-semibold text-(--color-ink) transition-colors hover:border-(--color-ink)"
+              href={`/software/${labnova.slug}`}
+              className="inline-flex items-center gap-2 rounded-full border border-(--color-line) bg-white px-7 py-4 text-[15px] font-semibold text-(--color-ink) transition-colors hover:border-(--color-ink)"
             >
               Learn More
             </Link>
             <Link
               href="/contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-[#0070FE] px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-(--color-ink)"
+              className="group inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-(--color-ink)"
+              style={{ backgroundColor: labnova.accentColor }}
             >
-              Get LabNova
+              Get {labnova.name}
               <ArrowRight
                 size={18}
                 className="transition-transform duration-300 group-hover:translate-x-1"

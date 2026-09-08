@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { labnovaTech } from "@/data/labnova";
+import { getSoftwareProduct } from "@/data/softwareProducts";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -21,7 +21,15 @@ const item: Variants = {
   },
 };
 
-export default function TechStack() {
+type TechStackProps = {
+  slug: string;
+};
+
+export default function TechStack({ slug }: TechStackProps) {
+  const product = getSoftwareProduct(slug);
+  if (!product) return null;
+  const { tech, accentColor } = product;
+
   return (
     <section className="bg-(--color-surface) py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -41,14 +49,17 @@ export default function TechStack() {
           viewport={{ once: true, amount: 0.3 }}
           className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2"
         >
-          {labnovaTech.map(({ id, title, description, icon: Icon }) => (
+          {tech.map(({ id, title, description, icon: Icon }) => (
             <motion.div
               key={id}
               variants={item}
               className="rounded-[24px] border border-(--color-line) bg-white p-8"
             >
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0070FE]/10">
-                <Icon size={26} className="text-[#0070FE]" strokeWidth={1.75} />
+              <span
+                className="flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ backgroundColor: `${accentColor}1A` }}
+              >
+                <Icon size={26} style={{ color: accentColor }} strokeWidth={1.75} />
               </span>
               <h3 className="mt-5 text-[19px] font-bold text-(--color-ink)">{title}</h3>
               <p className="mt-2.5 text-[14.5px] leading-relaxed text-(--color-ink-soft)">

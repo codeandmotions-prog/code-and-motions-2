@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { labnovaFeatures } from "@/data/labnova";
+import { getSoftwareProduct } from "@/data/softwareProducts";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -21,7 +21,15 @@ const item: Variants = {
   },
 };
 
-export default function FeatureGrid() {
+type FeatureGridProps = {
+  slug: string;
+};
+
+export default function FeatureGrid({ slug }: FeatureGridProps) {
+  const product = getSoftwareProduct(slug);
+  if (!product) return null;
+  const { features, accentColor } = product;
+
   return (
     <section id="features" className="bg-(--color-surface) py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -42,14 +50,17 @@ export default function FeatureGrid() {
           viewport={{ once: true, amount: 0.1 }}
           className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
-          {labnovaFeatures.map(({ id, title, icon: Icon }) => (
+          {features.map(({ id, title, icon: Icon }) => (
             <motion.div
               key={id}
               variants={item}
-              className="group flex items-start gap-4 rounded-2xl border border-(--color-line) bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#0070FE]/30 hover:shadow-[0_20px_40px_-28px_rgba(0,112,254,0.45)]"
+              className="group flex items-start gap-4 rounded-2xl border border-(--color-line) bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-28px_rgba(15,20,40,0.25)]"
             >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0070FE]/10 transition-colors group-hover:bg-[#0070FE]/15">
-                <Icon size={20} className="text-[#0070FE]" strokeWidth={1.9} />
+              <span
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
+                style={{ backgroundColor: `${accentColor}1A` }}
+              >
+                <Icon size={20} style={{ color: accentColor }} strokeWidth={1.9} />
               </span>
               <span className="pt-1.5 text-[14.5px] font-semibold leading-snug text-(--color-ink)">
                 {title}

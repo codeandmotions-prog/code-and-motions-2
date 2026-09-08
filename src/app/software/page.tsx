@@ -1,48 +1,37 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import SoftwareHero from "@/components/software/SoftwareHero";
-import AboutLabNova from "@/components/software/AboutLabNova";
-import FeatureGrid from "@/components/software/FeatureGrid";
-import HowItWorks from "@/components/software/HowItWorks";
-import TechStack from "@/components/software/TechStack";
-import SoftwareFinalCTA from "@/components/software/SoftwareFinalCTA";
+import SoftwareListingHero from "@/components/software/SoftwareListingHero";
+import ProductsGrid from "@/components/software/ProductsGrid";
 
 export const metadata: Metadata = {
-  title: "LabNova — Software",
+  title: "Software Solutions",
   description:
-    "LabNova is a Windows desktop laboratory management system by Code & Motions: patient management, test & result entry, report generation and more.",
+    "Explore Code & Motions' software products, built to simplify operations, automate workflows, and help businesses grow. Starting with LabNova.",
   alternates: {
     canonical: "/software",
   },
   openGraph: {
-    title: "LabNova — Smart Laboratory Management System",
+    title: "Software Solutions | Code & Motions",
     description:
-      "A Windows desktop laboratory management solution built to simplify and automate laboratory operations.",
+      "Powerful software products built to simplify operations, automate workflows, and help businesses grow.",
     url: "/software",
-    images: [
-      {
-        url: "/images/labnova-full.png",
-        width: 1305,
-        height: 732,
-        alt: "LabNova — Smart Laboratory Management System",
-      },
-    ],
   },
 };
 
-export default function SoftwarePage() {
+export default function SoftwareListingPage() {
   return (
     <>
       <Header />
 
       <main id="main" className="flex-1">
-        <SoftwareHero />
-        <AboutLabNova />
-        <FeatureGrid />
-        <HowItWorks />
-        <TechStack />
-        <SoftwareFinalCTA />
+        <SoftwareListingHero />
+
+        <section className="bg-(--color-surface-raised) px-6 py-20 lg:px-10 lg:py-28">
+          <div className="mx-auto max-w-7xl">
+            <ProductsGrid />
+          </div>
+        </section>
       </main>
 
       <Footer />
