@@ -23,7 +23,13 @@ export default function TrustedPartners() {
   }
 
   return (
-    <section className="border-y border-(--color-line) bg-(--color-surface)">
+    <section
+      className="relative border-y border-(--color-line)"
+      style={{
+        background:
+          "linear-gradient(180deg, #F5F6FA 0%, #FAFBFD 50%, #F5F6FA 100%)",
+      }}
+    >
       <motion.div
         variants={fadeUp}
         initial="hidden"

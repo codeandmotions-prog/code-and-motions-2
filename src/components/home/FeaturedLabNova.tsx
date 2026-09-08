@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import LabNovaVisual from "@/components/labnova/LabNovaVisual";
+import MotionStreaks from "@/components/MotionStreaks";
 import { getSoftwareProduct } from "@/data/softwareProducts";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
@@ -27,12 +28,18 @@ export default function FeaturedLabNova() {
 
   return (
     <section
-      className="relative overflow-hidden border-y border-(--color-line) py-20 lg:py-28"
+      className="relative overflow-hidden border-b border-(--color-line) py-20 lg:py-28"
       style={{
         background:
-          "radial-gradient(120% 100% at 15% 0%, #EAF2FF 0%, #F5F6FA 55%)",
+          "radial-gradient(120% 100% at 15% 0%, #E4EFFF 0%, #EFF6FF 45%, #F5F6FA 80%)",
       }}
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 top-10 h-64 w-64 opacity-[0.07] lg:h-80 lg:w-80"
+      >
+        <MotionStreaks className="h-full w-full" />
+      </div>
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-2 lg:gap-16 lg:px-10">
         <motion.div
           variants={fadeUp}

@@ -44,7 +44,15 @@ const fadeUp: Variants = {
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-(--color-surface-raised)">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 pb-20 pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:px-10 lg:pb-28 lg:pt-20">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(90% 55% at 50% -10%, #EAF2FF 0%, transparent 65%)",
+        }}
+      />
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 pb-20 pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:px-10 lg:pb-28 lg:pt-20">
         <div className="max-w-xl">
           <motion.h1
             variants={container}
