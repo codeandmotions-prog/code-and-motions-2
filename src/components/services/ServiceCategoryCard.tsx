@@ -31,7 +31,11 @@ export default function ServiceCategoryCard({ category }: ServiceCategoryCardPro
       </div>
 
       <div className="flex flex-1 flex-col p-7">
-        <h3 className="text-[20px] font-bold text-(--color-ink)">{category.title}</h3>
+        <h3 className="text-[20px] font-bold text-(--color-ink)">
+          <Link href={`/services/${category.id}`} className="transition-colors hover:text-(--color-blue)">
+            {category.title}
+          </Link>
+        </h3>
         <p className="mt-2 text-[13.5px] leading-relaxed text-(--color-ink-soft)">
           {category.description}
         </p>
@@ -51,10 +55,10 @@ export default function ServiceCategoryCard({ category }: ServiceCategoryCardPro
 
         <div className="mt-6 pt-5">
           <Link
-            href="/contact"
+            href={`/services/${category.id}`}
             className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-(--color-ink) transition-colors group-hover:text-(--color-blue)"
           >
-            Get a quote
+            View Service
             <ArrowUpRight
               size={16}
               className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"

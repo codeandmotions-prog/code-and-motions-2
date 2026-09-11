@@ -1,12 +1,21 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-export default function CTA() {
+type ClosingCTAProps = {
+  headline: string;
+  subtext: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+};
+
+export default function ClosingCTA({
+  headline,
+  subtext,
+  primaryLabel = "Start a Project",
+  primaryHref = "/contact",
+}: ClosingCTAProps) {
   return (
-    <section
-      id="start-a-project"
-      className="relative overflow-hidden bg-(--color-navy-deep) py-20 lg:py-24"
-    >
+    <section className="relative overflow-hidden bg-(--color-navy-deep) py-20 lg:py-24">
       <svg
         aria-hidden="true"
         viewBox="0 0 900 300"
@@ -19,18 +28,17 @@ export default function CTA() {
 
       <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-10">
         <h2 className="text-[32px] font-extrabold leading-[1.15] tracking-[-0.01em] text-white sm:text-[40px]">
-          Have a project in mind? Let&apos;s build it together.
+          {headline}
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-white/70">
-          Tell us where your business needs to go next and we&apos;ll put the
-          right mix of design, engineering and growth behind it.
+          {subtext}
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <Link
-            href="/contact"
+            href={primaryHref}
             className="group inline-flex items-center gap-2 rounded-full bg-(--color-blue) px-8 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-white hover:text-(--color-ink)"
           >
-            Start a Project
+            {primaryLabel}
             <ArrowRight
               size={18}
               className="transition-transform duration-300 group-hover:translate-x-1"

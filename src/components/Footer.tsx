@@ -5,9 +5,8 @@ import SocialIcon, { type SocialNetwork } from "./SocialIcon";
 
 const company = [
   { label: "About Us", href: "/about" },
-  { label: "Services", href: "#services" },
-  { label: "Blog", href: "/blog" },
-  { label: "Softwares", href: "/softwares" },
+  { label: "Services", href: "/services" },
+  { label: "Software", href: "/software" },
   { label: "Contact Us", href: "/contact" },
 ];
 
@@ -61,7 +60,7 @@ export default function Footer() {
               {services.slice(0, 5).map((service) => (
                 <li key={service.id}>
                   <Link
-                    href="#services"
+                    href={`/services/${service.id}`}
                     className="text-[14.5px] text-(--color-ink-soft) transition-colors hover:text-(--color-ink)"
                   >
                     {service.title}
@@ -75,8 +74,8 @@ export default function Footer() {
             <h3 className="text-[14px] font-semibold text-(--color-ink)">Get in touch</h3>
             <ul className="mt-4 space-y-3 text-[14.5px] text-(--color-ink-soft)">
               <li>
-                <Link href="mailto:hello@codeandmotions.com" className="hover:text-(--color-ink)">
-                  hello@codeandmotions.com
+                <Link href="mailto:codeandmotions@gmail.com" className="hover:text-(--color-ink)">
+                  codeandmotions@gmail.com
                 </Link>
               </li>
               <li>

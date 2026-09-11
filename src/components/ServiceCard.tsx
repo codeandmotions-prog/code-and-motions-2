@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import type { Service } from "@/data/services";
@@ -57,13 +58,16 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
           {service.description}
         </p>
 
-        <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold">
+        <Link
+          href={`/services/${service.id}`}
+          className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+        >
           Learn more
           <ArrowUpRight
             size={16}
             className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           />
-        </div>
+        </Link>
       </div>
     </motion.article>
   );

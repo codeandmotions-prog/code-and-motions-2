@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactHero from "@/components/contact/ContactHero";
 import ContactForm from "@/components/contact/ContactForm";
+import ContactInfoSidebar from "@/components/contact/ContactInfoSidebar";
 import ContactTrustBadges from "@/components/contact/ContactTrustBadges";
 
 export const metadata: Metadata = {
@@ -28,8 +29,14 @@ export default function ContactPage() {
       <main id="main" className="flex-1">
         <ContactHero />
 
-        <section className="relative bg-(--color-surface-raised) px-6 pb-24 lg:px-10">
-          <ContactForm />
+        <section
+          id="contact-form"
+          className="bg-(--color-surface-raised) px-6 py-16 lg:px-10 lg:py-20"
+        >
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 lg:grid-cols-[1.5fr_1fr] lg:gap-8">
+            <ContactForm />
+            <ContactInfoSidebar />
+          </div>
         </section>
 
         <section className="border-t border-(--color-line) bg-(--color-surface-raised) px-6 py-16 lg:px-10 lg:py-20">

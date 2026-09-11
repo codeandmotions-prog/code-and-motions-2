@@ -9,10 +9,9 @@ import { motion, AnimatePresence } from "framer-motion";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "Blog", href: "/blog" },
-  { label: "Softwares", href: "/software" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "Software", href: "/software" },
   { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export default function Header() {

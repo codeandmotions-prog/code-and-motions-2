@@ -72,10 +72,10 @@ export default function HomeFinalCTA() {
             />
           </Link>
           <Link
-            href="mailto:hello@codeandmotions.com"
+            href="mailto:codeandmotions@gmail.com"
             className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 text-[15px] font-semibold text-white transition-colors hover:border-white"
           >
-            hello@codeandmotions.com
+            codeandmotions@gmail.com
           </Link>
         </div>
       </motion.div>

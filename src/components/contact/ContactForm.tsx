@@ -78,7 +78,7 @@ export default function ContactForm() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
-        className="mx-auto -mt-16 max-w-3xl rounded-[32px] bg-white p-10 text-center shadow-[0_40px_80px_-40px_rgba(11,28,77,0.35)] sm:p-14 lg:-mt-20"
+        className="rounded-[32px] bg-white p-10 text-center shadow-[0_30px_60px_-35px_rgba(11,28,77,0.25)]"
       >
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-(--color-blue)/10">
           <CheckCircle2 size={30} className="text-(--color-blue)" strokeWidth={1.75} />
@@ -118,7 +118,7 @@ export default function ContactForm() {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
-      className="mx-auto -mt-16 max-w-3xl rounded-[32px] bg-white p-6 shadow-[0_40px_80px_-40px_rgba(11,28,77,0.35)] sm:p-10 lg:-mt-20 lg:p-12"
+      className="rounded-[32px] bg-white p-6 shadow-[0_30px_60px_-35px_rgba(11,28,77,0.25)] sm:p-8 lg:p-10"
     >
       <div className="max-w-md">
         <h2 className="text-[24px] font-extrabold text-(--color-ink) sm:text-[26px]">

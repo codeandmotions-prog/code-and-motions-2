@@ -21,10 +21,9 @@ const fadeUp: Variants = {
   },
 };
 
-export default function ContactHero() {
+export default function AboutHero() {
   return (
-    <section className="relative overflow-hidden bg-(--color-navy-deep) pb-20 pt-20 lg:pb-24 lg:pt-24">
-      {/* brand gradient wash, same palette as the rest of the site */}
+    <section className="relative overflow-hidden bg-(--color-navy-deep) pb-24 pt-20 lg:pb-28 lg:pt-24">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -34,7 +33,6 @@ export default function ContactHero() {
         }}
       />
       <MotionStreaks className="pointer-events-none absolute -right-16 top-8 h-72 w-72 opacity-25 lg:h-96 lg:w-96 lg:opacity-30" />
-      <MotionStreaks className="pointer-events-none absolute -left-24 bottom-0 h-64 w-64 rotate-180 opacity-[0.12] lg:h-80 lg:w-80" />
 
       <motion.div
         variants={container}
@@ -46,28 +44,25 @@ export default function ContactHero() {
           variants={fadeUp}
           className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.14em] text-(--color-cyan-soft)"
         >
-          Get in touch
+          About Us
         </motion.span>
 
         <motion.h1
           variants={fadeUp}
           className="mt-6 text-[38px] font-extrabold leading-[1.12] tracking-[-0.01em] text-white sm:text-[48px] lg:text-[56px]"
         >
-          Let&apos;s Build Something
-          <span className="block bg-gradient-to-r from-(--color-cyan) to-(--color-blue-bright) bg-clip-text text-transparent">
-            Together.
-          </span>
+          The Team Behind Code &amp; Motions
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
           className="mx-auto mt-6 max-w-xl text-[16.5px] leading-relaxed text-white/70 lg:text-[17px]"
         >
-          Have a project in mind, need a quote, or just want to say hello?
-          Tell us where you&apos;re headed and we&apos;ll help you get there.
+          A digital agency for ambitious brands — designing, developing and
+          growing software, websites, Shopify stores, video and brand
+          systems under one roof.
         </motion.p>
       </motion.div>
     </section>
   );
 }
-
