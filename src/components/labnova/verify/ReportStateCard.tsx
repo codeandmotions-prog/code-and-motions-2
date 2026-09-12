@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { AlertTriangle, HelpCircle, LucideIcon } from "lucide-react";
+import { AlertTriangle, HelpCircle, ServerCrash, LucideIcon } from "lucide-react";
 
 type ReportStateCardProps = {
-  variant: "missing-id" | "not-found";
+  variant: "missing-id" | "not-found" | "unavailable";
   reportId?: string;
 };
 
@@ -21,6 +21,12 @@ const copy: Record<
     title: "Report Not Found",
     description:
       "We couldn't verify a report matching this ID. If you scanned a QR code directly from a printed LabNova report, please try again or contact the issuing laboratory.",
+  },
+  unavailable: {
+    icon: ServerCrash,
+    title: "Verification Temporarily Unavailable",
+    description:
+      "We're unable to check this report right now. Please try again shortly, or contact the issuing laboratory directly.",
   },
 };
 

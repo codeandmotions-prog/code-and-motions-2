@@ -2,16 +2,20 @@ import {
   CheckCircle2,
   Building2,
   User,
+  IdCard,
+  FlaskConical,
   Calendar,
   Fingerprint,
   Stethoscope,
   UserCog,
   Phone,
+  ShieldCheck,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { ReportVerification } from "@/data/labnovaVerification";
 
 type VerificationCardProps = {
+  reportId: string;
   report: ReportVerification;
 };
 
@@ -23,43 +27,69 @@ type DetailRow = {
   secondaryValue?: string;
 };
 
-export default function VerificationCard({ report }: VerificationCardProps) {
+function formatDateTime(value: string): string {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+  return new Intl.DateTimeFormat("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(date);
+}
+
+export default function VerificationCard({ reportId, report }: VerificationCardProps) {
   const rows: DetailRow[] = [
     {
       icon: Building2,
       label: "Laboratory",
-      value: report.laboratoryName,
+      value: report.lab_name,
     },
     {
       icon: User,
       label: "Patient",
-      value: report.patientName,
+      value: report.patient_name,
     },
     {
-      icon: Calendar,
-      label: "Report Date",
-      value: report.reportDate,
+      icon: IdCard,
+      label: "Patient ID",
+      value: report.patient_display_id,
     },
     {
       icon: Fingerprint,
       label: "Report ID",
-      value: report.reportId,
+      value: reportId,
     },
-    ...(report.doctorName
+    {
+      icon: FlaskConical,
+      label: "Test",
+      value: report.test_name,
+    },
+    ...(report.doctor_name
       ? [
           {
             icon: Stethoscope,
-            label: "Referring Doctor",
-            value: report.doctorName,
+            label: "Doctor / Consultant",
+            value: report.doctor_name,
           },
         ]
       : []),
     {
       icon: UserCog,
       label: "Technician",
-      value: report.technicianName,
+      value: report.technician_name,
       secondaryLabel: "Contact",
-      secondaryValue: report.technicianPhone,
+      secondaryValue: report.technician_phone,
+    },
+    {
+      icon: Calendar,
+      label: "Date / Time",
+      value: formatDateTime(report.registered_at),
+    },
+    {
+      icon: ShieldCheck,
+      label: "Verification Status",
+      value: report.status,
     },
   ];
 

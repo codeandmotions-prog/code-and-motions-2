@@ -29,10 +29,9 @@ export default async function LabNovaVerifyPage({ searchParams }: VerifyPageProp
   const resolvedParams = await searchParams;
   const rawId = resolvedParams.id;
   const reportId = Array.isArray(rawId) ? rawId[0] : rawId;
+  const trimmedId = reportId?.trim();
 
-  const result = reportId && reportId.trim().length > 0
-    ? await getReportVerification(reportId.trim())
-    : null;
+  const result = trimmedId ? await getReportVerification(trimmedId) : null;
 
   return (
     <div className="flex min-h-full flex-col bg-(--color-surface)">
@@ -40,12 +39,15 @@ export default async function LabNovaVerifyPage({ searchParams }: VerifyPageProp
 
       <main className="flex-1 px-6 py-10 sm:py-14">
         <div className="mx-auto max-w-md">
-          {!reportId && <ReportStateCard variant="missing-id" />}
-          {reportId && result && !result.found && (
-            <ReportStateCard variant="not-found" reportId={reportId} />
+          {!trimmedId && <ReportStateCard variant="missing-id" />}
+          {trimmedId && result?.outcome === "not-found" && (
+            <ReportStateCard variant="not-found" reportId={trimmedId} />
           )}
-          {reportId && result && result.found && (
-            <VerificationCard report={result.report} />
+          {trimmedId && (result?.outcome === "config-error" || result?.outcome === "error") && (
+            <ReportStateCard variant="unavailable" />
+          )}
+          {trimmedId && result?.outcome === "found" && (
+            <VerificationCard reportId={trimmedId} report={result.report} />
           )}
         </div>
       </main>

@@ -1,58 +1,56 @@
-/**
- * Placeholder data layer for LabNova report verification.
- *
- * IMPORTANT: This is UI-only mock data. Nothing here touches Supabase,
- * the LabNova Windows app, or QR generation. When the real verification
- * API/Supabase query is ready, replace the body of `getReportVerification`
- * with a real lookup (e.g. a fetch to a verification endpoint or a
- * server-side Supabase query) and keep the same return shape so the
- * page/components don't need to change.
- *
- * By design, this never includes test results or clinical values —
- * only the identifying/verification metadata printed on a report.
- */
+import { getSupabaseClient } from "@/lib/supabase/server";
 
+/**
+ * Shape of a row returned by the LabNova Supabase RPC `get_report_verification`.
+ * This mirrors the backend contract exactly — field names are not renamed
+ * so this stays a straightforward pass-through of what the RPC returns.
+ *
+ * Deliberately excludes test results and reference ranges: this page only
+ * ever selects/display the identifying and status fields listed below.
+ */
 export type ReportVerification = {
-  status: "verified";
-  reportId: string;
-  laboratoryName: string;
-  patientName: string;
-  reportDate: string;
-  doctorName: string | null;
-  technicianName: string;
-  technicianPhone: string;
+  lab_name: string;
+  patient_name: string;
+  patient_display_id: string;
+  test_name: string;
+  status: string;
+  registered_at: string;
+  doctor_name: string | null;
+  technician_name: string;
+  technician_phone: string;
 };
 
 export type VerificationResult =
-  | { found: true; report: ReportVerification }
-  | { found: false };
+  | { outcome: "found"; report: ReportVerification }
+  | { outcome: "not-found" }
+  | { outcome: "config-error" }
+  | { outcome: "error" };
 
 /**
- * Mock lookup, standing in for a future Supabase/API call.
+ * Looks up a report's verification record via the LabNova Supabase RPC.
  *
- * For local testing:
- * - Any non-empty id (e.g. "LN-2026-00842") returns a sample verified report.
- * - The id "notfound" specifically returns the "not found" state, so that
- *   UI can be reviewed without a real backend.
+ * Calls exactly: supabase.rpc('get_report_verification', { p_report_id: id })
+ * and reads the first row of the returned array (data[0]).
  */
-export async function getReportVerification(
-  reportId: string
-): Promise<VerificationResult> {
-  if (reportId.trim().toLowerCase() === "notfound") {
-    return { found: false };
+export async function getReportVerification(reportId: string): Promise<VerificationResult> {
+  const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    return { outcome: "config-error" };
   }
 
-  return {
-    found: true,
-    report: {
-      status: "verified",
-      reportId,
-      laboratoryName: "Sample Diagnostic Laboratory",
-      patientName: "Sample Patient Name",
-      reportDate: "September 10, 2026",
-      doctorName: "Dr. Sample Referring Physician",
-      technicianName: "Sample Technician Name",
-      technicianPhone: "+92 300 0000000",
-    },
-  };
+  const { data, error } = await supabase.rpc("get_report_verification", {
+    p_report_id: reportId,
+  });
+
+  if (error) {
+    console.error("LabNova report verification RPC error:", error.message);
+    return { outcome: "error" };
+  }
+
+  if (!Array.isArray(data) || data.length === 0 || !data[0]) {
+    return { outcome: "not-found" };
+  }
+
+  return { outcome: "found", report: data[0] as ReportVerification };
 }
