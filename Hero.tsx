@@ -1,105 +1,101 @@
-import React from 'react'
-import { Button, Col, Container, Row } from 'react-bootstrap'
-import IconifyIcon from '@/components/wrappers/IconifyIcon'
+'use client'
+
+import Link from 'next/link'
+import { ArrowRight, Sparkles } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const Hero = () => {
   return (
-    <section className="position-relative overflow-hidden bg-dark pt-8 pt-lg-10 pb-7">
-      <div className="position-absolute top-0 end-0 opacity-25">
-        <div
-          style={{
-            width: '500px',
-            height: '500px',
-            borderRadius: '50%',
-            background:
-              'radial-gradient(circle, rgba(0, 180, 255, 0.35), transparent 65%)',
-          }}
-        />
-      </div>
+    <section className="relative overflow-hidden bg-[#07111f] text-white">
+      <div className="absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full bg-cyan-400/20 blur-[120px]" />
+      <div className="absolute -left-40 bottom-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-[100px]" />
 
-      <Container className="position-relative">
-        <Row className="align-items-center min-vh-75">
-          <Col lg={7} className="mb-5 mb-lg-0">
-            <span className="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-4">
-              Digital Agency • Design • Development • Growth
-            </span>
+      <div className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
+        <div className="grid items-center gap-14 lg:grid-cols-2">
 
-            <h1 className="display-3 fw-bold text-white mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
+              <Sparkles size={16} className="text-cyan-400" />
+              Design • Development • Growth
+            </div>
+
+            <h1 className="text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
               Design.
               <br />
               Develop.
               <br />
-              <span className="text-primary">Grow.</span>
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                Grow.
+              </span>
             </h1>
 
-            <p className="lead text-white-50 mb-4 pe-lg-5">
+            <p className="mt-7 max-w-xl text-lg leading-8 text-white/60">
               Code &amp; Motions is a full-service digital agency helping
               businesses build powerful websites, custom software, Shopify
               stores, creative visuals, and digital growth strategies.
             </p>
 
-            <div className="d-flex flex-wrap gap-3">
-              <Button
-                variant="primary"
+            <div className="mt-9 flex flex-wrap gap-4">
+              <Link
                 href="/contact"
-                className="icon-link icon-link-hover px-4 py-3"
+                className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-6 py-3.5 font-semibold text-[#07111f] transition hover:bg-cyan-300"
               >
                 Start a Project
-                <IconifyIcon icon="bi:arrow-right" />
-              </Button>
+                <ArrowRight size={18} />
+              </Link>
 
-              <Button
-                variant="outline-light"
+              <Link
                 href="/services"
-                className="px-4 py-3"
+                className="rounded-full border border-white/15 px-6 py-3.5 font-semibold text-white transition hover:bg-white/10"
               >
                 Explore Services
-              </Button>
+              </Link>
             </div>
-          </Col>
+          </motion.div>
 
-          <Col lg={5}>
-            <div
-              className="position-relative rounded-4 p-4 p-lg-5"
-              style={{
-                minHeight: '420px',
-                background:
-                  'linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03))',
-                border: '1px solid rgba(255,255,255,0.12)',
-                backdropFilter: 'blur(12px)',
-              }}
-            >
-              <div className="position-absolute top-50 start-50 translate-middle text-center w-100 px-4">
-                <div className="display-4 fw-bold text-white mb-3">
-                  Code &amp; Motions
-                </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="relative"
+          >
+            <div className="rounded-[32px] border border-white/10 bg-white/[0.06] p-8 backdrop-blur-xl">
+              <p className="text-sm uppercase tracking-[0.25em] text-cyan-400">
+                Code &amp; Motions
+              </p>
 
-                <p className="text-white-50 mb-4">
-                  One team for design, technology and digital growth.
-                </p>
+              <h2 className="mt-6 text-3xl font-semibold leading-tight">
+                One team for
+                <br />
+                digital transformation.
+              </h2>
 
-                <div className="d-flex flex-wrap justify-content-center gap-2">
-                  {[
-                    'Software',
-                    'Web',
-                    'Shopify',
-                    'Animation',
-                    'Design',
-                    'SEO',
-                  ].map((item) => (
-                    <span
-                      key={item}
-                      className="badge rounded-pill bg-white bg-opacity-10 text-white px-3 py-2"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
+              <div className="mt-8 grid grid-cols-2 gap-3">
+                {[
+                  'Software',
+                  'Web Development',
+                  'Shopify',
+                  'Animation',
+                  'Graphic Design',
+                  'SEO',
+                ].map((service) => (
+                  <div
+                    key={service}
+                    className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-sm text-white/70"
+                  >
+                    {service}
+                  </div>
+                ))}
               </div>
             </div>
-          </Col>
-        </Row>
-      </Container>
+          </motion.div>
+
+        </div>
+      </div>
     </section>
   )
 }
