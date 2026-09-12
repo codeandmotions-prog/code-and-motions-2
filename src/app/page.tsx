@@ -1,6 +1,10 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
+import HeroProjectCTA from "@/components/home/HeroProjectCTA";
+import PlatformsMarquee from "@/components/home/PlatformsMarquee";
+import AboutUsTeaser from "@/components/home/AboutUsTeaser";
+import GlobalReach from "@/components/home/GlobalReach";
 import TrustProof from "@/components/home/TrustProof";
 import FeaturedWork from "@/components/home/FeaturedWork";
 import ServicesShowcase from "@/components/home/ServicesShowcase";
@@ -17,6 +21,10 @@ export default function Home() {
 
       <main id="main" className="flex-1">
         <Hero />
+        <HeroProjectCTA />
+        <PlatformsMarquee />
+        <AboutUsTeaser />
+        <GlobalReach />
         <TrustProof />
         <FeaturedWork />
         <ServicesShowcase />

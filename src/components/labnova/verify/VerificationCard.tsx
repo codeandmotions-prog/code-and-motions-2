@@ -39,6 +39,12 @@ function formatDateTime(value: string): string {
 }
 
 export default function VerificationCard({ reportId, report }: VerificationCardProps) {
+  // Prefer a real human-readable report number if the RPC provides one.
+  // Otherwise, show a short reference derived from the actual UUID rather
+  // than the full 36-character string — never a fabricated ID.
+  const displayReportId =
+    report.report_display_id ?? `REF-${reportId.slice(0, 8).toUpperCase()}`;
+
   const rows: DetailRow[] = [
     {
       icon: Building2,
@@ -58,7 +64,7 @@ export default function VerificationCard({ reportId, report }: VerificationCardP
     {
       icon: Fingerprint,
       label: "Report ID",
-      value: reportId,
+      value: displayReportId,
     },
     {
       icon: FlaskConical,

@@ -5,8 +5,12 @@ import { getSupabaseClient } from "@/lib/supabase/server";
  * This mirrors the backend contract exactly — field names are not renamed
  * so this stays a straightforward pass-through of what the RPC returns.
  *
- * Deliberately excludes test results and reference ranges: this page only
- * ever selects/display the identifying and status fields listed below.
+ * `report_display_id` is OPTIONAL and forward-compatible: the current RPC
+ * contract does not return a human-readable report number (e.g.
+ * "LN-2026-00842"), only the internal UUID used to look the report up.
+ * If/when the RPC is extended to also return that number, this field will
+ * be picked up automatically — see the fallback formatting in
+ * VerificationCard for what's shown in the meantime.
  */
 export type ReportVerification = {
   lab_name: string;
@@ -18,6 +22,7 @@ export type ReportVerification = {
   doctor_name: string | null;
   technician_name: string;
   technician_phone: string;
+  report_display_id?: string;
 };
 
 export type VerificationResult =
@@ -25,6 +30,19 @@ export type VerificationResult =
   | { outcome: "not-found" }
   | { outcome: "config-error" }
   | { outcome: "error" };
+
+// `get_report_verification(p_report_id uuid)` only accepts a UUID. QR codes
+// (or old/demo links) that carry a human-readable ID like "LN-2026-00842"
+// are not valid input for this RPC at all, and sending them through
+// produces a raw Postgres error ("invalid input syntax for type uuid").
+// Validating the shape here lets us treat that case as a normal
+// "not found" outcome instead of a backend error.
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export function isValidReportUuid(value: string): boolean {
+  return UUID_PATTERN.test(value.trim());
+}
 
 /**
  * Looks up a report's verification record via the LabNova Supabase RPC.
@@ -39,6 +57,16 @@ export type VerificationResult =
  * "not found".
  */
 export async function getReportVerification(reportId: string): Promise<VerificationResult> {
+  // Reject non-UUID input before it ever reaches the RPC. This is what
+  // makes old/demo human-readable IDs (e.g. "LN-2026-00842") fail as a
+  // normal "not found" instead of surfacing a raw Postgres type error.
+  if (!isValidReportUuid(reportId)) {
+    console.warn(
+      `LabNova verification: received a non-UUID report id ("${reportId}") — treating as not found without calling the RPC.`
+    );
+    return { outcome: "not-found" };
+  }
+
   const supabase = getSupabaseClient();
 
   if (!supabase) {

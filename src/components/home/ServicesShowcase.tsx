@@ -1,42 +1,59 @@
-import React from "react";
-import Link from "next/link";
+"use client";
 
-const services = [
-  ["01", "Software Development", "/services/software-development"],
-  ["02", "Website Development", "/services/website-development"],
-  ["03", "Shopify Development", "/services/shopify-development"],
-  ["04", "Video & Animation", "/services/video-animation"],
-  ["05", "Graphic Design", "/services/graphic-design"],
-  ["06", "SEO", "/services/seo"],
-];
+import { motion, type Variants } from "framer-motion";
+import { MoveRight } from "lucide-react";
+import ServicesCarousel from "@/components/ServicesCarousel";
+
+const easeOut = [0.22, 1, 0.36, 1] as const;
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: easeOut },
+  },
+};
 
 export default function ServicesShowcase() {
   return (
-    <section id="services" className="bg-slate-950 py-20 text-white md:py-28">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">Services</p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
-              Digital solutions for every stage of growth.
-            </h2>
-            <p className="mt-5 leading-7 text-white/60">
-              One team covering strategy, design, development, creative and growth.
-            </p>
-          </div>
-
-          <div className="divide-y divide-white/10 border-y border-white/10">
-            {services.map(([num, title, href]) => (
-              <Link key={href} href={href} className="group flex items-center justify-between py-6">
-                <div className="flex items-center gap-6">
-                  <span className="text-sm text-cyan-400">{num}</span>
-                  <span className="text-xl font-medium md:text-2xl">{title}</span>
-                </div>
-                <span className="text-white/40 transition group-hover:translate-x-1 group-hover:text-cyan-400">↗</span>
-              </Link>
-            ))}
-          </div>
+    <section
+      id="services"
+      className="relative border-b border-(--color-line) bg-(--color-surface-raised) py-20 lg:py-28"
+      style={{
+        backgroundImage:
+          "radial-gradient(circle, rgba(11,28,77,0.06) 1px, transparent 1px)",
+        backgroundSize: "26px 26px",
+      }}
+    >
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        className="mx-auto flex max-w-7xl flex-col gap-6 px-6 sm:flex-row sm:items-end sm:justify-between lg:px-10"
+      >
+        <div className="max-w-xl">
+          <span className="text-[13px] font-semibold uppercase tracking-[0.14em] text-(--color-blue)">
+            What We Do
+          </span>
+          <h2 className="mt-4 text-[30px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[38px]">
+            One team. Every discipline you need.
+          </h2>
+          <p className="mt-3 max-w-md text-[16px] leading-relaxed text-(--color-ink-soft)">
+            Six disciplines, one accountable team — covering a project end
+            to end.
+          </p>
         </div>
+
+        <div className="hidden items-center gap-2 text-[13.5px] font-semibold text-(--color-ink-soft) sm:flex">
+          <MoveRight size={16} />
+          Drag to explore
+        </div>
+      </motion.div>
+
+      <div className="relative mt-10">
+        <ServicesCarousel />
       </div>
     </section>
   );
