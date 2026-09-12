@@ -1,6 +1,5 @@
 "use client";
 
-import { Layers, Cpu, Grid3x3 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
@@ -13,7 +12,7 @@ const container: Variants = {
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 22 },
   show: {
     opacity: 1,
     y: 0,
@@ -23,45 +22,54 @@ const item: Variants = {
 
 const proofPoints = [
   {
-    icon: Layers,
-    title: "Full-Service Team",
-    description:
-      "Design, development and growth handled by one accountable team, not scattered vendors.",
+    headline: "One Team",
+    caption: "Design, development and growth handled by one accountable team — not scattered vendors.",
+    gradient: "linear-gradient(155deg, #EAF2FF 0%, #DCEBFF 100%)",
   },
   {
-    icon: Cpu,
-    title: "Modern Engineering",
-    description:
-      "Built on the same tools and frameworks fast-moving product teams use today.",
+    headline: "6 Disciplines",
+    caption: "Software, web, Shopify, video, design and SEO, all under one roof.",
+    gradient: "linear-gradient(155deg, #E6FBFF 0%, #D6F5FB 100%)",
   },
   {
-    icon: Grid3x3,
-    title: "6 Core Disciplines",
-    description:
-      "Software, web, Shopify, video, design and SEO — under one roof, one workflow.",
+    headline: "Modern Stack",
+    caption: "Built on the same tools and frameworks fast-moving product teams use today.",
+    gradient: "linear-gradient(155deg, #EFF2FF 0%, #E2E8FF 100%)",
   },
 ];
 
 export default function TrustProof() {
   return (
-    <section className="border-y border-(--color-line) bg-(--color-surface)">
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.4 }}
-        className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-14 sm:grid-cols-3 sm:gap-8 sm:divide-x sm:divide-(--color-line) lg:px-10 lg:py-16"
-      >
-        {proofPoints.map(({ icon: Icon, title, description }) => (
-          <motion.div key={title} variants={item} className="sm:pl-8 sm:first:pl-0">
-            <Icon size={22} className="text-(--color-blue)" strokeWidth={1.75} />
-            <h3 className="mt-4 text-[16.5px] font-bold text-(--color-ink)">{title}</h3>
-            <p className="mt-2 text-[14px] leading-relaxed text-(--color-ink-soft)">
-              {description}
-            </p>
-          </motion.div>
-        ))}
-      </motion.div>
+    <section className="border-y border-(--color-line) bg-(--color-surface-raised) py-16 lg:py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <p className="text-center text-[14.5px] font-semibold text-(--color-ink-soft)">
+          Why brands choose to work with Code &amp; Motions
+        </p>
+
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.4 }}
+          className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3"
+        >
+          {proofPoints.map(({ headline, caption, gradient }) => (
+            <motion.div
+              key={headline}
+              variants={item}
+              className="rounded-[28px] p-7"
+              style={{ background: gradient }}
+            >
+              <h3 className="text-[22px] font-extrabold tracking-[-0.01em] text-(--color-ink)">
+                {headline}
+              </h3>
+              <p className="mt-2.5 text-[14px] leading-relaxed text-(--color-ink-soft)">
+                {caption}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 }

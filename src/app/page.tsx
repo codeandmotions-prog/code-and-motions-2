@@ -6,6 +6,7 @@ import FeaturedWork from "@/components/home/FeaturedWork";
 import ServicesShowcase from "@/components/home/ServicesShowcase";
 import FeaturedLabNova from "@/components/home/FeaturedLabNova";
 import WhyCodeAndMotions from "@/components/home/WhyCodeAndMotions";
+import ClientSuccess from "@/components/home/ClientSuccess";
 import ProcessSection from "@/components/home/ProcessSection";
 import HomeFinalCTA from "@/components/home/HomeFinalCTA";
 
@@ -21,6 +22,7 @@ export default function Home() {
         <ServicesShowcase />
         <FeaturedLabNova />
         <WhyCodeAndMotions />
+        <ClientSuccess />
         <ProcessSection />
         <HomeFinalCTA />
       </main>
