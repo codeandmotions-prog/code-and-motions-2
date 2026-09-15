@@ -1,33 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Code2, Globe, ShoppingBag, Clapperboard, PenTool, TrendingUp } from "lucide-react";
+import {
+  ArrowRight,
+  Calendar,
+  Code2,
+  Globe,
+  ShoppingBag,
+  Sparkles,
+  Clapperboard,
+  TrendingUp,
+  User,
+} from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import MotionStreaks from "./MotionStreaks";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
-const headlineLines = [
-  { text: "Design.", accent: false },
-  { text: "Develop.", accent: false },
-  { text: "Grow.", accent: true },
-];
-
-const disciplineIcons = [Code2, Globe, ShoppingBag, Clapperboard, PenTool, TrendingUp];
-
 const container: Variants = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
-  },
-};
-
-const lineVariant: Variants = {
-  hidden: { opacity: 0, y: 32 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.75, ease: easeOut },
+    transition: { staggerChildren: 0.09, delayChildren: 0.05 },
   },
 };
 
@@ -40,6 +33,18 @@ const fadeUp: Variants = {
   },
 };
 
+const servicePills = [
+  { label: "Software Development", icon: Code2 },
+  { label: "Web Development", icon: Globe },
+  { label: "Shopify Solutions", icon: ShoppingBag },
+  { label: "AI & SaaS", icon: Sparkles },
+  { label: "Video & Animation", icon: Clapperboard },
+  { label: "SEO & Digital Growth", icon: TrendingUp },
+];
+
+// Purely decorative — generic silhouettes, never presented as real people.
+const avatarTones = ["#1547E0", "#22D3EE", "#0B1C4D", "#2F6BFF", "#7CE6F7"];
+
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-(--color-navy-deep)">
@@ -48,124 +53,146 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(90% 65% at 20% -10%, #14245c 0%, #0b1c4d 45%, #060d24 100%)",
+            "radial-gradient(70% 55% at 50% 0%, #14245c 0%, #0b1c4d 45%, #060d24 100%)",
         }}
       />
+      <MotionStreaks className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 opacity-[0.06] lg:h-[26rem] lg:w-[26rem]" />
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 pb-24 pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:px-10 lg:pb-32 lg:pt-24">
-        <div className="max-w-xl">
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: easeOut }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.14em] text-(--color-cyan-soft)"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-(--color-cyan)" />
-            Digital Agency
-          </motion.span>
-
-          <motion.h1
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="mt-7 text-[54px] font-extrabold leading-[0.98] tracking-[-0.03em] text-white sm:text-[72px] lg:text-[84px]"
-          >
-            {headlineLines.map(({ text, accent }) => (
-              <motion.span
-                key={text}
-                variants={lineVariant}
-                className="block"
-                style={
-                  accent
-                    ? {
-                        background:
-                          "linear-gradient(100deg, #22D3EE 15%, #7CE6F7 85%)",
-                        WebkitBackgroundClip: "text",
-                        backgroundClip: "text",
-                        color: "transparent",
-                      }
-                    : undefined
-                }
-              >
-                {text}
-              </motion.span>
-            ))}
-          </motion.h1>
-
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            transition={{ delay: 0.5 }}
-            className="mt-8 max-w-md text-[17px] leading-relaxed text-white/70 lg:text-[18px]"
-          >
-            A digital agency for ambitious brands. We design, build and grow
-            software, websites, Shopify stores, video and brand systems —
-            under one roof.
-          </motion.p>
-
+      <div className="relative mx-auto max-w-4xl px-6 pb-24 pt-16 text-center lg:px-10 lg:pb-32 lg:pt-24">
+        {/* trust bar */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap"
+        >
           <motion.div
             variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            transition={{ delay: 0.62 }}
-            className="mt-9 flex flex-wrap items-center gap-4"
+            className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.05] py-2 pl-2 pr-5 backdrop-blur-sm"
           >
-            <Link
-              href="#start-a-project"
-              className="group inline-flex items-center gap-2 rounded-full bg-(--color-blue) px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-white hover:text-(--color-ink)"
-            >
-              Start a Project
-              <ArrowRight
-                size={18}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </Link>
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:border-white"
-            >
-              View Our Services
-            </Link>
-          </motion.div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: easeOut, delay: 0.2 }}
-          className="relative mx-auto w-full max-w-md lg:max-w-none"
-        >
-          <div className="relative aspect-[4/5] w-full sm:aspect-square">
-            <div className="absolute inset-6 rounded-[40px] border border-white/10 bg-white/[0.03] sm:inset-10" />
-            <MotionStreaks className="relative h-full w-full" />
-          </div>
-
-          {/* qualitative proof chip — no invented numbers */}
-          <div className="absolute bottom-0 left-1/2 flex w-[calc(100%-2rem)] max-w-xs -translate-x-1/2 items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.06] px-5 py-4 shadow-[0_20px_45px_-15px_rgba(0,0,0,0.5)] backdrop-blur-sm sm:left-2 sm:w-auto sm:translate-x-0">
-            <span className="mt-0.5 h-2.5 w-2.5 shrink-0 rounded-full bg-(--color-cyan)" />
-            <p className="text-[13.5px] font-semibold leading-snug text-white">
-              Design, development &amp; growth — one accountable team.
-            </p>
-          </div>
-
-          {/* discipline chip, top-right */}
-          <div className="absolute -top-4 right-4 hidden items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 shadow-[0_20px_45px_-15px_rgba(0,0,0,0.5)] backdrop-blur-sm sm:flex lg:right-0">
-            <div className="flex -space-x-1.5">
-              {disciplineIcons.map((Icon, i) => (
+            <div className="flex -space-x-2.5">
+              {avatarTones.map((tone, i) => (
                 <span
                   key={i}
-                  className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-(--color-navy-deep) bg-(--color-blue) text-white"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-(--color-navy-deep) text-white"
+                  style={{ backgroundColor: tone }}
+                  aria-hidden="true"
                 >
-                  <Icon size={12} strokeWidth={2} />
+                  <User size={11} strokeWidth={2.5} />
                 </span>
               ))}
             </div>
-            <span className="text-[12px] font-semibold text-white/70">
-              6 disciplines
+            <span className="text-left text-[12.5px] leading-snug text-white/75 sm:text-[13px]">
+              <span className="font-bold text-white">One accountable team</span>
+              {" "}— software, web, Shopify, video, design &amp; SEO
             </span>
-          </div>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            className="inline-flex items-center gap-2 rounded-full border border-(--color-cyan)/25 bg-(--color-cyan)/[0.08] px-4 py-2.5 text-[12.5px] font-semibold text-(--color-cyan-soft) sm:text-[13px]"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-(--color-cyan) opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-(--color-cyan)" />
+            </span>
+            Available for new projects
+          </motion.div>
         </motion.div>
+
+        {/* headline */}
+        <motion.h1
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          transition={{ delay: 0.22 }}
+          className="mx-auto mt-9 max-w-3xl text-[38px] font-extrabold leading-[1.08] tracking-[-0.02em] text-white sm:text-[52px] sm:leading-[1.06] lg:text-[62px]"
+        >
+          <span className="block">We Build Digital Solutions</span>
+          <span
+            className="block"
+            style={{
+              background: "linear-gradient(100deg, #22D3EE 15%, #7CE6F7 85%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
+          >
+            That Grow Your Business
+          </span>
+        </motion.h1>
+
+        {/* description */}
+        <motion.p
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          transition={{ delay: 0.34 }}
+          className="mx-auto mt-6 max-w-2xl text-[15.5px] leading-relaxed text-white/70 sm:text-[16.5px]"
+        >
+          Code &amp; Motions is a full-service digital agency delivering
+          custom software, websites, Shopify solutions, AI-powered
+          products, creative design, animation, and SEO for businesses
+          across the USA, UK, and Europe.
+        </motion.p>
+
+        {/* service pills */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          transition={{ delayChildren: 0.46 }}
+          className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-2.5"
+        >
+          {servicePills.map(({ label, icon: Icon }) => (
+            <motion.span
+              key={label}
+              variants={fadeUp}
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-[13px] font-medium text-white/80"
+            >
+              <Icon size={14} className="text-(--color-cyan-soft)" strokeWidth={1.9} />
+              {label}
+            </motion.span>
+          ))}
+        </motion.div>
+
+        {/* CTAs */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          transition={{ delay: 0.62 }}
+          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
+          <Link
+            href="#start-a-project"
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-(--color-blue) px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-(--color-cyan) hover:text-(--color-ink) sm:w-auto"
+          >
+            Request a Quote
+            <ArrowRight
+              size={18}
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:border-white sm:w-auto"
+          >
+            <Calendar size={17} />
+            Book Free Consultation
+          </Link>
+        </motion.div>
+
+        {/* subtle brand mark, preserved */}
+        <motion.p
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          transition={{ delay: 0.72 }}
+          className="mt-12 text-[11px] font-semibold uppercase tracking-[0.32em] text-white/25"
+        >
+          Design &middot; Develop &middot; Grow
+        </motion.p>
       </div>
     </section>
   );
