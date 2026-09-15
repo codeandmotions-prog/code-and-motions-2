@@ -4,16 +4,6 @@ import Footer from "@/components/Footer";
 import HeroProjectCTA from "@/components/home/HeroProjectCTA";
 import PlatformsMarquee from "@/components/home/PlatformsMarquee";
 import WhyWorkWithUs from "@/components/home/WhyWorkWithUs";
-import AboutUsTeaser from "@/components/home/AboutUsTeaser";
-import GlobalReach from "@/components/home/GlobalReach";
-import TrustProof from "@/components/home/TrustProof";
-import FeaturedWork from "@/components/home/FeaturedWork";
-import ServicesShowcase from "@/components/home/ServicesShowcase";
-import FeaturedLabNova from "@/components/home/FeaturedLabNova";
-import WhyCodeAndMotions from "@/components/home/WhyCodeAndMotions";
-import ClientSuccess from "@/components/home/ClientSuccess";
-import ProcessSection from "@/components/home/ProcessSection";
-import HomeFinalCTA from "@/components/home/HomeFinalCTA";
 
 export default function Home() {
   return (
@@ -25,16 +15,6 @@ export default function Home() {
         <HeroProjectCTA />
         <PlatformsMarquee />
         <WhyWorkWithUs />
-        <AboutUsTeaser />
-        <GlobalReach />
-        <TrustProof />
-        <FeaturedWork />
-        <ServicesShowcase />
-        <FeaturedLabNova />
-        <WhyCodeAndMotions />
-        <ClientSuccess />
-        <ProcessSection />
-        <HomeFinalCTA />
       </main>
 
       <Footer />
