@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 import HeroProjectCTA from "@/components/home/HeroProjectCTA";
 import PlatformsMarquee from "@/components/home/PlatformsMarquee";
+import WhyWorkWithUs from "@/components/home/WhyWorkWithUs";
 import AboutUsTeaser from "@/components/home/AboutUsTeaser";
 import GlobalReach from "@/components/home/GlobalReach";
 import TrustProof from "@/components/home/TrustProof";
@@ -23,6 +24,7 @@ export default function Home() {
         <Hero />
         <HeroProjectCTA />
         <PlatformsMarquee />
+        <WhyWorkWithUs />
         <AboutUsTeaser />
         <GlobalReach />
         <TrustProof />
