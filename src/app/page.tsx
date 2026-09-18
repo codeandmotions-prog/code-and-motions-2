@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import HeroProjectCTA from "@/components/home/HeroProjectCTA";
 import PlatformsMarquee from "@/components/home/PlatformsMarquee";
 import WhyWorkWithUs from "@/components/home/WhyWorkWithUs";
+import ByTheNumbers from "@/components/home/ByTheNumbers";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <HeroProjectCTA />
         <PlatformsMarquee />
         <WhyWorkWithUs />
+        <ByTheNumbers />
       </main>
 
       <Footer />
