@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { services } from "@/data/services";
+import { contactInfo } from "@/data/contactInfo";
 import SocialIcon, { type SocialNetwork } from "./SocialIcon";
 
 const company = [
@@ -11,7 +12,7 @@ const company = [
 ];
 
 const social: { label: string; href: string; network: SocialNetwork }[] = [
-  { label: "Instagram", href: "https://instagram.com", network: "instagram" },
+  { label: "Instagram", href: contactInfo.instagramUrl, network: "instagram" },
   { label: "LinkedIn", href: "https://linkedin.com", network: "linkedin" },
   { label: "X (Twitter)", href: "https://x.com", network: "x" },
   { label: "Dribbble", href: "https://dribbble.com", network: "dribbble" },
@@ -79,8 +80,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="tel:+10000000000" className="hover:text-(--color-ink)">
-                  +1 (000) 000-0000
+                <Link href={contactInfo.phoneTel} className="hover:text-(--color-ink)">
+                  {contactInfo.phoneDisplay}
                 </Link>
               </li>
             </ul>

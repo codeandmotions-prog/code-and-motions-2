@@ -9,21 +9,45 @@ import ContactTrustBadges from "@/components/contact/ContactTrustBadges";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Code & Motions. Tell us about your web, software, Shopify, SEO, design or video project and we'll get back to you within 24 hours.",
+    "Contact Code & Motions for software development, website development, Shopify development, 2D animation, explainer videos and SEO services. We reply within 24 hours.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
     title: "Contact Us | Code & Motions",
     description:
-      "Have a project in mind? Reach out to Code & Motions and let's build it together.",
+      "Get in touch with Code & Motions — a digital agency for software, website, Shopify, animation and SEO projects.",
     url: "/contact",
   },
 };
 
 export default function ContactPage() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://codeandmotions.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Contact",
+        item: "https://codeandmotions.com/contact",
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+
       <Header />
 
       <main id="main" className="flex-1">

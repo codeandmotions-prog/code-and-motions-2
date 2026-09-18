@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import MotionStreaks from "@/components/MotionStreaks";
 
@@ -23,14 +25,23 @@ const fadeUp: Variants = {
 
 export default function ContactHero() {
   return (
-    <section className="relative overflow-hidden bg-(--color-navy-deep) pb-20 pt-20 lg:pb-24 lg:pt-24">
-      {/* brand gradient wash, same palette as the rest of the site */}
+    <section className="relative overflow-hidden bg-(--color-navy-deep) pb-20 pt-16 lg:pb-24 lg:pt-20">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
           background:
             "radial-gradient(120% 100% at 15% 0%, #14245c 0%, #0b1c4d 45%, #060d24 100%)",
+        }}
+      />
+      {/* subtle grid-line texture, matching the About page hero */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
         }}
       />
       <MotionStreaks className="pointer-events-none absolute -right-16 top-8 h-72 w-72 opacity-25 lg:h-96 lg:w-96 lg:opacity-30" />
@@ -40,34 +51,37 @@ export default function ContactHero() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative mx-auto max-w-3xl px-6 text-center lg:px-10"
+        className="relative mx-auto max-w-7xl px-6 lg:px-10"
       >
-        <motion.span
+        <motion.nav
           variants={fadeUp}
-          className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.14em] text-(--color-cyan-soft)"
+          aria-label="Breadcrumb"
+          className="flex items-center gap-1.5 text-[13px] font-medium text-white/50"
         >
-          Get in touch
-        </motion.span>
+          <Link href="/" className="transition-colors hover:text-white">
+            Home
+          </Link>
+          <ChevronRight size={14} />
+          <span className="text-white/80">Contact</span>
+        </motion.nav>
 
         <motion.h1
           variants={fadeUp}
-          className="mt-6 text-[38px] font-extrabold leading-[1.12] tracking-[-0.01em] text-white sm:text-[48px] lg:text-[56px]"
+          className="mt-7 max-w-3xl text-[40px] font-extrabold leading-[1.08] tracking-[-0.02em] text-white sm:text-[52px] lg:text-[60px]"
         >
-          Let&apos;s Build Something
-          <span className="block bg-gradient-to-r from-(--color-cyan) to-(--color-blue-bright) bg-clip-text text-transparent">
-            Together.
-          </span>
+          <span className="block">Let&apos;s Talk About</span>
+          <span className="block">Your Project</span>
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
-          className="mx-auto mt-6 max-w-xl text-[16.5px] leading-relaxed text-white/70 lg:text-[17px]"
+          className="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]"
         >
-          Have a project in mind, need a quote, or just want to say hello?
-          Tell us where you&apos;re headed and we&apos;ll help you get there.
+          No sales pitch, no pressure — tell us about your software,
+          website, Shopify, animation or SEO project and we&apos;ll get
+          back to you with honest, straightforward advice.
         </motion.p>
       </motion.div>
     </section>
   );
 }
-

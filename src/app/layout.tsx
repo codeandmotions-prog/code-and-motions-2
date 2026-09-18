@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { manrope } from "@/fonts";
+import WhatsAppButton from "@/components/shared/WhatsAppButton";
 import "./globals.css";
 
 const siteUrl = "https://codeandmotions.com";
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-(--color-surface-raised) text-(--color-ink)">
         {children}
+        <WhatsAppButton />
       </body>
       <GoogleAnalytics gaId="G-ZSGSE7XX9M" />
     </html>
