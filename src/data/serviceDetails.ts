@@ -127,18 +127,18 @@ export const serviceDetails: ServiceDetail[] = [
   },
   {
     slug: "website-development",
-    seoTitle: "Website Development Services",
+    seoTitle: "Custom Website Development Services",
     metaDescription:
-      "Custom website development — fast, accessible, conversion-focused sites built on modern frameworks. From business websites to complex web applications.",
+      "Custom website development, WordPress and Elementor builds, landing pages and web applications for growing businesses in the USA, UK and Europe.",
     h1: "Website Development Services",
     primaryKeyword: "website development services",
     secondaryKeywords: [
-      "web development agency",
       "custom website development company",
-      "web development agency Pakistan",
+      "WordPress development agency",
+      "web application development",
     ],
     intro:
-      "We build websites that load fast, rank well and convert visitors into customers. Every site is coded on modern frameworks — no bloated page builders, no recycled templates.",
+      "We build custom websites, WordPress sites, Elementor pages, landing pages and web applications that load fast, rank well and convert — for growing businesses across the USA, UK and Europe. Whether you need a fully custom build or a client-editable WordPress site, we match the platform to your goals.",
     benefits: [
       {
         title: "Built for Speed",
@@ -167,6 +167,9 @@ export const serviceDetails: ServiceDetail[] = [
       "Companies migrating off page builders onto a faster, custom-coded site",
       "Teams that need ongoing redesign and maintenance support",
     ],
+    overviewHeading: "Why Our Website Development Stands Out",
+    useCasesHeading: "Who We Build Websites For",
+    faqHeading: "Website Development FAQs",
     faqs: [
       {
         question: "Do you build on WordPress or custom code?",
@@ -188,23 +191,33 @@ export const serviceDetails: ServiceDetail[] = [
         answer:
           "Yes, we offer maintenance packages covering updates, fixes and small content changes.",
       },
+      {
+        question: "Do you build landing pages for ad campaigns?",
+        answer:
+          "Yes. We build standalone landing pages optimized for a single conversion goal, designed to work with paid campaigns and A/B testing.",
+      },
+      {
+        question: "What does a website redesign typically involve?",
+        answer:
+          "A redesign starts with an audit of your current site's performance, structure and content, then a rebuild that keeps what works, fixes what doesn't, and preserves your existing SEO rankings where possible.",
+      },
     ],
-    relatedSlugs: ["shopify-development", "seo"],
+    relatedSlugs: ["shopify-development", "software-development", "seo"],
   },
   {
     slug: "shopify-development",
-    seoTitle: "Shopify Development Services",
+    seoTitle: "Shopify Development & Migration Services",
     metaDescription:
-      "Shopify store development, theme customization and migrations. We build and optimize Shopify stores designed to convert.",
+      "Shopify store development, custom Shopify 2.0 themes, app integrations, and WooCommerce-to-Shopify migration for e-commerce brands in the USA, UK and Europe.",
     h1: "Shopify Development Services",
     primaryKeyword: "Shopify development services",
     secondaryKeywords: [
-      "Shopify development agency",
       "Shopify store development company",
-      "Shopify migration service",
+      "custom Shopify theme development",
+      "WooCommerce to Shopify migration",
     ],
     intro:
-      "We design, build and optimize Shopify stores for brands that sell online. Whether you're launching a new store or migrating an existing one, we handle the theme, apps and checkout experience end to end.",
+      "We design, build and optimize Shopify stores for e-commerce brands across the USA, UK and Europe — from custom Shopify 2.0 themes and app integrations to WooCommerce-to-Shopify migrations, we handle the full store experience end to end.",
     benefits: [
       {
         title: "Conversion-Focused Builds",
@@ -233,6 +246,9 @@ export const serviceDetails: ServiceDetail[] = [
       "Stores that need a custom theme built around a specific product experience",
       "Businesses whose current Shopify store has become slow or hard to manage",
     ],
+    overviewHeading: "What Makes Our Shopify Builds Different",
+    useCasesHeading: "Who We Build Shopify Stores For",
+    faqHeading: "Shopify Development FAQs",
     faqs: [
       {
         question: "Can you migrate my store from WooCommerce to Shopify?",
@@ -254,23 +270,33 @@ export const serviceDetails: ServiceDetail[] = [
         answer:
           "Yes, we audit and optimize existing stores for load time and Core Web Vitals.",
       },
+      {
+        question: "What is Shopify 2.0 and why does it matter?",
+        answer:
+          "Shopify 2.0 is Shopify's current theme architecture, built around flexible sections and blocks. It gives merchants more control over page layout without custom code, and gives us more flexibility when building your theme.",
+      },
+      {
+        question: "Can you build custom Shopify apps?",
+        answer:
+          "Yes. When an off-the-shelf app doesn't fit, we build custom Shopify apps and integrations tailored to your store's workflow.",
+      },
     ],
-    relatedSlugs: ["website-development", "seo"],
+    relatedSlugs: ["website-development", "seo", "video-animation"],
   },
   {
     slug: "video-animation",
-    seoTitle: "Video & Animation Services",
+    seoTitle: "2D Animation & Explainer Video Services",
     metaDescription:
-      "Motion graphics, explainer videos and product animation that give your brand a pulse across social, web and ads.",
+      "2D animation, explainer videos and motion graphics for SaaS and product brands in the USA, UK and Europe — from product animation to promotional videos.",
     h1: "Video & Animation Services",
     primaryKeyword: "video and animation services",
     secondaryKeywords: [
-      "motion graphics agency",
-      "explainer video production",
       "2D animation studio",
+      "SaaS explainer video production",
+      "promotional video production",
     ],
     intro:
-      "We produce motion graphics, explainer videos and animated content that hold attention and explain complex ideas simply. From product animation to social content, every piece is built around your brand.",
+      "We produce 2D animation, explainer videos and motion graphics that turn complex products into content people actually watch — including SaaS and product explainer videos, logo animation, and promotional videos for brands across the USA, UK and Europe.",
     benefits: [
       {
         title: "Built to Explain",
@@ -299,6 +325,9 @@ export const serviceDetails: ServiceDetail[] = [
       "Companies launching a product that needs an animated demo",
       "Teams that want a consistent motion identity across campaigns",
     ],
+    overviewHeading: "Why Brands Choose Our Animation Studio",
+    useCasesHeading: "Who We Create Animation For",
+    faqHeading: "Video & Animation FAQs",
     faqs: [
       {
         question: "How long does an explainer video take to produce?",
@@ -320,8 +349,18 @@ export const serviceDetails: ServiceDetail[] = [
         answer:
           "Yes, logo animation is one of our most common smaller-scope projects.",
       },
+      {
+        question: "Do you specialize in 2D animation specifically?",
+        answer:
+          "Yes. Most of our explainer and product videos are 2D animation — it's typically faster to produce and more cost-effective than 3D or live-action for explaining a product or idea.",
+      },
+      {
+        question: "Can you create an explainer video for our SaaS product?",
+        answer:
+          "Yes. SaaS and product explainer videos are one of our most common projects — we break down what your product does and why it matters into a short, watchable video for your landing page or onboarding flow.",
+      },
     ],
-    relatedSlugs: ["graphic-design", "website-development"],
+    relatedSlugs: ["graphic-design", "website-development", "software-development"],
   },
   {
     slug: "graphic-design",
