@@ -7,9 +7,10 @@ import type { ServiceFAQ } from "@/data/serviceDetails";
 
 type ServiceFAQProps = {
   faqs: ServiceFAQ[];
+  heading?: string;
 };
 
-export default function ServiceFAQSection({ faqs }: ServiceFAQProps) {
+export default function ServiceFAQSection({ faqs, heading = "Common questions" }: ServiceFAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -20,7 +21,7 @@ export default function ServiceFAQSection({ faqs }: ServiceFAQProps) {
             FAQs
           </span>
           <h2 className="mt-4 text-[28px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[32px]">
-            Common questions
+            {heading}
           </h2>
         </div>
 

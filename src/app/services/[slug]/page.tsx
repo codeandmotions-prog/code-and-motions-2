@@ -40,11 +40,22 @@ export async function generateMetadata({ params }: ServiceDetailPageProps): Prom
       description: detail.metaDescription,
       url: `/services/${detail.slug}`,
       type: "website",
+      siteName: "Code & Motions",
+      locale: "en_US",
+      images: [
+        {
+          url: "/images/logo-full.png",
+          width: 1262,
+          height: 696,
+          alt: "Code & Motions logo",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${detail.seoTitle} | Code & Motions`,
       description: detail.metaDescription,
+      images: ["/images/logo-full.png"],
     },
   };
 }
@@ -62,6 +73,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
     "@context": "https://schema.org",
     "@type": "Service",
     name: detail.h1,
+    serviceType: category.title,
     description: detail.metaDescription,
     provider: {
       "@type": "Organization",
@@ -70,6 +82,31 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
     },
     areaServed: ["Pakistan", "United States", "United Kingdom", "Europe"],
     url: `${siteUrl}/services/${detail.slug}`,
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: `${siteUrl}/services`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: detail.h1,
+        item: `${siteUrl}/services/${detail.slug}`,
+      },
+    ],
   };
 
   const faqJsonLd = {
@@ -93,6 +130,10 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
@@ -104,9 +145,11 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
           title={category.title}
           offerings={category.subServices}
           benefits={detail.benefits}
+          heading={detail.overviewHeading}
+          exampleWork={detail.exampleWork}
         />
-        <ServiceUseCases useCases={detail.useCases} />
-        <ServiceFAQSection faqs={detail.faqs} />
+        <ServiceUseCases useCases={detail.useCases} heading={detail.useCasesHeading} />
+        <ServiceFAQSection faqs={detail.faqs} heading={detail.faqHeading} />
         <RelatedServices relatedSlugs={detail.relatedSlugs} />
         <ClosingCTA
           headline={`Ready to start your ${category.title.toLowerCase()} project?`}

@@ -8,6 +8,12 @@ export type ServiceBenefit = {
   description: string;
 };
 
+export type ServiceExampleWork = {
+  label: string;
+  href: string;
+  description: string;
+};
+
 export type ServiceDetail = {
   slug: string;
   seoTitle: string;
@@ -20,23 +26,34 @@ export type ServiceDetail = {
   useCases: string[];
   faqs: ServiceFAQ[];
   relatedSlugs: string[];
+  /**
+   * Optional per-service overrides for headings that are otherwise
+   * hardcoded (and identical) across every service page. Left undefined,
+   * a page falls back to the existing shared copy — so adding these only
+   * for one service does not change any other service page's output.
+   */
+  overviewHeading?: string;
+  useCasesHeading?: string;
+  faqHeading?: string;
+  /** Optional real, internal proof-of-work link (e.g. to LabNova). */
+  exampleWork?: ServiceExampleWork;
 };
 
 export const serviceDetails: ServiceDetail[] = [
   {
     slug: "software-development",
-    seoTitle: "Software Development Services",
+    seoTitle: "Custom Software Development Services",
     metaDescription:
-      "Custom software development for growing businesses — SaaS platforms, web applications, APIs and internal tools, built and supported by a senior engineering team.",
+      "Custom software, SaaS, AI and CRM/ERP development for growing businesses in the USA, UK and Europe — built and supported by a senior engineering team.",
     h1: "Software Development Services",
     primaryKeyword: "software development services",
     secondaryKeywords: [
       "custom software development company",
-      "SaaS development agency",
-      "software development company Pakistan",
+      "SaaS application development",
+      "enterprise software development services",
     ],
     intro:
-      "Code & Motions designs and builds custom software for businesses that have outgrown off-the-shelf tools. From SaaS products to internal systems, we handle the full lifecycle — architecture, engineering and long-term support.",
+      "Code & Motions designs and builds custom software for businesses that have outgrown off-the-shelf tools — from SaaS platforms and AI-powered applications to CRM/ERP systems and internal automation. We handle the full lifecycle for clients across the USA, UK and Europe: architecture, engineering and long-term support.",
     benefits: [
       {
         title: "Built Around Your Workflow",
@@ -65,6 +82,15 @@ export const serviceDetails: ServiceDetail[] = [
       "Teams needing custom integrations between existing tools",
       "Companies scaling past what a no-code platform can handle",
     ],
+    overviewHeading: "Why Choose Our Software Development Team",
+    useCasesHeading: "Who We Build Software For",
+    faqHeading: "Software Development FAQs",
+    exampleWork: {
+      label: "LabNova",
+      href: "/software/labnova",
+      description:
+        "Our laboratory management software, covering everything from database architecture to a working, launched product.",
+    },
     faqs: [
       {
         question: "How long does a custom software project take?",
@@ -80,6 +106,16 @@ export const serviceDetails: ServiceDetail[] = [
         question: "What technologies do you use?",
         answer:
           "We choose the stack based on the project — typically modern frameworks like React and Node.js, backed by cloud infrastructure such as Supabase.",
+      },
+      {
+        question: "Do you build AI-powered software?",
+        answer:
+          "Yes. We build AI-powered features and applications — from automation and intelligent workflows to AI-assisted tools embedded directly in your product.",
+      },
+      {
+        question: "Can you integrate with our existing CRM or ERP system?",
+        answer:
+          "Yes. We regularly build custom integrations and extensions for existing CRM and ERP platforms, as well as full custom CRM/ERP systems where an off-the-shelf tool no longer fits.",
       },
       {
         question: "Can you take over an existing codebase?",

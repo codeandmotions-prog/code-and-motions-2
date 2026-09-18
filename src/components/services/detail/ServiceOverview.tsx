@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { Check } from "lucide-react";
-import type { ServiceBenefit } from "@/data/serviceDetails";
+import { Check, ArrowUpRight } from "lucide-react";
+import type { ServiceBenefit, ServiceExampleWork } from "@/data/serviceDetails";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -26,9 +27,17 @@ type ServiceOverviewProps = {
   title: string;
   offerings: string[];
   benefits: ServiceBenefit[];
+  heading?: string;
+  exampleWork?: ServiceExampleWork;
 };
 
-export default function ServiceOverview({ title, offerings, benefits }: ServiceOverviewProps) {
+export default function ServiceOverview({
+  title,
+  offerings,
+  benefits,
+  heading = "Built for real results",
+  exampleWork,
+}: ServiceOverviewProps) {
   return (
     <section className="bg-(--color-surface-raised) py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -59,6 +68,25 @@ export default function ServiceOverview({ title, offerings, benefits }: ServiceO
                 </motion.li>
               ))}
             </motion.ul>
+
+            {exampleWork && (
+              <Link
+                href={exampleWork.href}
+                className="group mt-6 flex items-start gap-3 rounded-2xl border border-(--color-line) bg-(--color-surface) p-5 transition-colors hover:border-(--color-blue)/40"
+              >
+                <ArrowUpRight
+                  size={16}
+                  strokeWidth={2}
+                  className="mt-0.5 shrink-0 text-(--color-blue) transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+                <span className="text-[14px] leading-relaxed text-(--color-ink-soft)">
+                  <span className="font-semibold text-(--color-ink)">
+                    Real example: {exampleWork.label}.
+                  </span>{" "}
+                  {exampleWork.description}
+                </span>
+              </Link>
+            )}
           </div>
 
           <div>
@@ -66,7 +94,7 @@ export default function ServiceOverview({ title, offerings, benefits }: ServiceO
               Why It Works
             </span>
             <h2 className="mt-4 text-[26px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[30px]">
-              Built for real results
+              {heading}
             </h2>
 
             <motion.div

@@ -23,9 +23,13 @@ const item: Variants = {
 
 type ServiceUseCasesProps = {
   useCases: string[];
+  heading?: string;
 };
 
-export default function ServiceUseCases({ useCases }: ServiceUseCasesProps) {
+export default function ServiceUseCases({
+  useCases,
+  heading = "Built for teams like yours",
+}: ServiceUseCasesProps) {
   return (
     <section className="bg-(--color-surface) py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -34,7 +38,7 @@ export default function ServiceUseCases({ useCases }: ServiceUseCasesProps) {
             Who This Is For
           </span>
           <h2 className="mt-4 text-[28px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[32px]">
-            Built for teams like yours
+            {heading}
           </h2>
         </div>
 

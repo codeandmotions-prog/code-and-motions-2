@@ -68,7 +68,7 @@ export default function ServiceDetailHero({ slug, title, intro }: ServiceDetailH
           className="mt-7 flex h-14 w-14 items-center justify-center rounded-2xl"
           style={{ background: category.gradient }}
         >
-          <Icon size={26} className="text-white" strokeWidth={1.75} />
+          <Icon size={26} className="text-white" strokeWidth={1.75} aria-hidden="true" />
         </motion.div>
 
         <motion.h1
