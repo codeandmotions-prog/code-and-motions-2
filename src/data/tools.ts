@@ -7,13 +7,18 @@ export type FreeTool = {
   description: string;
   icon: LucideIcon;
   gradient: string;
+  /**
+   * Set once a tool's real functionality ships. Tools without an `href`
+   * still render on the /tools landing page, just with a "Coming Soon"
+   * badge instead of a working link.
+   */
+  href?: string;
 };
 
 /**
- * Landing-page entries for the free tools we're building out. Each tool's
- * actual functionality ships later — this data only powers the /tools
- * marketing grid, so cards render as "Coming Soon" rather than linking to
- * a page that doesn't exist yet.
+ * Landing-page entries for the free tools we're building out. Tools 2
+ * and 3 still ship later — those cards render as "Coming Soon" until
+ * they have an `href`.
  */
 export const freeTools: FreeTool[] = [
   {
@@ -23,6 +28,7 @@ export const freeTools: FreeTool[] = [
       "Check how much your installed apps are slowing your Shopify store down, and see which ones are worth keeping.",
     icon: Gauge,
     gradient: "linear-gradient(155deg, #0B1C4D 0%, #142B6B 55%, #1547E0 100%)",
+    href: "/tools/shopify-speed-checker",
   },
   {
     slug: "woocommerce-to-shopify-migration-readiness",

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { freeTools } from "@/data/tools";
@@ -58,9 +59,11 @@ export default function ToolsGrid() {
                   className="relative flex h-[120px] items-center justify-center overflow-hidden"
                   style={{ background: tool.gradient }}
                 >
-                  <span className="absolute right-4 top-4 rounded-full bg-white/15 px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.1em] text-white backdrop-blur-sm">
-                    Coming Soon
-                  </span>
+                  {!tool.href && (
+                    <span className="absolute right-4 top-4 rounded-full bg-white/15 px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.1em] text-white backdrop-blur-sm">
+                      Coming Soon
+                    </span>
+                  )}
                   <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
                     <Icon size={26} className="text-white" strokeWidth={1.75} />
                   </span>
@@ -75,13 +78,26 @@ export default function ToolsGrid() {
                   </p>
 
                   <div className="mt-6 pt-5">
-                    <span
-                      className="inline-flex cursor-not-allowed items-center gap-1.5 text-[13.5px] font-semibold text-(--color-ink-soft)"
-                      aria-disabled="true"
-                    >
-                      Use Tool
-                      <ArrowRight size={16} />
-                    </span>
+                    {tool.href ? (
+                      <Link
+                        href={tool.href}
+                        className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-(--color-ink) transition-colors group-hover:text-(--color-blue)"
+                      >
+                        Use Tool
+                        <ArrowRight
+                          size={16}
+                          className="transition-transform duration-300 group-hover:translate-x-0.5"
+                        />
+                      </Link>
+                    ) : (
+                      <span
+                        className="inline-flex cursor-not-allowed items-center gap-1.5 text-[13.5px] font-semibold text-(--color-ink-soft)"
+                        aria-disabled="true"
+                      >
+                        Use Tool
+                        <ArrowRight size={16} />
+                      </span>
+                    )}
                   </div>
                 </div>
               </motion.article>
