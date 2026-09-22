@@ -8,6 +8,7 @@ const company = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Software", href: "/software" },
+  { label: "Tools", href: "/tools" },
   { label: "Contact Us", href: "/contact" },
 ];
 
