@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand palette, derived from the Code & Motions mark */
+  --color-ink: #0a0e1a;
+  --color-ink-soft: #384057;
+  --color-navy: #0b1c4d;
+  --color-navy-deep: #060d24;
+  --color-blue: #1547e0;
+  --color-blue-bright: #2f6bff;
+  --color-cyan: #22d3ee;
+  --color-cyan-soft: #7ce6f7;
+  --color-surface: #f5f6fa;
+  --color-surface-raised: #ffffff;
+  --color-line: #e3e6f0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-surface-raised);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hide scrollbar for the services carousel while keeping it scrollable */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-x-mandatory {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-center-item {
+  scroll-snap-align: start;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 3px;
+}
