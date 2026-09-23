@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { ArrowRight, Loader2, AlertTriangle } from "lucide-react";
+import { ArrowRight, Loader2, AlertTriangle, ChevronRight } from "lucide-react";
 import MotionStreaks from "@/components/MotionStreaks";
 import ResultsPanel from "./ResultsPanel";
+import ResultsCTA from "./ResultsCTA";
 import type { CheckerResult } from "@/lib/shopify-checker/analyze";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
@@ -83,9 +85,25 @@ export default function ShopifyCheckerSection() {
           animate="show"
           className="relative mx-auto max-w-3xl px-6 text-center lg:px-10"
         >
+          <motion.nav
+            variants={fadeUp}
+            aria-label="Breadcrumb"
+            className="flex items-center justify-center gap-1.5 text-[13px] font-medium text-white/50"
+          >
+            <Link href="/" className="transition-colors hover:text-white">
+              Home
+            </Link>
+            <ChevronRight size={14} />
+            <Link href="/tools" className="transition-colors hover:text-white">
+              Free Tools
+            </Link>
+            <ChevronRight size={14} />
+            <span className="text-white/80">Shopify Speed Checker</span>
+          </motion.nav>
+
           <motion.span
             variants={fadeUp}
-            className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.14em] text-(--color-cyan-soft)"
+            className="mt-5 inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.14em] text-(--color-cyan-soft)"
           >
             Free Shopify Tool
           </motion.span>
@@ -94,16 +112,17 @@ export default function ShopifyCheckerSection() {
             variants={fadeUp}
             className="mt-6 text-[32px] font-extrabold leading-[1.15] tracking-[-0.01em] text-white sm:text-[42px] lg:text-[48px]"
           >
-            Free Shopify Speed &amp; App Bloat Checker
+            Free Shopify Speed Checker &amp; App Bloat Detector
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             className="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-white/70"
           >
-            Enter any public Shopify store URL and get a real Shopify speed
-            test — server response time, render-blocking scripts, and which
-            apps are actually loading on your homepage. No login required.
+            Enter any public Shopify store URL to run a real Shopify store
+            speed test. See server response time, render-blocking scripts,
+            and which apps are actually loading — so you can find out why
+            your Shopify store is slow and fix it. No login required.
           </motion.p>
 
           <motion.form
@@ -179,6 +198,7 @@ export default function ShopifyCheckerSection() {
         <section className="bg-(--color-surface) px-6 py-16 lg:px-10 lg:py-20">
           <div className="mx-auto max-w-4xl">
             <ResultsPanel result={result} />
+            <ResultsCTA />
           </div>
         </section>
       )}

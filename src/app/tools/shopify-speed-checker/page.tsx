@@ -13,14 +13,29 @@ const siteUrl = "https://codeandmotions.com";
 export const metadata: Metadata = {
   title: "Shopify Speed Checker — Free Shopify Store Speed Test",
   description:
-    "Free Shopify speed checker and app bloat checker. Test your Shopify store speed, detect apps and third-party scripts slowing you down, and get real recommendations — no login required.",
+    "Free Shopify Speed Checker & App Bloat Checker. Run a real Shopify store speed test, find apps slowing down your store, and get clear fixes — no login required.",
+  keywords: [
+    "Shopify Speed Checker",
+    "Shopify Store Speed Checker",
+    "Shopify Speed Test",
+    "Shopify Performance Checker",
+    "Shopify Website Speed Test",
+    "Shopify App Bloat Checker",
+    "Shopify App Detector",
+    "Shopify Speed Optimization",
+    "Shopify Store Performance",
+  ],
   alternates: {
     canonical: "/tools/shopify-speed-checker",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
-    title: "Free Shopify Speed & App Bloat Checker | Code & Motions",
+    title: "Free Shopify Speed Checker & App Bloat Checker | Code & Motions",
     description:
-      "Test your Shopify store speed and find out which apps and scripts are slowing it down. Free, instant, no signup required.",
+      "Run a real Shopify store speed test and find out which apps and scripts are slowing it down. Free, instant, no signup required.",
     url: "/tools/shopify-speed-checker",
     type: "website",
     siteName: "Code & Motions",
@@ -30,15 +45,15 @@ export const metadata: Metadata = {
         url: "/images/logo-full.png",
         width: 1262,
         height: 696,
-        alt: "Code & Motions logo",
+        alt: "Code & Motions — Shopify Speed & App Bloat Checker",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Shopify Speed & App Bloat Checker | Code & Motions",
+    title: "Free Shopify Speed Checker & App Bloat Checker | Code & Motions",
     description:
-      "Test your Shopify store speed and find out which apps and scripts are slowing it down. Free, instant, no signup required.",
+      "Run a real Shopify store speed test and find out which apps and scripts are slowing it down. Free, instant, no signup required.",
     images: ["/images/logo-full.png"],
   },
 };
@@ -50,19 +65,24 @@ const faqs = [
       "Yes. The Shopify Speed & App Bloat Checker is completely free to use, with no signup, trial limits, or hidden costs.",
   },
   {
+    question: "Why is my Shopify store slow?",
+    answer:
+      "The most common causes are too many installed apps each loading their own script, unoptimized or heavily customized theme code, render-blocking scripts and stylesheets in <head>, and heavy unoptimized images. Run the checker above to see which of these actually apply to your store.",
+  },
+  {
     question: "Do I need Shopify admin access?",
     answer:
       "No. We only analyze what's publicly visible on your storefront's homepage — no login, password, or admin access is required.",
   },
   {
-    question: "Can it detect Shopify apps?",
+    question: "Does this tool work as a Shopify app detector?",
     answer:
       "Yes, to an extent. We detect apps and third-party services that load a visible script or stylesheet on your public homepage. Apps that only run in the Shopify admin, or that load exclusively on other pages like checkout, won't show up here.",
   },
   {
     question: "How can I improve my Shopify store speed?",
     answer:
-      "Start with what the report flags: remove unused apps, defer or move non-critical scripts out of <head>, and compress heavy images. If you want a deeper audit and hands-on fixes, our Shopify development team can help.",
+      "Start with what the report flags: remove unused apps, defer or move non-critical scripts out of <head>, and compress heavy images. If you want a deeper audit and hands-on Shopify speed optimization, our Shopify development team can help.",
   },
   {
     question: "Can this tool identify scripts affecting performance?",
@@ -100,6 +120,27 @@ export default function ShopifySpeedCheckerPage() {
     ],
   };
 
+  const webApplicationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Shopify Speed & App Bloat Checker",
+    url: `${siteUrl}/tools/shopify-speed-checker`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any (web-based)",
+    description:
+      "A free Shopify speed checker that tests a public Shopify storefront's response time, render-blocking resources, and third-party app and script bloat, then gives clear, real recommendations.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    provider: {
+      "@type": "Organization",
+      name: "Code & Motions",
+      url: siteUrl,
+    },
+  };
+
   return (
     <>
       <script
@@ -109,6 +150,10 @@ export default function ShopifySpeedCheckerPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationJsonLd) }}
       />
 
       <Header />

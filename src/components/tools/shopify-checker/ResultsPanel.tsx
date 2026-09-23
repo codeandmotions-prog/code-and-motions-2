@@ -1,5 +1,19 @@
-import { CheckCircle2, XCircle, ExternalLink, Info } from "lucide-react";
-import type { CheckerSuccessResult } from "@/lib/shopify-checker/analyze";
+import {
+  CheckCircle2,
+  XCircle,
+  ExternalLink,
+  Info,
+  Zap,
+  FileText,
+  Code2,
+  Brush,
+  ImageIcon,
+  Hourglass,
+  AlertTriangle,
+  AlertCircle,
+  Clock,
+} from "lucide-react";
+import type { CheckerSuccessResult, IssueSeverity } from "@/lib/shopify-checker/analyze";
 import ScoreRing from "./ScoreRing";
 
 type ResultsPanelProps = {
@@ -19,14 +33,81 @@ function StatusPill({ status }: { status: "detected" | "estimated" | "not-detect
   } as const;
 
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-[0.06em] ${styles[status]}`}>
+    <span
+      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-[0.06em] ${styles[status]}`}
+    >
       {text[status]}
     </span>
   );
 }
 
+const severityMeta: Record<
+  IssueSeverity,
+  { label: string; badge: string; border: string; icon: typeof AlertTriangle }
+> = {
+  high: {
+    label: "High Impact",
+    badge: "bg-red-500/10 text-red-600",
+    border: "border-red-200",
+    icon: AlertTriangle,
+  },
+  medium: {
+    label: "Medium Impact",
+    badge: "bg-amber-500/10 text-amber-600",
+    border: "border-amber-200",
+    icon: AlertCircle,
+  },
+  low: {
+    label: "Low Impact",
+    badge: "bg-(--color-blue)/10 text-(--color-blue)",
+    border: "border-(--color-line)",
+    icon: Info,
+  },
+  good: {
+    label: "All Good",
+    badge: "bg-emerald-500/10 text-emerald-600",
+    border: "border-emerald-200",
+    icon: CheckCircle2,
+  },
+};
+
+const notMeasured = [
+  {
+    label: "Largest Contentful Paint (LCP) & Core Web Vitals",
+    reason: "Requires a real browser session over multiple loads — a single HTML fetch can't measure paint timing.",
+  },
+  {
+    label: "Total page weight (images, fonts, every script)",
+    reason: "Only the homepage HTML document is fetched, not every downstream resource it references.",
+  },
+  {
+    label: "Mobile vs. desktop rendering differences",
+    reason: "This check runs a single server-side fetch, not a real mobile or desktop browser.",
+  },
+];
+
 export default function ResultsPanel({ result }: ResultsPanelProps) {
   const totalRenderBlocking = result.renderBlockingScripts + result.renderBlockingStylesheets;
+  const hostname = (() => {
+    try {
+      return new URL(result.finalUrl).hostname;
+    } catch {
+      return result.finalUrl;
+    }
+  })();
+  const checkedAt = new Date(result.fetchedAtIso).toLocaleString("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  const metrics = [
+    { icon: Zap, label: "Server Response (TTFB)", value: `${result.ttfbMs}ms` },
+    { icon: FileText, label: "Homepage HTML Size", value: `${result.htmlSizeKb}KB` },
+    { icon: Code2, label: "Total Scripts", value: `${result.totalScripts}` },
+    { icon: Brush, label: "Stylesheets", value: `${result.totalStylesheets}` },
+    { icon: ImageIcon, label: "Images on Page", value: `${result.totalImages}` },
+    { icon: Hourglass, label: "Render-Blocking", value: `${totalRenderBlocking}` },
+  ];
 
   return (
     <div className="mt-6 overflow-hidden rounded-[24px] border border-(--color-line) bg-white text-left shadow-[0_30px_70px_-40px_rgba(11,28,77,0.35)]">
@@ -45,7 +126,7 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
             )}
           </div>
           <h3 className="mt-3 truncate text-[19px] font-bold text-(--color-ink)">
-            {result.siteTitle || result.finalUrl}
+            {result.siteTitle || hostname}
           </h3>
           <a
             href={result.finalUrl}
@@ -53,9 +134,13 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
             rel="noopener noreferrer nofollow"
             className="mt-1 inline-flex items-center gap-1 text-[13.5px] text-(--color-ink-soft) hover:text-(--color-blue)"
           >
-            {result.finalUrl}
+            {hostname}
             <ExternalLink size={13} />
           </a>
+          <p className="mt-2 inline-flex items-center gap-1.5 text-[12px] text-(--color-ink-soft)/80">
+            <Clock size={12} />
+            Checked {checkedAt}
+          </p>
         </div>
 
         <ScoreRing score={result.score} label={result.scoreLabel} />
@@ -70,6 +155,27 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
           </p>
         </div>
       )}
+
+      {/* performance metrics */}
+      <div className="border-b border-(--color-line) p-6 lg:p-8">
+        <h4 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-(--color-blue)">
+          Performance Metrics
+        </h4>
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          {metrics.map(({ icon: Icon, label, value }) => (
+            <div
+              key={label}
+              className="flex flex-col items-start gap-2 rounded-2xl border border-(--color-line) bg-(--color-surface) p-4"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-(--color-blue)/10 text-(--color-blue)">
+                <Icon size={16} strokeWidth={2} />
+              </span>
+              <p className="text-[19px] font-extrabold text-(--color-ink)">{value}</p>
+              <p className="text-[11.5px] leading-tight text-(--color-ink-soft)">{label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* score breakdown */}
       <div className="border-b border-(--color-line) p-6 lg:p-8">
@@ -95,35 +201,40 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
         </p>
       </div>
 
-      {/* stats grid */}
-      <div className="grid grid-cols-2 gap-px border-b border-(--color-line) bg-(--color-line) sm:grid-cols-4">
-        {[
-          { label: "Total Scripts", value: result.totalScripts },
-          { label: "Stylesheets", value: result.totalStylesheets },
-          { label: "Images on Page", value: result.totalImages },
-          { label: "Render-Blocking", value: totalRenderBlocking },
-        ].map((stat) => (
-          <div key={stat.label} className="bg-white p-5 text-center">
-            <p className="text-[26px] font-extrabold text-(--color-ink)">{stat.value}</p>
-            <p className="mt-1 text-[12px] font-medium text-(--color-ink-soft)">{stat.label}</p>
-          </div>
-        ))}
+      {/* detected issues & recommended fixes */}
+      <div className="border-b border-(--color-line) p-6 lg:p-8">
+        <h4 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-(--color-blue)">
+          Detected Issues &amp; Recommended Fixes
+        </h4>
+        <div className="mt-4 space-y-3">
+          {result.issues.map((issue) => {
+            const meta = severityMeta[issue.severity];
+            const Icon = meta.icon;
+            return (
+              <div key={issue.id} className={`rounded-2xl border ${meta.border} bg-(--color-surface) p-5`}>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <Icon size={16} className="shrink-0" />
+                    <span className="text-[14.5px] font-bold text-(--color-ink)">{issue.title}</span>
+                  </div>
+                  <span
+                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[10.5px] font-bold uppercase tracking-[0.06em] ${meta.badge}`}
+                  >
+                    {meta.label}
+                  </span>
+                </div>
+                <p className="mt-2.5 text-[13.5px] leading-relaxed text-(--color-ink-soft)">{issue.description}</p>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-(--color-ink)">
+                  <span className="font-semibold text-(--color-blue)">Fix: </span>
+                  {issue.recommendation}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* theme */}
-      <div className="flex items-center justify-between border-b border-(--color-line) px-6 py-4 lg:px-8">
-        <span className="text-[14px] font-semibold text-(--color-ink)">Theme Asset ID</span>
-        {result.themeAssetId ? (
-          <span className="flex items-center gap-2">
-            <StatusPill status="detected" />
-            <span className="text-[13.5px] text-(--color-ink-soft)">{result.themeAssetId}</span>
-          </span>
-        ) : (
-          <StatusPill status="not-detected" />
-        )}
-      </div>
-
-      {/* apps */}
+      {/* apps grouped by category */}
       <div className="border-b border-(--color-line) p-6 lg:p-8">
         <h4 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-(--color-blue)">
           Detected Apps &amp; Third-Party Scripts ({result.apps.length})
@@ -147,6 +258,41 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
               </li>
             ))}
           </ul>
+        )}
+      </div>
+
+      {/* render-blocking resources */}
+      {result.renderBlockingResources.length > 0 && (
+        <div className="border-b border-(--color-line) p-6 lg:p-8">
+          <h4 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-(--color-blue)">
+            Render-Blocking Resources ({result.renderBlockingResources.length})
+          </h4>
+          <p className="mt-1 text-[12.5px] text-(--color-ink-soft)">
+            Scripts and stylesheets in &lt;head&gt; that delay first paint because they aren&apos;t deferred, async, or print-only.
+          </p>
+          <ul className="mt-4 space-y-1.5">
+            {result.renderBlockingResources.map((res) => (
+              <li key={res.url} className="flex items-center gap-2.5 truncate text-[13.5px] text-(--color-ink-soft)">
+                <span className="inline-flex shrink-0 items-center rounded-full bg-(--color-ink-soft)/10 px-2 py-0.5 text-[10.5px] font-bold uppercase tracking-[0.06em] text-(--color-ink-soft)">
+                  {res.type}
+                </span>
+                <span className="truncate">{res.url}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* theme */}
+      <div className="flex items-center justify-between border-b border-(--color-line) px-6 py-4 lg:px-8">
+        <span className="text-[14px] font-semibold text-(--color-ink)">Theme Asset ID</span>
+        {result.themeAssetId ? (
+          <span className="flex items-center gap-2">
+            <StatusPill status="detected" />
+            <span className="text-[13.5px] text-(--color-ink-soft)">{result.themeAssetId}</span>
+          </span>
+        ) : (
+          <StatusPill status="not-detected" />
         )}
       </div>
 
@@ -178,16 +324,18 @@ export default function ResultsPanel({ result }: ResultsPanelProps) {
         )}
       </div>
 
-      {/* recommendations */}
+      {/* what we didn't measure */}
       <div className="p-6 lg:p-8">
-        <h4 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-(--color-blue)">
-          Recommendations
+        <h4 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-(--color-ink-soft)">
+          Not Measured From This Check
         </h4>
         <ul className="mt-4 space-y-3">
-          {result.recommendations.map((rec, i) => (
-            <li key={i} className="flex items-start gap-2.5 text-[14px] leading-relaxed text-(--color-ink-soft)">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--color-blue)" />
-              {rec}
+          {notMeasured.map((item) => (
+            <li key={item.label} className="flex items-start gap-2.5 text-[13.5px] leading-relaxed">
+              <StatusPill status="not-detected" />
+              <span className="text-(--color-ink-soft)">
+                <span className="font-semibold text-(--color-ink)">{item.label}.</span> {item.reason}
+              </span>
             </li>
           ))}
         </ul>

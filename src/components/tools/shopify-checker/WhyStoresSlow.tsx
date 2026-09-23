@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { LayoutGrid, Eye, ImageIcon, Code } from "lucide-react";
 
@@ -51,7 +52,7 @@ export default function WhyStoresSlow() {
             Why Shopify Stores Become Slow
           </span>
           <h2 className="mt-4 text-[28px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[34px]">
-            The Usual Suspects Behind a Slow Store
+            Why Is Your Shopify Store Slow? The Usual Suspects
           </h2>
         </div>
 
@@ -80,6 +81,14 @@ export default function WhyStoresSlow() {
             </motion.div>
           ))}
         </motion.div>
+
+        <p className="mx-auto mt-10 max-w-2xl text-center text-[14.5px] leading-relaxed text-(--color-ink-soft)">
+          If any of these sound familiar, our{" "}
+          <Link href="/services/shopify-development" className="font-semibold text-(--color-blue) hover:underline">
+            Shopify development team
+          </Link>{" "}
+          can audit your store and fix the root cause, not just the symptoms.
+        </p>
       </div>
     </section>
   );

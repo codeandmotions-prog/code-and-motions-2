@@ -27,6 +27,21 @@ export type ScoreFactor = {
   note: string;
 };
 
+export type RenderBlockingResource = {
+  type: "script" | "stylesheet";
+  url: string;
+};
+
+export type IssueSeverity = "high" | "medium" | "low" | "good";
+
+export type AuditIssue = {
+  id: string;
+  severity: IssueSeverity;
+  title: string;
+  description: string;
+  recommendation: string;
+};
+
 export type CheckerSuccessResult = {
   ok: true;
   requestedUrl: string;
@@ -50,6 +65,7 @@ export type CheckerSuccessResult = {
   totalImages: number;
   renderBlockingScripts: number;
   renderBlockingStylesheets: number;
+  renderBlockingResources: RenderBlockingResource[];
 
   apps: DetectedApp[];
   discoveredPages: DiscoveredPage[];
@@ -58,7 +74,7 @@ export type CheckerSuccessResult = {
   scoreLabel: "Fast" | "Needs Improvement" | "Slow";
   scoreFactors: ScoreFactor[];
 
-  recommendations: string[];
+  issues: AuditIssue[];
 };
 
 export type CheckerErrorResult = {
@@ -139,11 +155,20 @@ export function buildResultFromHtml(input: BuildResultInput): CheckerSuccessResu
   const totalStylesheets = allStylesheets.length;
   const totalImages = $("img").length;
 
+  const renderBlockingResources: RenderBlockingResource[] = [];
+
   let renderBlockingScripts = 0;
   $("head script[src]").each((_, el) => {
     const attribs = el.attribs;
     if (!("async" in attribs) && !("defer" in attribs) && attribs.type !== "module") {
       renderBlockingScripts += 1;
+      if (attribs.src) {
+        try {
+          renderBlockingResources.push({ type: "script", url: new URL(attribs.src, finalUrl).toString() });
+        } catch {
+          // ignore unparsable src
+        }
+      }
     }
   });
 
@@ -152,6 +177,13 @@ export function buildResultFromHtml(input: BuildResultInput): CheckerSuccessResu
     const media = el.attribs.media;
     if (!media || (media !== "print" && !media.includes("print"))) {
       renderBlockingStylesheets += 1;
+      if (el.attribs.href) {
+        try {
+          renderBlockingResources.push({ type: "stylesheet", url: new URL(el.attribs.href, finalUrl).toString() });
+        } catch {
+          // ignore unparsable href
+        }
+      }
     }
   });
 
@@ -221,43 +253,86 @@ export function buildResultFromHtml(input: BuildResultInput): CheckerSuccessResu
   const scoreLabel: CheckerSuccessResult["scoreLabel"] =
     score >= 80 ? "Fast" : score >= 60 ? "Needs Improvement" : "Slow";
 
-  // --- Recommendations ----------------------------------------------
-  const recommendations: string[] = [];
-  if (renderBlockingScripts + renderBlockingStylesheets > 0) {
-    recommendations.push(
-      `${renderBlockingScripts + renderBlockingStylesheets} render-blocking script(s)/stylesheet(s) were found in <head>. Adding \`defer\` or \`async\` to non-critical scripts (or moving them out of <head>) usually helps first paint the most.`
-    );
+  // --- Detected issues & recommended fixes --------------------------------
+  // Every issue below is derived only from data actually measured above,
+  // using disclosed, fixed thresholds (mirroring the scoring formula) —
+  // never a fabricated or randomized finding.
+  const totalRenderBlocking = renderBlockingScripts + renderBlockingStylesheets;
+  const issues: AuditIssue[] = [];
+
+  if (totalRenderBlocking > 0) {
+    issues.push({
+      id: "render-blocking",
+      severity: totalRenderBlocking >= 5 ? "high" : totalRenderBlocking >= 2 ? "medium" : "low",
+      title: `${totalRenderBlocking} render-blocking resource${totalRenderBlocking === 1 ? "" : "s"} in <head>`,
+      description: `${renderBlockingScripts} script(s) and ${renderBlockingStylesheets} stylesheet(s) in <head> aren't marked async, defer, or print-only, so the browser has to fetch and run them before it can render anything.`,
+      recommendation:
+        "Add `defer` or `async` to non-critical scripts, and move any stylesheet that isn't needed for above-the-fold content out of <head> (or mark it media=\"print\" if that fits).",
+    });
   }
-  if (apps.length >= 7) {
-    recommendations.push(
-      `We found ${apps.length} third-party apps/scripts loading on your homepage. It's worth auditing your Shopify app list and removing anything that isn't actively used — each one adds its own script and network request.`
-    );
+
+  if (apps.length >= 5) {
+    issues.push({
+      id: "app-bloat",
+      severity: apps.length >= 10 ? "high" : "medium",
+      title: `${apps.length} third-party apps/scripts detected`,
+      description: `Your homepage loads ${apps.length} separate third-party apps or tracking scripts, each adding its own network request and script-parse cost.`,
+      recommendation:
+        "Audit your installed Shopify apps and remove anything that isn't actively used — uninstalled apps sometimes leave scripts behind in theme.liquid or app embeds.",
+    });
   } else if (apps.length > 0) {
-    recommendations.push(
-      apps.length === 1
-        ? "1 third-party app/script detected. Keep an eye on it if it's no longer actively used — leftover scripts from uninstalled apps are a common source of bloat."
-        : `${apps.length} third-party apps/scripts detected. Keep an eye on ones you no longer use — uninstalled apps sometimes leave scripts behind.`
-    );
+    issues.push({
+      id: "app-count-normal",
+      severity: "low",
+      title: `${apps.length} third-party app${apps.length === 1 ? "" : "s"}/script${apps.length === 1 ? "" : "s"} detected`,
+      description: "This is a typical number of third-party scripts for an active Shopify store.",
+      recommendation: "Worth a periodic check — remove any app you've since uninstalled but that left a script behind.",
+    });
   }
+
   if (ttfbMs > 800) {
-    recommendations.push(
-      `Server response time was ${ttfbMs}ms. Anything consistently over ~800ms is worth investigating with your theme/app setup, since it delays everything else on the page.`
-    );
+    issues.push({
+      id: "ttfb",
+      severity: ttfbMs > 1500 ? "high" : "medium",
+      title: `Server response time is ${ttfbMs}ms`,
+      description:
+        "Time to first byte (TTFB) measures how long the server took to start sending your homepage. Anything consistently over ~800ms delays everything else on the page.",
+      recommendation:
+        "Review heavy Liquid loops, large metafield lookups, or an overloaded theme/app combination with your development team.",
+    });
   }
+
   if (htmlSizeKb > 150) {
-    recommendations.push(
-      `Your homepage HTML is ${htmlSizeKb}KB. Heavy inline Liquid output, large inline scripts, or excessive sections can inflate this — trimming it usually speeds up parsing.`
-    );
+    issues.push({
+      id: "html-size",
+      severity: htmlSizeKb > 300 ? "high" : "medium",
+      title: `Homepage HTML is ${htmlSizeKb}KB`,
+      description:
+        "Heavy inline Liquid output, large inline scripts/styles, or excessive sections can inflate the size of the HTML document itself.",
+      recommendation:
+        "Trim unused sections, move large inline scripts to external deferred files, and audit theme sections for redundant markup.",
+    });
   }
-  if (recommendations.length === 0) {
-    recommendations.push(
-      "No major red flags detected in your homepage source — nice and lean. For a full picture, also check a product and collection page, since app scripts are sometimes loaded only there."
-    );
+
+  if (issues.length === 0) {
+    issues.push({
+      id: "all-clear",
+      severity: "good",
+      title: "No major red flags detected",
+      description: "Your homepage's public source looks lean across every check above.",
+      recommendation:
+        "For a fuller picture, also check a product and collection page — some app scripts only load there.",
+    });
   }
+
   if (!isShopify) {
-    recommendations.unshift(
-      "We couldn't confirm this is a Shopify storefront from the public page source, so the figures above reflect general page-load signals rather than Shopify-specific analysis."
-    );
+    issues.unshift({
+      id: "not-confirmed-shopify",
+      severity: "low",
+      title: "Shopify signals not confirmed",
+      description: "We couldn't confirm Shopify-specific signals in this page's public source.",
+      recommendation: "The figures above reflect general page-load signals rather than Shopify-specific analysis.",
+    });
   }
 
   return {
@@ -279,12 +354,13 @@ export function buildResultFromHtml(input: BuildResultInput): CheckerSuccessResu
     totalImages,
     renderBlockingScripts,
     renderBlockingStylesheets,
+    renderBlockingResources: renderBlockingResources.slice(0, 20),
     apps,
     discoveredPages,
     score,
     scoreLabel,
     scoreFactors,
-    recommendations,
+    issues,
   };
 }
 

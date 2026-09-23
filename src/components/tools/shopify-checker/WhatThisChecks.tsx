@@ -57,7 +57,7 @@ export default function WhatThisChecks() {
             What This Tool Checks
           </span>
           <h2 className="mt-4 text-[28px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[34px]">
-            A Real Look at Your Shopify Storefront
+            What Our Shopify Speed Checker Analyzes
           </h2>
         </div>
 

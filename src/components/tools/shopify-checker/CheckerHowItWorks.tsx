@@ -45,7 +45,7 @@ export default function CheckerHowItWorks() {
             How It Works
           </span>
           <h2 className="mt-4 text-[28px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[34px]">
-            Three Steps to Your Report
+            How Our Shopify Speed Test Works
           </h2>
         </div>
 
