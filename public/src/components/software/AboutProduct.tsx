@@ -37,7 +37,7 @@ export default function AboutProduct({ slug }: AboutProductProps) {
         >
           <Image
             src={product.logoMark}
-            alt={product.name}
+            alt={`${product.name} — laboratory management software logo`}
             width={1305}
             height={625}
             className="h-16 w-auto"
@@ -69,6 +69,14 @@ export default function AboutProduct({ slug }: AboutProductProps) {
               Request a Demo
             </Link>
           </div>
+
+          <p className="mt-6 text-[13.5px] leading-relaxed text-(--color-ink-soft)">
+            Need laboratory workflow software customized beyond what {product.name} offers today? Our{" "}
+            <Link href="/services/software-development" className="font-semibold text-(--color-blue) hover:underline">
+              software development team
+            </Link>{" "}
+            can help.
+          </p>
         </motion.div>
 
         <motion.div

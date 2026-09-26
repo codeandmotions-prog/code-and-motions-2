@@ -28,18 +28,17 @@ type FeatureGridProps = {
 export default function FeatureGrid({ slug }: FeatureGridProps) {
   const product = getSoftwareProduct(slug);
   if (!product) return null;
-  const { features, accentColor } = product;
+  const { features, accentColor, featuresHeading, featuresIntro } = product;
 
   return (
     <section id="features" className="bg-(--color-surface) py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-xl">
           <h2 className="text-[28px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[34px]">
-            Key Features
+            {featuresHeading}
           </h2>
           <p className="mt-3 text-[16px] leading-relaxed text-(--color-ink-soft)">
-            Everything a modern lab needs, built into one desktop
-            application.
+            {featuresIntro}
           </p>
         </div>
 
@@ -50,7 +49,7 @@ export default function FeatureGrid({ slug }: FeatureGridProps) {
           viewport={{ once: true, amount: 0.1 }}
           className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
-          {features.map(({ id, title, icon: Icon }) => (
+          {features.map(({ id, title, description, icon: Icon }) => (
             <motion.div
               key={id}
               variants={item}
@@ -62,8 +61,15 @@ export default function FeatureGrid({ slug }: FeatureGridProps) {
               >
                 <Icon size={20} style={{ color: accentColor }} strokeWidth={1.9} />
               </span>
-              <span className="pt-1.5 text-[14.5px] font-semibold leading-snug text-(--color-ink)">
-                {title}
+              <span className="pt-1.5">
+                <span className="block text-[14.5px] font-semibold leading-snug text-(--color-ink)">
+                  {title}
+                </span>
+                {description && (
+                  <span className="mt-1 block text-[13px] leading-relaxed text-(--color-ink-soft)">
+                    {description}
+                  </span>
+                )}
               </span>
             </motion.div>
           ))}

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import MotionStreaks from "@/components/MotionStreaks";
 import { getSoftwareProduct } from "@/data/softwareProducts";
 
@@ -52,10 +52,26 @@ export default function ProductHero({ slug }: ProductHeroProps) {
         animate="show"
         className="relative mx-auto max-w-3xl px-6 text-center lg:px-10"
       >
-        <motion.div variants={fadeUp} className="flex justify-center">
+        <motion.nav
+          variants={fadeUp}
+          aria-label="Breadcrumb"
+          className="flex items-center justify-center gap-1.5 text-[13px] font-medium text-white/50"
+        >
+          <Link href="/" className="transition-colors hover:text-white">
+            Home
+          </Link>
+          <ChevronRight size={14} />
+          <Link href="/software" className="transition-colors hover:text-white">
+            Software
+          </Link>
+          <ChevronRight size={14} />
+          <span className="text-white/80">{product.name}</span>
+        </motion.nav>
+
+        <motion.div variants={fadeUp} className="mt-5 flex justify-center">
           <Image
             src={product.logoIcon}
-            alt=""
+            alt={`${product.name} logo`}
             width={420}
             height={414}
             className="h-14 w-14 rounded-2xl"
