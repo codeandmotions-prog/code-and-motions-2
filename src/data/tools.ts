@@ -46,5 +46,6 @@ export const freeTools: FreeTool[] = [
       "Get a realistic cost and timeline range for building your SaaS MVP, based on the features you actually need.",
     icon: Calculator,
     gradient: "linear-gradient(155deg, #060D24 0%, #0B1C4D 55%, #1547E0 100%)",
+    href: "/tools/saas-mvp-cost-estimator",
   },
 ];
