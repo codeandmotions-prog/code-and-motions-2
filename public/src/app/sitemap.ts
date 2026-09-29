@@ -61,6 +61,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${siteUrl}/faq`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${siteUrl}/privacy-policy`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${siteUrl}/terms-and-conditions`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${siteUrl}/refund-cancellation`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    // /thank-you is intentionally excluded — it's a noindex, post-conversion
+    // redirect target, not a public SEO landing page.
   ];
 
   const serviceRoutes: MetadataRoute.Sitemap = serviceCategories.map((service) => ({
