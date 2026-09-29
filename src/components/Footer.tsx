@@ -12,6 +12,13 @@ const company = [
   { label: "Contact Us", href: "/contact" },
 ];
 
+const legalLinks = [
+  { label: "FAQ", href: "/faq" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms and Conditions", href: "/terms-and-conditions" },
+  { label: "Refund & Cancellation", href: "/refund-cancellation" },
+];
+
 const social: { label: string; href: string; network: SocialNetwork }[] = [
   { label: "Instagram", href: contactInfo.instagramUrl, network: "instagram" },
   { label: "LinkedIn", href: "https://linkedin.com", network: "linkedin" },
@@ -101,8 +108,15 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-(--color-line) pt-8 text-[13.5px] text-(--color-ink-soft) sm:flex-row">
+        <div className="mt-14 flex flex-col items-center gap-6 border-t border-(--color-line) pt-8 text-[13.5px] text-(--color-ink-soft) lg:flex-row lg:justify-between lg:gap-4">
           <p>© {year} Code & Motions. All rights reserved.</p>
+          <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {legalLinks.map((item) => (
+              <Link key={item.href} href={item.href} className="transition-colors hover:text-(--color-ink)">
+                {item.label}
+              </Link>
+            ))}
+          </nav>
           <p>Design, Develop, Grow.</p>
         </div>
       </div>
