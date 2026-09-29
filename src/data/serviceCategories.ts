@@ -7,6 +7,7 @@ import {
   PenTool,
   TrendingUp,
 } from "lucide-react";
+import { aiDevelopmentIcon, aiDevelopmentGradient, aiSubServices } from "./aiDevelopment";
 
 export type ServiceCategory = {
   id: string;
@@ -121,5 +122,14 @@ export const serviceCategories: ServiceCategory[] = [
       "Keyword Research",
       "SEO Audit & Optimization",
     ],
+  },
+  {
+    id: "ai-development",
+    title: "AI Development",
+    description:
+      "Custom AI features, agents and workflows built into the software, sites and design work you already run.",
+    icon: aiDevelopmentIcon,
+    gradient: aiDevelopmentGradient,
+    subServices: aiSubServices.map((service) => service.name),
   },
 ];
