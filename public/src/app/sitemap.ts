@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { serviceCategories } from "@/data/serviceCategories";
 import { softwareProducts } from "@/data/softwareProducts";
+import { aiSubServices } from "@/data/aiDevelopment";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = "https://codeandmotions.com";
@@ -96,6 +97,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  const aiSubServiceRoutes: MetadataRoute.Sitemap = aiSubServices.map((service) => ({
+    url: `${siteUrl}/services/ai-development/${service.slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
   const softwareRoutes: MetadataRoute.Sitemap = softwareProducts.map((product) => ({
     url: `${siteUrl}/software/${product.slug}`,
     lastModified,
@@ -103,5 +111,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...softwareRoutes];
+  return [...staticRoutes, ...serviceRoutes, ...aiSubServiceRoutes, ...softwareRoutes];
 }

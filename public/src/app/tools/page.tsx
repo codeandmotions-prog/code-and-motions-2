@@ -7,6 +7,7 @@ import WhyUseTools from "@/components/tools/WhyUseTools";
 import HowToolsWork from "@/components/tools/HowToolsWork";
 import ServiceFAQSection from "@/components/services/detail/ServiceFAQSection";
 import ClosingCTA from "@/components/shared/ClosingCTA";
+import { freeTools } from "@/data/tools";
 
 const siteUrl = "https://codeandmotions.com";
 
@@ -99,6 +100,19 @@ export default function ToolsPage() {
     ],
   };
 
+  const availableTools = freeTools.filter((tool) => tool.href);
+
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: availableTools.map((tool, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: tool.name,
+      url: `${siteUrl}${tool.href}`,
+    })),
+  };
+
   return (
     <>
       <script
@@ -108,6 +122,10 @@ export default function ToolsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
 
       <Header />

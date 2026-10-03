@@ -34,12 +34,12 @@ const fadeUp: Variants = {
 };
 
 const servicePills = [
-  { label: "Software Development", icon: Code2 },
-  { label: "Web Development", icon: Globe },
-  { label: "Shopify Solutions", icon: ShoppingBag },
-  { label: "AI & SaaS", icon: Sparkles },
-  { label: "Video & Animation", icon: Clapperboard },
-  { label: "SEO & Digital Growth", icon: TrendingUp },
+  { label: "Software Development", icon: Code2, href: "/services/software-development" },
+  { label: "Web Development", icon: Globe, href: "/services/website-development" },
+  { label: "Shopify Solutions", icon: ShoppingBag, href: "/services/shopify-development" },
+  { label: "AI & SaaS", icon: Sparkles, href: "/services/ai-development" },
+  { label: "Video & Animation", icon: Clapperboard, href: "/services/video-animation" },
+  { label: "SEO & Digital Growth", icon: TrendingUp, href: "/services/seo" },
 ];
 
 // Purely decorative — generic silhouettes, never presented as real people.
@@ -144,14 +144,19 @@ export default function Hero() {
           transition={{ delayChildren: 0.46 }}
           className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-2.5"
         >
-          {servicePills.map(({ label, icon: Icon }) => (
+          {servicePills.map(({ label, icon: Icon, href }) => (
             <motion.span
               key={label}
               variants={fadeUp}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-[13px] font-medium text-white/80"
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.05] transition-colors hover:border-white/25 hover:bg-white/[0.08]"
             >
-              <Icon size={14} className="text-(--color-cyan-soft)" strokeWidth={1.9} />
-              {label}
+              <Link
+                href={href}
+                className="inline-flex items-center gap-2 px-4 py-2 text-[13px] font-medium text-white/80 transition-colors hover:text-white"
+              >
+                <Icon size={14} className="text-(--color-cyan-soft)" strokeWidth={1.9} />
+                {label}
+              </Link>
             </motion.span>
           ))}
         </motion.div>
