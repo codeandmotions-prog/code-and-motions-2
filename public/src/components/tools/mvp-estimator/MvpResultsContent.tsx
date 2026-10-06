@@ -220,10 +220,10 @@ export default function MvpResultsContent({ result }: MvpResultsContentProps) {
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3.5">
             <Link
-              href="/contact"
+              href="/services/software-development"
               className="group inline-flex items-center gap-2 rounded-full bg-(--color-blue) px-6 py-3.5 text-[14.5px] font-semibold text-white transition-colors hover:bg-white hover:text-(--color-ink)"
             >
-              Get a Detailed Quote
+              Talk to Our Software Team
               <ArrowRight size={17} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
             <Link

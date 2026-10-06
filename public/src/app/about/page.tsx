@@ -17,11 +17,33 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/about",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "About Code & Motions",
     description:
       "A digital agency for ambitious brands — software, web, Shopify, video, design and SEO, under one roof.",
     url: "/about",
+    type: "website",
+    siteName: "Code & Motions",
+    locale: "en_US",
+    images: [
+      {
+        url: "/images/logo-full.png",
+        width: 1262,
+        height: 696,
+        alt: "Code & Motions logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Code & Motions",
+    description:
+      "A digital agency for ambitious brands — software, web, Shopify, video, design and SEO, under one roof.",
+    images: ["/images/logo-full.png"],
   },
 };
 
@@ -37,11 +59,34 @@ export default function AboutPage() {
     slogan: "Design, Develop, Grow.",
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About",
+        item: `${siteUrl}/about`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <Header />

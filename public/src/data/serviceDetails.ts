@@ -14,6 +14,11 @@ export type ServiceExampleWork = {
   description: string;
 };
 
+export type ServiceProcessStep = {
+  title: string;
+  description: string;
+};
+
 export type ServiceDetail = {
   slug: string;
   seoTitle: string;
@@ -37,6 +42,27 @@ export type ServiceDetail = {
   faqHeading?: string;
   /** Optional real, internal proof-of-work link (e.g. to LabNova). */
   exampleWork?: ServiceExampleWork;
+  /** Optional link down to a relevant free tool (e.g. the Shopify Speed Checker). */
+  relatedTool?: ServiceExampleWork;
+  /**
+   * Direct-answer definition block for AEO/featured-snippet targeting.
+   * `whatIsQuestion` renders as the section H2; `whatIsAnswer` is a
+   * concise (~40–60 word) direct answer shown immediately under it.
+   */
+  whatIsQuestion?: string;
+  whatIsAnswer?: string;
+  /** Optional "Our Process" step list. Omitted entirely when not set. */
+  process?: ServiceProcessStep[];
+  processHeading?: string;
+  /** Optional per-service override for the closing CTA subtext. */
+  closingSubtext?: string;
+  /**
+   * Markets this specific service's visible copy actually supports.
+   * Defaults to ["United States", "United Kingdom", "Europe"] in the
+   * page template when omitted — only set this when a service's own
+   * copy/FAQs genuinely reference an additional market (e.g. Pakistan).
+   */
+  areaServed?: string[];
 };
 
 export const serviceDetails: ServiceDetail[] = [
@@ -91,6 +117,12 @@ export const serviceDetails: ServiceDetail[] = [
       description:
         "Our laboratory management software, covering everything from database architecture to a working, launched product.",
     },
+    relatedTool: {
+      label: "SaaS MVP Cost & Timeline Estimator",
+      href: "/tools/saas-mvp-cost-estimator",
+      description:
+        "Get a realistic cost and timeline range for your SaaS MVP based on the features you actually need.",
+    },
     faqs: [
       {
         question: "How long does a custom software project take?",
@@ -123,7 +155,35 @@ export const serviceDetails: ServiceDetail[] = [
           "Yes. We regularly audit and continue development on projects started elsewhere.",
       },
     ],
-    relatedSlugs: ["website-development", "seo"],
+    relatedSlugs: ["website-development", "seo", "ai-development"],
+    whatIsQuestion: "What Is Software Development?",
+    whatIsAnswer:
+      "Software development is the process of designing, building and maintaining custom applications — from SaaS platforms to internal tools and AI-powered features — rather than relying on off-the-shelf products. At Code & Motions, it covers architecture, engineering, testing and ongoing support, built around how your business actually operates rather than a generic template.",
+    processHeading: "Our Software Development Process",
+    process: [
+      {
+        title: "Discovery & Architecture",
+        description:
+          "We map your requirements, data and existing systems, then design an architecture that can handle real growth, not just launch day.",
+      },
+      {
+        title: "Design & Prototyping",
+        description:
+          "Key workflows are sketched and reviewed with you before engineering begins, so the structure is agreed on early.",
+      },
+      {
+        title: "Development & Testing",
+        description:
+          "Senior engineers build the system in iterative, testable releases, with regular check-ins rather than a single black-box handoff.",
+      },
+      {
+        title: "Launch & Support",
+        description:
+          "We deploy, monitor and stay involved after launch — fixing, extending and maintaining what we built.",
+      },
+    ],
+    closingSubtext:
+      "Tell us what you're building and we'll put together the right engineering plan and team for it.",
   },
   {
     slug: "website-development",
@@ -203,6 +263,34 @@ export const serviceDetails: ServiceDetail[] = [
       },
     ],
     relatedSlugs: ["shopify-development", "software-development", "seo"],
+    whatIsQuestion: "What Is Website Development?",
+    whatIsAnswer:
+      "Website development is the process of designing and building the site that represents your business online — from custom-coded pages and web applications to WordPress and Elementor builds. At Code & Motions, it means a site that loads quickly, follows sound SEO structure, and is genuinely easy to maintain after launch.",
+    processHeading: "Our Website Development Process",
+    process: [
+      {
+        title: "Plan & Structure",
+        description:
+          "We define the sitemap, page structure and content needs before any design work starts, so the site is built around real goals.",
+      },
+      {
+        title: "Design",
+        description:
+          "Pages are designed around your brand, with layouts that work for both visitors and search engines.",
+      },
+      {
+        title: "Build",
+        description:
+          "We develop on the platform that fits — custom code or WordPress/Elementor — with clean, documented markup.",
+      },
+      {
+        title: "Launch & Maintain",
+        description:
+          "After launch we test across devices, then offer ongoing maintenance for updates and fixes.",
+      },
+    ],
+    closingSubtext:
+      "Tell us about your site and we'll put together the right build plan for it.",
   },
   {
     slug: "shopify-development",
@@ -282,6 +370,40 @@ export const serviceDetails: ServiceDetail[] = [
       },
     ],
     relatedSlugs: ["website-development", "seo", "video-animation"],
+    whatIsQuestion: "What Is Shopify Development?",
+    whatIsAnswer:
+      "Shopify development is the design, coding and configuration of a Shopify store — including custom Shopify 2.0 themes, app integrations and migrations from other platforms such as WooCommerce. At Code & Motions, it covers the full store build: theme, apps, payments and shipping, structured around how your customers actually shop.",
+    processHeading: "Our Shopify Development Process",
+    process: [
+      {
+        title: "Store Audit & Planning",
+        description:
+          "We review your products, catalog structure and, if migrating, your existing store before any build work starts.",
+      },
+      {
+        title: "Theme & App Build",
+        description:
+          "We build or customize a Shopify 2.0 theme and connect the apps your store needs, without bloating load time.",
+      },
+      {
+        title: "Migration & Data",
+        description:
+          "For migrations, products, customers and SEO redirects are moved carefully to avoid downtime or lost rankings.",
+      },
+      {
+        title: "Launch & Optimize",
+        description:
+          "After launch we test checkout, payments and speed, then stay available for ongoing optimization.",
+      },
+    ],
+    closingSubtext:
+      "Tell us about your store and we'll put together the right Shopify plan for it.",
+    relatedTool: {
+      label: "Shopify Speed & App Bloat Checker",
+      href: "/tools/shopify-speed-checker",
+      description:
+        "Check how much your installed apps are slowing your store down before you decide what to rebuild. We also have a WooCommerce → Shopify migration readiness checker if you're moving platforms.",
+    },
   },
   {
     slug: "video-animation",
@@ -361,6 +483,34 @@ export const serviceDetails: ServiceDetail[] = [
       },
     ],
     relatedSlugs: ["graphic-design", "website-development", "software-development"],
+    whatIsQuestion: "What Is Video & Animation?",
+    whatIsAnswer:
+      "Video and animation covers 2D animation, explainer videos and motion graphics built to communicate a product or idea quickly. At Code & Motions, this means scripting, storyboarding and animating content sized for where it will run — landing pages, social or ads — so complex ideas become something people actually watch.",
+    processHeading: "Our Video & Animation Process",
+    process: [
+      {
+        title: "Script & Storyboard",
+        description:
+          "We define the message and structure before any animation begins, so the video says what it needs to in the right order.",
+      },
+      {
+        title: "Style Frames",
+        description:
+          "A few key frames establish the visual style and tone, agreed with you before full production starts.",
+      },
+      {
+        title: "Animation",
+        description:
+          "The full video is animated in stages, with review points along the way rather than one single reveal at the end.",
+      },
+      {
+        title: "Delivery",
+        description:
+          "You receive final files in the formats and aspect ratios you need, ready to publish.",
+      },
+    ],
+    closingSubtext:
+      "Tell us what you need animated and we'll put together the right production plan for it.",
   },
   {
     slug: "graphic-design",
@@ -372,7 +522,7 @@ export const serviceDetails: ServiceDetail[] = [
     secondaryKeywords: [
       "brand identity design agency",
       "logo design company",
-      "graphic design agency Pakistan",
+      "UI/UX design services",
     ],
     intro:
       "We design brand identities, marketing materials and digital graphics built to stay consistent everywhere your business shows up — from your logo to your next pitch deck.",
@@ -404,6 +554,37 @@ export const serviceDetails: ServiceDetail[] = [
       "Marketing teams that need ongoing social and campaign design",
       "Companies preparing an investor deck or sales presentation",
     ],
+    overviewHeading: "Why Brands Choose Our Design Team",
+    useCasesHeading: "Who We Design For",
+    faqHeading: "Graphic Design FAQs",
+    whatIsQuestion: "What Is Graphic Design?",
+    whatIsAnswer:
+      "Graphic design covers the visual identity of a business — logo, color, typography and the marketing materials built on top of them. At Code & Motions, this means designing a consistent system rather than one-off assets, so your brand looks the same across your website, packaging, decks and social channels.",
+    processHeading: "Our Graphic Design Process",
+    process: [
+      {
+        title: "Discovery",
+        description:
+          "We start with your brand, audience and the materials you already have, to understand what the design needs to do.",
+      },
+      {
+        title: "Concepts",
+        description:
+          "We present a small number of distinct directions rather than dozens of variations, so decisions stay focused.",
+      },
+      {
+        title: "Refinement",
+        description:
+          "The chosen direction is refined into a complete system — logo, color, type and usage guidelines.",
+      },
+      {
+        title: "Delivery",
+        description:
+          "You receive every asset in the file formats your team actually needs, ready to use.",
+      },
+    ],
+    closingSubtext:
+      "Tell us about your brand and we'll put together the right design plan for it.",
     faqs: [
       {
         question: "Do you design logos as a standalone service?",
@@ -424,6 +605,16 @@ export const serviceDetails: ServiceDetail[] = [
         question: "Do you do UI/UX design for apps and websites?",
         answer:
           "Yes, UI/UX design is part of our graphic design offering, often paired with our website or software development services.",
+      },
+      {
+        question: "How long does a brand identity project take?",
+        answer:
+          "Most brand identity projects take around 3–5 weeks from discovery to final delivery, depending on scope and how many rounds of feedback are needed.",
+      },
+      {
+        question: "Do you design for print as well as digital?",
+        answer:
+          "Yes. We design for both — packaging, print materials and signage, as well as web and social graphics — as part of the same brand system.",
       },
     ],
     relatedSlugs: ["website-development", "video-animation"],
@@ -466,6 +657,38 @@ export const serviceDetails: ServiceDetail[] = [
       "E-commerce stores that need product and category pages optimized",
       "Companies that have never had a formal SEO strategy",
     ],
+    overviewHeading: "Why Businesses Choose Our SEO Team",
+    useCasesHeading: "Who Our SEO Services Are For",
+    faqHeading: "SEO FAQs",
+    whatIsQuestion: "What Is SEO?",
+    whatIsAnswer:
+      "SEO (search engine optimization) is the practice of improving how search engines crawl, understand and rank your website — covering technical fixes, on-page optimization and content strategy. At Code & Motions, SEO means fixing the fundamentals first, then building search-intent-focused content, so rankings grow on a foundation that holds.",
+    processHeading: "Our SEO Process",
+    process: [
+      {
+        title: "Technical Audit",
+        description:
+          "We review crawlability, site speed and indexing issues first, since these block rankings regardless of content quality.",
+      },
+      {
+        title: "On-Page Optimization",
+        description:
+          "Titles, headings, metadata and content structure are optimized around real search intent, not just keyword density.",
+      },
+      {
+        title: "Content Strategy",
+        description:
+          "We identify content gaps and build a plan for the pages and topics that are actually worth targeting.",
+      },
+      {
+        title: "Monitor & Report",
+        description:
+          "Rankings, traffic and technical health are tracked over time, with transparent reporting on what's changed and why.",
+      },
+    ],
+    closingSubtext:
+      "Tell us about your site and we'll put together the right SEO plan for it.",
+    areaServed: ["Pakistan", "United States", "United Kingdom", "Europe"],
     faqs: [
       {
         question: "How long does SEO take to show results?",
@@ -486,6 +709,16 @@ export const serviceDetails: ServiceDetail[] = [
         question: "What does an SEO audit include?",
         answer:
           "A full review of technical health, on-page structure, content gaps and competitor positioning, with a prioritized action plan.",
+      },
+      {
+        question: "Do you offer e-commerce SEO for Shopify or WooCommerce stores?",
+        answer:
+          "Yes. We optimize product and category pages, site structure and technical performance specifically for Shopify and WooCommerce stores.",
+      },
+      {
+        question: "What's the difference between on-page and technical SEO?",
+        answer:
+          "On-page SEO covers content, titles and headings on individual pages. Technical SEO covers crawlability, site speed and the underlying structure that lets search engines access that content at all.",
       },
     ],
     relatedSlugs: ["website-development", "shopify-development"],

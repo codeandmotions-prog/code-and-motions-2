@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductHero from "@/components/software/ProductHero";
@@ -139,6 +141,28 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         <HowItWorks slug={product.slug} />
         <TechStack slug={product.slug} />
         <WhoItsFor slug={product.slug} />
+        {product.relatedServiceLink && (
+          <section className="bg-(--color-surface) py-14 lg:py-16">
+            <div className="mx-auto max-w-3xl px-6 lg:px-10">
+              <Link
+                href={product.relatedServiceLink.href}
+                className="group flex items-start gap-3 rounded-2xl border border-(--color-line) bg-(--color-surface-raised) p-5 transition-colors hover:border-(--color-blue)/40"
+              >
+                <ArrowUpRight
+                  size={16}
+                  strokeWidth={2}
+                  className="mt-0.5 shrink-0 text-(--color-blue) transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+                <span className="text-[14px] leading-relaxed text-(--color-ink-soft)">
+                  <span className="font-semibold text-(--color-ink)">
+                    Related: {product.relatedServiceLink.label}.
+                  </span>{" "}
+                  {product.relatedServiceLink.description}
+                </span>
+              </Link>
+            </div>
+          </section>
+        )}
         {product.faqs.length > 0 && (
           <ServiceFAQSection faqs={product.faqs} heading={`${product.name} FAQ`} />
         )}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ServiceDetailHero from "@/components/services/detail/ServiceDetailHero";
+import ServiceDefinition from "@/components/services/detail/ServiceDefinition";
 import ServiceOverview from "@/components/services/detail/ServiceOverview";
 import AiSubServicesGrid from "@/components/services/ai-development/AiSubServicesGrid";
 import AiProcessSteps from "@/components/services/ai-development/AiProcessSteps";
@@ -139,9 +140,17 @@ export default function AiDevelopmentPage() {
       <main id="main" className="flex-1">
         <ServiceDetailHero slug="ai-development" title={aiDevelopment.h1} intro={aiDevelopment.intro} />
 
+        {aiDevelopment.whatIsQuestion && aiDevelopment.whatIsAnswer && (
+          <ServiceDefinition
+            question={aiDevelopment.whatIsQuestion}
+            answer={aiDevelopment.whatIsAnswer}
+          />
+        )}
+
         <ServiceOverview
           title="AI Development"
           offerings={aiDevelopment.capabilities}
+          offeringsHeading={aiDevelopment.capabilitiesHeading}
           benefits={aiDevelopment.benefits}
           heading={aiDevelopment.benefitsHeading}
         />

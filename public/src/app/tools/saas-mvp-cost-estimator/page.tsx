@@ -158,8 +158,8 @@ export default function MvpEstimatorPage() {
         <ClosingCTA
           headline="Want a Detailed Quote for Your MVP?"
           subtext="If your estimate points to a bigger build than expected, our software development team can scope a leaner MVP or plan your full build in phases."
-          primaryLabel="Get a Detailed Quote"
-          primaryHref="/contact"
+          primaryLabel="Talk to Our Software Team"
+          primaryHref="/services/software-development"
         />
       </main>
 

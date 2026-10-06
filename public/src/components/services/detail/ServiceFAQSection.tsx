@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { ServiceFAQ } from "@/data/serviceDetails";
 
@@ -46,21 +45,25 @@ export default function ServiceFAQSection({ faqs, heading = "Common questions" }
                     }`}
                   />
                 </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="pb-6 text-[14.5px] leading-relaxed text-(--color-ink-soft)">
-                        {faq.answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/*
+                  The answer stays mounted in the DOM at all times — closed
+                  state only collapses it visually (grid-template-rows +
+                  overflow-hidden) rather than unmounting it. Unmounting
+                  would mean every answer except the first-open one never
+                  exists in the crawlable HTML at all, even though the
+                  FAQPage JSON-LD on this page claims it does.
+                */}
+                <div
+                  className="grid overflow-hidden transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                >
+                  <p
+                    aria-hidden={!isOpen}
+                    className="min-h-0 overflow-hidden pb-6 text-[14.5px] leading-relaxed text-(--color-ink-soft)"
+                  >
+                    {faq.answer}
+                  </p>
+                </div>
               </div>
             );
           })}

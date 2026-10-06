@@ -25,6 +25,20 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Code & Motions",
     locale: "en_US",
+    images: [
+      {
+        url: "/images/logo-full.png",
+        width: 1262,
+        height: 696,
+        alt: "Code & Motions logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ — Frequently Asked Questions | Code & Motions",
+    description: "Answers to common questions about working with Code & Motions.",
+    images: ["/images/logo-full.png"],
   },
 };
 
