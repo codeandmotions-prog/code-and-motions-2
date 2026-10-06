@@ -3,8 +3,10 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ServiceDetailHero from "@/components/services/detail/ServiceDetailHero";
+import ServiceDefinition from "@/components/services/detail/ServiceDefinition";
 import ServiceOverview from "@/components/services/detail/ServiceOverview";
 import ServiceUseCases from "@/components/services/detail/ServiceUseCases";
+import ServiceProcessSteps from "@/components/services/detail/ServiceProcessSteps";
 import ServiceFAQSection from "@/components/services/detail/ServiceFAQSection";
 import RelatedServices from "@/components/services/detail/RelatedServices";
 import ClosingCTA from "@/components/shared/ClosingCTA";
@@ -80,7 +82,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
       name: "Code & Motions",
       url: siteUrl,
     },
-    areaServed: ["Pakistan", "United States", "United Kingdom", "Europe"],
+    areaServed: detail.areaServed ?? ["United States", "United Kingdom", "Europe"],
     url: `${siteUrl}/services/${detail.slug}`,
   };
 
@@ -141,19 +143,29 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
 
       <main id="main" className="flex-1">
         <ServiceDetailHero slug={detail.slug} title={detail.h1} intro={detail.intro} />
+        {detail.whatIsQuestion && detail.whatIsAnswer && (
+          <ServiceDefinition question={detail.whatIsQuestion} answer={detail.whatIsAnswer} />
+        )}
         <ServiceOverview
           title={category.title}
           offerings={category.subServices}
           benefits={detail.benefits}
           heading={detail.overviewHeading}
           exampleWork={detail.exampleWork}
+          relatedTool={detail.relatedTool}
         />
         <ServiceUseCases useCases={detail.useCases} heading={detail.useCasesHeading} />
+        {detail.process && detail.process.length > 0 && (
+          <ServiceProcessSteps steps={detail.process} heading={detail.processHeading} />
+        )}
         <ServiceFAQSection faqs={detail.faqs} heading={detail.faqHeading} />
         <RelatedServices relatedSlugs={detail.relatedSlugs} />
         <ClosingCTA
           headline={`Ready to start your ${category.title.toLowerCase()} project?`}
-          subtext="Tell us what you're building and we'll put together the right plan and team for it."
+          subtext={
+            detail.closingSubtext ??
+            "Tell us what you're building and we'll put together the right plan and team for it."
+          }
         />
       </main>
 

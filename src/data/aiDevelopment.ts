@@ -59,6 +59,9 @@ export type AiSubService = {
   faqHeading: string;
   faqs: AiFaq[];
   relatedLink: AiRelatedLink;
+  /** Direct-answer AEO definition block, rendered right after the hero. */
+  whatIsQuestion?: string;
+  whatIsAnswer?: string;
 };
 
 export type AiDevelopmentContent = {
@@ -76,6 +79,8 @@ export type AiDevelopmentContent = {
   faqHeading: string;
   faqs: AiFaq[];
   relatedSlugs: string[];
+  whatIsQuestion?: string;
+  whatIsAnswer?: string;
 };
 
 export const aiDevelopment: AiDevelopmentContent = {
@@ -87,6 +92,9 @@ export const aiDevelopment: AiDevelopmentContent = {
   secondaryKeywords: ["AI development company", "custom AI development", "AI solutions", "AI automation"],
   intro:
     "Code & Motions builds custom AI development solutions for businesses across the USA, UK and Europe — from AI-powered websites and software to AI video, image and design work, and domain-specific AI agents. We fold practical AI into the products and workflows you already run, rather than adding a chatbot for its own sake.",
+  whatIsQuestion: "What Is AI Development?",
+  whatIsAnswer:
+    "AI development is building software, features or agents that use artificial intelligence — such as machine learning models or large language models — to automate tasks, generate content, or handle work that would otherwise need to be done manually. At Code & Motions, this means AI folded into the websites, software and design work we already build, not a bolted-on chatbot.",
   capabilitiesHeading: "AI Development, Covered End to End",
   capabilities: [
     "Custom AI feature development for existing software and websites",
@@ -242,6 +250,9 @@ export const aiSubServices: AiSubService[] = [
       href: "/services/video-animation",
       description: "Our core production service — AI Video Development builds on top of it.",
     },
+    whatIsQuestion: "What Is AI Video Development?",
+    whatIsAnswer:
+      "AI Video Development uses AI tools to speed up parts of video production — generating supporting footage, assisting with editing, and automating the repurposing of long-form video into social clips. It builds on our existing Video & Animation service, so AI speeds up production while our team still directs the creative.",
   },
   {
     slug: "ai-website-development",
@@ -296,6 +307,9 @@ export const aiSubServices: AiSubService[] = [
       href: "/services/website-development",
       description: "Our core website service — AI Website Development adds AI features on top of it.",
     },
+    whatIsQuestion: "What Is AI Website Development?",
+    whatIsAnswer:
+      "AI Website Development adds AI-powered features — such as smart search, on-site assistants and content personalization — to a website, built on the same custom-coded or WordPress foundation as our core website development service. It can be added to a new build or an existing site without compromising page speed.",
   },
   {
     slug: "ai-image-creation",
@@ -350,6 +364,9 @@ export const aiSubServices: AiSubService[] = [
       href: "/services/graphic-design",
       description: "Our core design service — AI Image Creation uses the same design judgment, applied to AI-generated work.",
     },
+    whatIsQuestion: "What Is AI Image Creation?",
+    whatIsAnswer:
+      "AI Image Creation uses AI image-generation tools to produce marketing, product and web imagery, which our design team then reviews, refines and art-directs so it fits your brand — rather than looking like generic, unedited AI output. It covers both generating new images and AI-assisted editing of images you already have.",
   },
   {
     slug: "ai-software-development",
@@ -405,6 +422,9 @@ export const aiSubServices: AiSubService[] = [
       href: "/services/software-development",
       description: "Our core engineering service — AI Software Development is its AI-focused extension.",
     },
+    whatIsQuestion: "What Is AI Software Development?",
+    whatIsAnswer:
+      "AI Software Development is building custom software with AI at its core — from a single AI-powered feature added to an existing product, to a full application built around an AI model or workflow — using the same engineering standards and senior team behind our core software development service.",
   },
   {
     slug: "ai-design",
@@ -434,6 +454,7 @@ export const aiSubServices: AiSubService[] = [
       { title: "Design-Led AI Use", description: "AI speeds up exploration; our design team makes the final creative decisions." },
       { title: "Faster Concept-to-Option Cycles", description: "Explore more directions in less time before committing to a design path." },
       { title: "Grounded in Real Design Practice", description: "This sits on top of our graphic design and UI/UX experience, not a standalone AI tool with no design oversight." },
+      { title: "Focused on Structure, Not Just Imagery", description: "Where AI Image Creation is about generating pictures, AI Design is about using AI to speed up layout, UI and brand-system work." },
     ],
     faqHeading: "AI Design FAQs",
     faqs: [
@@ -459,6 +480,9 @@ export const aiSubServices: AiSubService[] = [
       href: "/services/graphic-design",
       description: "Our core design service — AI Design uses AI tooling inside the same design process.",
     },
+    whatIsQuestion: "What Is AI Design?",
+    whatIsAnswer:
+      "AI Design uses AI tools to speed up concepting and explore more creative directions in less time, before our design team applies the same judgment used in our regular graphic design work to turn AI-assisted output into production-ready layouts, UI concepts and brand assets. AI speeds up exploration; our designers still make the final calls.",
   },
   {
     slug: "ai-agents",
@@ -502,7 +526,8 @@ export const aiSubServices: AiSubService[] = [
       },
       {
         question: "Can you build AI agents for schools?",
-        answer: "Yes, for school administrative and operational workflows.",
+        answer:
+          "Yes — AI agents for school administrative and operational workflows are part of this service, scoped to the specific processes a school already runs.",
       },
       {
         question: "Are these agents safe to use with sensitive healthcare or student data?",
@@ -519,6 +544,9 @@ export const aiSubServices: AiSubService[] = [
       href: "/software/labnova",
       description: "Our own laboratory management software — the real-world experience behind our AI Agents for Laboratories.",
     },
+    whatIsQuestion: "What Are AI Agents for Healthcare, Laboratories & Schools?",
+    whatIsAnswer:
+      "These are domain-specific AI agents built around the operational reality of healthcare, laboratory and school environments, scoped to well-defined, repetitive tasks rather than built as an open-ended general chatbot. Our approach is informed directly by building and shipping LabNova, our own laboratory management software, with human oversight built into sensitive workflows.",
   },
 ];
 

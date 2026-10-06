@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AiSubServiceHero from "@/components/services/ai-development/AiSubServiceHero";
+import ServiceDefinition from "@/components/services/detail/ServiceDefinition";
 import ServiceOverview from "@/components/services/detail/ServiceOverview";
 import ServiceFAQSection from "@/components/services/detail/ServiceFAQSection";
 import ClosingCTA from "@/components/shared/ClosingCTA";
@@ -157,9 +158,14 @@ export default async function AiSubServicePage({ params }: AiSubServicePageProps
       <main id="main" className="flex-1">
         <AiSubServiceHero slug={service.slug} title={service.h1} intro={service.intro} />
 
+        {service.whatIsQuestion && service.whatIsAnswer && (
+          <ServiceDefinition question={service.whatIsQuestion} answer={service.whatIsAnswer} />
+        )}
+
         <ServiceOverview
           title={service.name}
           offerings={service.capabilities}
+          offeringsHeading={service.capabilitiesHeading}
           benefits={service.benefits}
           heading={service.benefitsHeading}
           exampleWork={service.relatedLink}

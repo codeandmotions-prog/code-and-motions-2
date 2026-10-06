@@ -28,7 +28,10 @@ type ServiceOverviewProps = {
   offerings: string[];
   benefits: ServiceBenefit[];
   heading?: string;
+  /** Optional override for the "What We Offer" heading (left column). */
+  offeringsHeading?: string;
   exampleWork?: ServiceExampleWork;
+  relatedTool?: ServiceExampleWork;
 };
 
 export default function ServiceOverview({
@@ -36,7 +39,9 @@ export default function ServiceOverview({
   offerings,
   benefits,
   heading = "Built for real results",
+  offeringsHeading,
   exampleWork,
+  relatedTool,
 }: ServiceOverviewProps) {
   return (
     <section className="bg-(--color-surface-raised) py-20 lg:py-28">
@@ -47,7 +52,7 @@ export default function ServiceOverview({
               What We Offer
             </span>
             <h2 className="mt-4 text-[26px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[30px]">
-              {title}, covered end to end
+              {offeringsHeading ?? `${title}, covered end to end`}
             </h2>
 
             <motion.ul
@@ -84,6 +89,25 @@ export default function ServiceOverview({
                     Real example: {exampleWork.label}.
                   </span>{" "}
                   {exampleWork.description}
+                </span>
+              </Link>
+            )}
+
+            {relatedTool && (
+              <Link
+                href={relatedTool.href}
+                className="group mt-4 flex items-start gap-3 rounded-2xl border border-(--color-line) bg-(--color-surface) p-5 transition-colors hover:border-(--color-blue)/40"
+              >
+                <ArrowUpRight
+                  size={16}
+                  strokeWidth={2}
+                  className="mt-0.5 shrink-0 text-(--color-blue) transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+                <span className="text-[14px] leading-relaxed text-(--color-ink-soft)">
+                  <span className="font-semibold text-(--color-ink)">
+                    Free tool: {relatedTool.label}.
+                  </span>{" "}
+                  {relatedTool.description}
                 </span>
               </Link>
             )}

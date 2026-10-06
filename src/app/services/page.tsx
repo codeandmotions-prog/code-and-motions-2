@@ -9,9 +9,9 @@ import { serviceCategories } from "@/data/serviceCategories";
 const siteUrl = "https://codeandmotions.com";
 
 export const metadata: Metadata = {
-  title: "Digital Services — Software, Web, Shopify, AI, Design & SEO",
+  title: "Digital Services — Software, Web, Shopify & AI",
   description:
-    "Explore Code & Motions' full range of digital services: software development, website development, Shopify development, AI development, video & animation, graphic design and SEO — for businesses in the USA, UK and Europe.",
+    "Software development, website development, Shopify, AI development, design, video and SEO — complete digital services for businesses in the USA, UK and Europe.",
   alternates: {
     canonical: "/services",
   },
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Digital Services | Code & Motions",
     description:
-      "Complete digital solutions for businesses and brands — software, websites, Shopify, AI, video, design and SEO, all under one team.",
+      "Software development, website development, Shopify, AI development, design, video and SEO — complete digital services for businesses in the USA, UK and Europe.",
     url: "/services",
     type: "website",
     siteName: "Code & Motions",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Digital Services | Code & Motions",
     description:
-      "Complete digital solutions for businesses and brands — software, websites, Shopify, AI, video, design and SEO, all under one team.",
+      "Software development, website development, Shopify, AI development, design, video and SEO — complete digital services for businesses in the USA, UK and Europe.",
     images: ["/images/logo-full.png"],
   },
 };

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MigrationAssessmentSection from "@/components/tools/migration-checker/MigrationAssessmentSection";
@@ -153,6 +155,26 @@ export default function MigrationCheckerPage() {
         <MigrationAssessmentSection />
         <MigrationWhatItChecks />
         <MigrationHowItWorks />
+        <section className="bg-(--color-surface) py-14 lg:py-16">
+          <div className="mx-auto max-w-3xl px-6 lg:px-10">
+            <Link
+              href="/tools/shopify-speed-checker"
+              className="group flex items-start gap-3 rounded-2xl border border-(--color-line) bg-(--color-surface-raised) p-5 transition-colors hover:border-(--color-blue)/40"
+            >
+              <ArrowUpRight
+                size={16}
+                strokeWidth={2}
+                className="mt-0.5 shrink-0 text-(--color-blue) transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+              <span className="text-[14px] leading-relaxed text-(--color-ink-soft)">
+                <span className="font-semibold text-(--color-ink)">
+                  Already on Shopify, or planning your new store?
+                </span>{" "}
+                Run the Shopify Speed & App Bloat Checker once your migration is live to catch issues early.
+              </span>
+            </Link>
+          </div>
+        </section>
         <ServiceFAQSection faqs={faqs} heading="Migration Checker FAQ" />
         <ClosingCTA
           headline="Need Help Migrating Your Store?"

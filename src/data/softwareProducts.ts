@@ -96,6 +96,12 @@ export type SoftwareProduct = {
   applicationCategory: string;
   /** schema.org SoftwareApplication operatingSystem value. */
   operatingSystem: string;
+  /** Optional real, internal cross-link to a related service page. */
+  relatedServiceLink?: {
+    label: string;
+    href: string;
+    description: string;
+  };
 };
 
 const labnova: SoftwareProduct = {
@@ -323,6 +329,12 @@ const labnova: SoftwareProduct = {
   ],
   applicationCategory: "BusinessApplication",
   operatingSystem: "Windows",
+  relatedServiceLink: {
+    label: "AI Agents for Healthcare, Laboratories & Schools",
+    href: "/services/ai-development/ai-agents",
+    description:
+      "Looking for AI-driven automation on top of a system like LabNova? Our AI Agents service builds domain-specific agents for laboratory, healthcare and school workflows.",
+  },
 };
 
 /**

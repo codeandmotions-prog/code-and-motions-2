@@ -136,9 +136,15 @@ export default function WhyWorkWithUs() {
               className="mt-6 max-w-xl text-[16px] leading-relaxed text-(--color-ink-soft)"
             >
               We help startups, small businesses, and growing companies
-              build high-performing digital solutions — from custom
-              software and websites to Shopify, AI, design, explainer
-              videos, 2D animation, and SEO.
+              build high-performing{" "}
+              <Link
+                href="/services"
+                className="font-semibold text-(--color-blue) underline decoration-(--color-blue)/30 underline-offset-2 transition-colors hover:decoration-(--color-blue)"
+              >
+                digital solutions
+              </Link>{" "}
+              — from custom software and websites to Shopify, AI, design,
+              explainer videos, 2D animation, and SEO.
             </motion.p>
 
             <div className="mt-11 space-y-8">

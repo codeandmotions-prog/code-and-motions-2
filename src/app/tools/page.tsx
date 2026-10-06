@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/tools",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "Free Digital Tools | Code & Motions",
     description:
