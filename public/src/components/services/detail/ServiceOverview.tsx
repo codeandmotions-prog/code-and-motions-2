@@ -32,7 +32,30 @@ type ServiceOverviewProps = {
   offeringsHeading?: string;
   exampleWork?: ServiceExampleWork;
   relatedTool?: ServiceExampleWork;
+  /** Optional "see also" link back to a parent or sibling service page. */
+  seeAlso?: ServiceExampleWork;
 };
+
+function OverviewLinkCard({ prefix, link }: { prefix: string; link: ServiceExampleWork }) {
+  return (
+    <Link
+      href={link.href}
+      className="group mt-4 flex items-start gap-3 rounded-2xl border border-(--color-line) bg-(--color-surface) p-5 transition-colors first:mt-6 hover:border-(--color-blue)/40"
+    >
+      <ArrowUpRight
+        size={16}
+        strokeWidth={2}
+        className="mt-0.5 shrink-0 text-(--color-blue) transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+      />
+      <span className="text-[14px] leading-relaxed text-(--color-ink-soft)">
+        <span className="font-semibold text-(--color-ink)">
+          {prefix}: {link.label}.
+        </span>{" "}
+        {link.description}
+      </span>
+    </Link>
+  );
+}
 
 export default function ServiceOverview({
   title,
@@ -42,6 +65,7 @@ export default function ServiceOverview({
   offeringsHeading,
   exampleWork,
   relatedTool,
+  seeAlso,
 }: ServiceOverviewProps) {
   return (
     <section className="bg-(--color-surface-raised) py-20 lg:py-28">
@@ -74,43 +98,9 @@ export default function ServiceOverview({
               ))}
             </motion.ul>
 
-            {exampleWork && (
-              <Link
-                href={exampleWork.href}
-                className="group mt-6 flex items-start gap-3 rounded-2xl border border-(--color-line) bg-(--color-surface) p-5 transition-colors hover:border-(--color-blue)/40"
-              >
-                <ArrowUpRight
-                  size={16}
-                  strokeWidth={2}
-                  className="mt-0.5 shrink-0 text-(--color-blue) transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
-                <span className="text-[14px] leading-relaxed text-(--color-ink-soft)">
-                  <span className="font-semibold text-(--color-ink)">
-                    Real example: {exampleWork.label}.
-                  </span>{" "}
-                  {exampleWork.description}
-                </span>
-              </Link>
-            )}
-
-            {relatedTool && (
-              <Link
-                href={relatedTool.href}
-                className="group mt-4 flex items-start gap-3 rounded-2xl border border-(--color-line) bg-(--color-surface) p-5 transition-colors hover:border-(--color-blue)/40"
-              >
-                <ArrowUpRight
-                  size={16}
-                  strokeWidth={2}
-                  className="mt-0.5 shrink-0 text-(--color-blue) transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
-                <span className="text-[14px] leading-relaxed text-(--color-ink-soft)">
-                  <span className="font-semibold text-(--color-ink)">
-                    Free tool: {relatedTool.label}.
-                  </span>{" "}
-                  {relatedTool.description}
-                </span>
-              </Link>
-            )}
+            {exampleWork && <OverviewLinkCard prefix="Real example" link={exampleWork} />}
+            {relatedTool && <OverviewLinkCard prefix="Free tool" link={relatedTool} />}
+            {seeAlso && <OverviewLinkCard prefix="Related" link={seeAlso} />}
           </div>
 
           <div>
