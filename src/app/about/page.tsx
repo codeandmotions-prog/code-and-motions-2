@@ -6,6 +6,7 @@ import AboutIntro from "@/components/about/AboutIntro";
 import AboutApproach from "@/components/about/AboutApproach";
 import AboutValues from "@/components/about/AboutValues";
 import AboutTeam from "@/components/about/AboutTeam";
+import AboutResume from "@/components/about/AboutResume";
 import ClosingCTA from "@/components/shared/ClosingCTA";
 
 const siteUrl = "https://codeandmotions.com";
@@ -97,6 +98,7 @@ export default function AboutPage() {
         <AboutApproach />
         <AboutValues />
         <AboutTeam />
+        <AboutResume />
         <ClosingCTA
           headline="Have a project in mind?"
           subtext="Tell us where your business needs to go next and we'll put the right mix of design, engineering and growth behind it."

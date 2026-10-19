@@ -10,8 +10,10 @@ import ServiceProcessSteps from "@/components/services/detail/ServiceProcessStep
 import ServiceFAQSection from "@/components/services/detail/ServiceFAQSection";
 import RelatedServices from "@/components/services/detail/RelatedServices";
 import ClosingCTA from "@/components/shared/ClosingCTA";
+import SubServicesGrid from "@/components/services/subservice/SubServicesGrid";
 import { serviceCategories } from "@/data/serviceCategories";
 import { getServiceDetail, serviceDetails } from "@/data/serviceDetails";
+import { getSubServicesForMainService } from "@/data/subServices";
 
 const siteUrl = "https://codeandmotions.com";
 
@@ -66,6 +68,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
   const { slug } = await params;
   const detail = getServiceDetail(slug);
   const category = serviceCategories.find((item) => item.id === slug);
+  const subServices = getSubServicesForMainService(slug);
 
   if (!detail || !category) {
     notFound();
@@ -84,6 +87,19 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
     },
     areaServed: detail.areaServed ?? ["United States", "United Kingdom", "Europe"],
     url: `${siteUrl}/services/${detail.slug}`,
+    ...(subServices.length > 0 && {
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: `${category.title} Sub-Services`,
+        itemListElement: subServices.map((sub) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: sub.name,
+          },
+        })),
+      },
+    }),
   };
 
   const breadcrumbJsonLd = {
@@ -155,6 +171,13 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
           relatedTool={detail.relatedTool}
         />
         <ServiceUseCases useCases={detail.useCases} heading={detail.useCasesHeading} />
+        {subServices.length > 0 && (
+          <SubServicesGrid
+            mainSlug={slug}
+            heading={`${category.title} Sub-Services`}
+            subheading={`Specific ${category.title.toLowerCase()} work we do most often — each with its own dedicated page.`}
+          />
+        )}
         {detail.process && detail.process.length > 0 && (
           <ServiceProcessSteps steps={detail.process} heading={detail.processHeading} />
         )}
