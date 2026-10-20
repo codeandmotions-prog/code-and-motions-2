@@ -7,6 +7,7 @@ import HeroProjectCTA from "@/components/home/HeroProjectCTA";
 import PlatformsMarquee from "@/components/home/PlatformsMarquee";
 import WhyWorkWithUs from "@/components/home/WhyWorkWithUs";
 import ByTheNumbers from "@/components/home/ByTheNumbers";
+import BusinessPlanningSolutions from "@/components/home/BusinessPlanningSolutions";
 import { contactInfo } from "@/data/contactInfo";
 
 const siteUrl = "https://codeandmotions.com";
@@ -89,6 +90,7 @@ export default function Home() {
         <WhyWorkWithUs />
         <ByTheNumbers />
         <CTA />
+        <BusinessPlanningSolutions />
       </main>
 
       <Footer />

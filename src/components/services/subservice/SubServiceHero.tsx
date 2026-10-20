@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight, CalendarCheck, ChevronRight, LayoutGrid } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { getSubService } from "@/data/subServices";
+import MotionStreaks from "@/components/MotionStreaks";
+import type { SubServiceHeroCtas } from "@/data/subServiceTypes";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -30,6 +32,12 @@ type SubServiceHeroProps = {
   parentTitle: string;
   title: string;
   intro: string;
+  /**
+   * When provided, the hero renders in the premium style used by the main
+   * Services hero (grid texture, motion streaks, Home breadcrumb, two CTAs).
+   * Pages that omit it render exactly as before.
+   */
+  ctas?: SubServiceHeroCtas;
 };
 
 /**
@@ -47,6 +55,7 @@ export default function SubServiceHero({
   parentTitle,
   title,
   intro,
+  ctas,
 }: SubServiceHeroProps) {
   const service = getSubService(mainSlug, subSlug);
   if (!service) return null;
@@ -64,17 +73,40 @@ export default function SubServiceHero({
         }}
       />
 
+      {ctas && (
+        <>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-40"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
+              backgroundSize: "44px 44px",
+            }}
+          />
+          <MotionStreaks className="pointer-events-none absolute -right-16 top-8 h-72 w-72 opacity-25 lg:h-96 lg:w-96 lg:opacity-30" />
+        </>
+      )}
+
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative mx-auto max-w-4xl px-6 lg:px-10"
+        className={`relative mx-auto px-6 lg:px-10 ${ctas ? "max-w-7xl" : "max-w-4xl"}`}
       >
         <motion.nav
           variants={fadeUp}
           aria-label="Breadcrumb"
           className="flex flex-wrap items-center gap-1.5 text-[13px] font-medium text-white/50"
         >
+          {ctas && (
+            <>
+              <Link href="/" className="transition-colors hover:text-white">
+                Home
+              </Link>
+              <ChevronRight size={14} />
+            </>
+          )}
           <Link href="/services" className="transition-colors hover:text-white">
             Services
           </Link>
@@ -96,30 +128,55 @@ export default function SubServiceHero({
 
         <motion.h1
           variants={fadeUp}
-          className="mt-6 max-w-2xl text-[36px] font-extrabold leading-[1.12] tracking-[-0.01em] text-white sm:text-[46px] lg:text-[52px]"
+          className={`mt-6 font-extrabold text-white ${
+            ctas
+              ? "max-w-3xl text-[36px] leading-[1.1] tracking-[-0.02em] sm:text-[48px] lg:text-[56px]"
+              : "max-w-2xl text-[36px] leading-[1.12] tracking-[-0.01em] sm:text-[46px] lg:text-[52px]"
+          }`}
         >
           {title}
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
-          className="mt-6 max-w-xl text-[16.5px] leading-relaxed text-white/70 lg:text-[17px]"
+          className={`mt-6 text-[16.5px] leading-relaxed text-white/70 lg:text-[17px] ${
+            ctas ? "max-w-2xl" : "max-w-xl"
+          }`}
         >
           {intro}
         </motion.p>
 
-        <motion.div variants={fadeUp} className="mt-9">
-          <Link
-            href="/contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-(--color-blue) px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-white hover:text-(--color-ink)"
-          >
-            Start a Project
-            <ArrowRight
-              size={18}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </Link>
-        </motion.div>
+        {ctas ? (
+          <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-4">
+            <Link
+              href={ctas.primary.href}
+              className="inline-flex items-center gap-2 rounded-full bg-(--color-cyan) px-7 py-4 text-[15px] font-semibold text-(--color-ink) transition-colors hover:bg-white"
+            >
+              <CalendarCheck size={17} aria-hidden="true" />
+              {ctas.primary.label}
+            </Link>
+            <Link
+              href={ctas.secondary.href}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:border-white"
+            >
+              <LayoutGrid size={17} aria-hidden="true" />
+              {ctas.secondary.label}
+            </Link>
+          </motion.div>
+        ) : (
+          <motion.div variants={fadeUp} className="mt-9">
+            <Link
+              href="/contact"
+              className="group inline-flex items-center gap-2 rounded-full bg-(--color-blue) px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-white hover:text-(--color-ink)"
+            >
+              Start a Project
+              <ArrowRight
+                size={18}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+          </motion.div>
+        )}
       </motion.div>
     </section>
   );
