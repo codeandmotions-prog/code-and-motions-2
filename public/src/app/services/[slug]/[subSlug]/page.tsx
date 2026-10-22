@@ -8,6 +8,8 @@ import ServiceOverview from "@/components/services/detail/ServiceOverview";
 import ServiceUseCases from "@/components/services/detail/ServiceUseCases";
 import ServiceProcessSteps from "@/components/services/detail/ServiceProcessSteps";
 import ServiceFAQSection from "@/components/services/detail/ServiceFAQSection";
+import SubServiceSections from "@/components/services/subservice/SubServiceSections";
+import SubServiceRelated from "@/components/services/subservice/SubServiceRelated";
 import ClosingCTA from "@/components/shared/ClosingCTA";
 import { serviceCategories } from "@/data/serviceCategories";
 import { getAllSubServiceParams, getSubService } from "@/data/subServices";
@@ -153,9 +155,14 @@ export default async function SubServicePage({ params }: SubServicePageProps) {
           parentTitle={category.title}
           title={service.h1}
           intro={service.intro}
+          ctas={service.heroCtas}
         />
 
         <ServiceDefinition question={service.whatIsQuestion} answer={service.whatIsAnswer} />
+
+        {service.sections && service.sections.length > 0 && (
+          <SubServiceSections sections={service.sections} tone="soft" />
+        )}
 
         <ServiceOverview
           title={service.name}
@@ -175,11 +182,24 @@ export default async function SubServicePage({ params }: SubServicePageProps) {
           <ServiceProcessSteps steps={service.process} heading={service.processHeading} />
         )}
 
+        {service.laterSections && service.laterSections.length > 0 && (
+          <SubServiceSections sections={service.laterSections} tone="light" />
+        )}
+
         <ServiceFAQSection faqs={service.faqs} heading={service.faqHeading} />
 
+        {service.relatedLinks && <SubServiceRelated links={service.relatedLinks} />}
+
         <ClosingCTA
-          headline={`Ready to start your ${service.name.toLowerCase()} project?`}
-          subtext="Tell us what you're building and we'll put together the right plan for it."
+          headline={
+            service.closingCta?.headline ??
+            `Ready to start your ${service.name.toLowerCase()} project?`
+          }
+          subtext={
+            service.closingCta?.subtext ??
+            "Tell us what you're building and we'll put together the right plan for it."
+          }
+          primaryLabel={service.closingCta ? "Discuss Your Project" : undefined}
         />
       </main>
 

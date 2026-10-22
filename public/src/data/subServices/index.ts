@@ -3,6 +3,7 @@ import { softwareDevelopmentSubServices } from "./softwareDevelopment";
 import { websiteDevelopmentSubServices } from "./websiteDevelopment";
 import { shopifyDevelopmentSubServices } from "./shopifyDevelopment";
 import { videoAnimationSubServices } from "./videoAnimation";
+import { planningSubServices } from "./planning";
 
 /**
  * All sub-service groups, keyed by their parent main service's slug
@@ -12,7 +13,7 @@ import { videoAnimationSubServices } from "./videoAnimation";
  * route and the sitemap all read from this single map.
  */
 export const subServicesByMainSlug: Record<string, SubService[]> = {
-  "software-development": softwareDevelopmentSubServices,
+  "software-development": [...softwareDevelopmentSubServices, ...planningSubServices],
   "website-development": websiteDevelopmentSubServices,
   "shopify-development": shopifyDevelopmentSubServices,
   "video-animation": videoAnimationSubServices,
