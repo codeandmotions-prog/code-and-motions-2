@@ -2,19 +2,21 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ToolsHero from "@/components/tools/ToolsHero";
+import CalculatorDirectory from "@/components/tools/CalculatorDirectory";
 import ToolsGrid from "@/components/tools/ToolsGrid";
 import WhyUseTools from "@/components/tools/WhyUseTools";
 import HowToolsWork from "@/components/tools/HowToolsWork";
 import ServiceFAQSection from "@/components/services/detail/ServiceFAQSection";
 import ClosingCTA from "@/components/shared/ClosingCTA";
 import { freeTools } from "@/data/tools";
+import { calculators } from "@/data/calculators/registry";
 
 const siteUrl = "https://codeandmotions.com";
 
 export const metadata: Metadata = {
-  title: "Free Digital Tools — Shopify, WooCommerce & SaaS Planning",
+  title: "Free Online Calculators & Digital Business Tools",
   description:
-    "Free tools from Code & Motions to check your Shopify store's speed, plan a WooCommerce to Shopify migration, and estimate the cost and timeline of a SaaS MVP. No signup required.",
+    "Free online calculators for money, health, maths and everyday questions, plus Code & Motions tools for Shopify speed, WooCommerce migration and SaaS MVP planning. No signup required.",
   alternates: {
     canonical: "/tools",
   },
@@ -23,9 +25,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Free Digital Tools | Code & Motions",
+    title: "Free Online Calculators & Digital Business Tools | Code & Motions",
     description:
-      "Check your Shopify store's speed, plan a WooCommerce migration, or estimate your SaaS MVP's cost and timeline — free, with no signup required.",
+      "Free calculators for money, health, maths and everyday questions, plus tools for Shopify, WooCommerce and SaaS planning. No signup required.",
     url: "/tools",
     type: "website",
     siteName: "Code & Motions",
@@ -41,14 +43,29 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Digital Tools | Code & Motions",
+    title: "Free Online Calculators & Digital Business Tools | Code & Motions",
     description:
-      "Check your Shopify store's speed, plan a WooCommerce migration, or estimate your SaaS MVP's cost and timeline — free, with no signup required.",
+      "Free calculators for money, health, maths and everyday questions, plus tools for Shopify, WooCommerce and SaaS planning. No signup required.",
     images: ["/images/logo-full.png"],
   },
 };
 
 const faqs = [
+  {
+    question: "What kinds of calculators are included?",
+    answer:
+      `The collection has ${calculators.length} calculators in four groups: financial (mortgage, loan, compound interest, ROI and VAT), fitness and health (BMI, BMR, calories, body fat and heart-rate zones), maths (arithmetic, algebra, statistics and geometry) and everyday tools (age, dates, tips, fuel cost and unit conversion).`,
+  },
+  {
+    question: "Do the calculators send my numbers anywhere?",
+    answer:
+      "No. Every calculator runs in your browser, so the values you enter are not sent to our servers.",
+  },
+  {
+    question: "Can I rely on the health calculators for medical decisions?",
+    answer:
+      "No. They give general estimates for information only and are not a diagnosis or medical advice. Speak to a doctor or registered dietitian before changing your diet, training or medication.",
+  },
   {
     question: "Are these tools free?",
     answer:
@@ -136,6 +153,7 @@ export default function ToolsPage() {
 
       <main id="main" className="flex-1">
         <ToolsHero />
+        <CalculatorDirectory />
         <ToolsGrid />
         <WhyUseTools />
         <HowToolsWork />
