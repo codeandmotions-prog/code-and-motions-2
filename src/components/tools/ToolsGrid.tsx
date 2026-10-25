@@ -32,7 +32,7 @@ export default function ToolsGrid() {
             Choose a Tool
           </span>
           <h2 className="mt-4 text-[28px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[34px]">
-            Three Free Tools, Built for Real Decisions
+            Free Tools, Built for Real Decisions
           </h2>
           <p className="mt-3 text-[15.5px] leading-relaxed text-(--color-ink-soft)">
             Each tool gives you a clear, practical answer in a couple of
@@ -45,7 +45,7 @@ export default function ToolsGrid() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.15 }}
-          className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7"
+          className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4 lg:gap-7"
         >
           {freeTools.map((tool) => {
             const Icon = tool.icon;
@@ -83,7 +83,7 @@ export default function ToolsGrid() {
                         href={tool.href}
                         className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-(--color-ink) transition-colors group-hover:text-(--color-blue)"
                       >
-                        Use Tool
+                        {tool.cta ?? "Use Tool"}
                         <ArrowRight
                           size={16}
                           className="transition-transform duration-300 group-hover:translate-x-0.5"

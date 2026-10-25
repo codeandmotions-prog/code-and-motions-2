@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Calculator as CalcIcon, Delete, RotateCcw } from "lucide-react";
 import { evaluate, displayResult, ExprError, type AngleMode } from "@/lib/calculators/expr";
 
@@ -48,6 +48,18 @@ export default function ScientificWidget() {
     return r.ok ? [{ expr: START, result: r.text, value: r.value }] : [];
   });
   const [error, setError] = useState<string | null>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  // The message sits above the keypad, so on a phone it can be off-screen after pressing =.
+  useEffect(() => {
+    const el = errorRef.current;
+    if (!error || !el) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top < 0 || rect.bottom > window.innerHeight) {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+    }
+  }, [error]);
   const [isExample, setIsExample] = useState(true);
 
   function insert(text: string) {
@@ -124,7 +136,7 @@ export default function ScientificWidget() {
         className="rounded-3xl border border-(--color-line) bg-white p-5 shadow-[0_24px_60px_-40px_rgba(11,28,77,0.35)] sm:p-8"
       >
         {error && (
-          <div role="alert" className="mb-4 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-[13.5px] font-medium text-red-900">
+          <div ref={errorRef} role="alert" className="mb-4 scroll-mt-28 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-[13.5px] font-medium text-red-900">
             {error}
           </div>
         )}

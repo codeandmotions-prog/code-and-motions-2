@@ -121,7 +121,8 @@ export default function ToolsPage() {
     ],
   };
 
-  const availableTools = freeTools.filter((tool) => tool.href);
+  // Anchor-only cards (such as All Calculators) are not separate pages, so they stay out of the ItemList.
+  const availableTools = freeTools.filter((tool) => tool.href && !tool.href.includes("#"));
 
   const itemListJsonLd = {
     "@context": "https://schema.org",

@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Gauge, RefreshCw, Calculator } from "lucide-react";
+import { Gauge, RefreshCw, Calculator, Sigma } from "lucide-react";
 
 export type FreeTool = {
   slug: string;
@@ -13,6 +13,8 @@ export type FreeTool = {
    * badge instead of a working link.
    */
   href?: string;
+  /** Link label on the card. Defaults to "Use Tool". */
+  cta?: string;
 };
 
 /**
@@ -47,5 +49,15 @@ export const freeTools: FreeTool[] = [
     icon: Calculator,
     gradient: "linear-gradient(155deg, #060D24 0%, #0B1C4D 55%, #1547E0 100%)",
     href: "/tools/saas-mvp-cost-estimator",
+  },
+  {
+    slug: "all-calculators",
+    name: "All Calculators",
+    description:
+      "Do quick calculations or explore free online calculators for math, finance, fitness, health and more, right in your browser.",
+    icon: Sigma,
+    gradient: "linear-gradient(155deg, #0B1C4D 0%, #1547E0 55%, #22D3EE 100%)",
+    href: "/tools#calculators",
+    cta: "Browse Calculators",
   },
 ];

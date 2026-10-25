@@ -54,6 +54,7 @@ export default function CalculatorForm({
 }: Props) {
   const uid = useId();
   const resultRef = useRef<HTMLDivElement>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
   const [values, setValues] = useState<Values>(() => defaults(fields));
   const [outcome, setOutcome] = useState<CalcOutcome | null>(() =>
     initialRun ? compute(defaults(fields)) : null,
@@ -72,6 +73,17 @@ export default function CalculatorForm({
     setOutcome(next);
     setIsExample(false);
     requestAnimationFrame(() => {
+      // Invalid entries: bring the error summary into view and announce it, so the
+      // message is never hidden above the Calculate button on a phone.
+      if (!next.ok) {
+        const box = errorRef.current;
+        if (box) {
+          box.focus({ preventScroll: true });
+          const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          box.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+        }
+        return;
+      }
       const el = resultRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
@@ -100,7 +112,7 @@ export default function CalculatorForm({
         className="rounded-3xl border border-(--color-line) bg-white p-5 shadow-[0_24px_60px_-40px_rgba(11,28,77,0.35)] sm:p-8"
       >
         {errorList.length > 0 && (
-          <div role="alert" className="mb-5 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-[13.5px] text-red-900">
+          <div ref={errorRef} tabIndex={-1} role="alert" className="mb-5 scroll-mt-28 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-[13.5px] text-red-900 outline-none">
             <p className="font-semibold">Please check your entries:</p>
             <ul className="mt-1 list-disc space-y-0.5 pl-5">
               {errorList.map(([id, msg]) => (
