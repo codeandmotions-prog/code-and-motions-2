@@ -2,11 +2,8 @@
 
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { ChevronRight, CalendarCheck, Calculator } from "lucide-react";
+import { ChevronRight, CalendarCheck, Wrench } from "lucide-react";
 import MotionStreaks from "@/components/MotionStreaks";
-import { calculators } from "@/data/calculators/registry";
-
-const calculatorCount = calculators.length;
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -78,19 +75,17 @@ export default function ToolsHero() {
           variants={fadeUp}
           className="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]"
         >
-          {calculatorCount} free calculators for money, health, maths and
-          everyday questions, each with the working shown, plus our own tools
-          to check a Shopify store, plan a migration or estimate an MVP. No
-          signup required.
+          Free calculators plus our own tools to check a Shopify store, plan a
+          migration or estimate an MVP. No signup required.
         </motion.p>
 
         <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-4">
           <a
-            href="#calculators"
+            href="#tools"
             className="inline-flex items-center gap-2 rounded-full bg-(--color-cyan) px-7 py-4 text-[15px] font-semibold text-(--color-ink) transition-colors hover:bg-white"
           >
-            <Calculator size={17} aria-hidden="true" />
-            Browse Calculators
+            <Wrench size={17} aria-hidden="true" />
+            Explore Tools
           </a>
           <Link
             href="/contact"

@@ -25,7 +25,7 @@ const fadeUp: Variants = {
 
 export default function ToolsGrid() {
   return (
-    <section className="bg-(--color-surface) py-20 lg:py-28">
+    <section id="tools" className="scroll-mt-20 bg-(--color-surface) py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-[13px] font-semibold uppercase tracking-[0.14em] text-(--color-blue)">

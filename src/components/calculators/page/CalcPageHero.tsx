@@ -31,7 +31,7 @@ export default function CalcPageHero({ calc }: { calc: CalcMeta }) {
           <ChevronRight size={14} aria-hidden="true" />
           <Link href="/tools" className="transition-colors hover:text-white">Free Tools</Link>
           <ChevronRight size={14} aria-hidden="true" />
-          <Link href={`/tools#${cat.anchor}`} className="transition-colors hover:text-white">{cat.title}</Link>
+          <Link href={`/tools/calculators#${cat.anchor}`} className="transition-colors hover:text-white">{cat.title}</Link>
           <ChevronRight size={14} aria-hidden="true" />
           <span aria-current="page" className="text-white/80">{calc.name}</span>
         </nav>

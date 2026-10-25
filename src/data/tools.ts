@@ -57,7 +57,7 @@ export const freeTools: FreeTool[] = [
       "Do quick calculations or explore free online calculators for math, finance, fitness, health and more, right in your browser.",
     icon: Sigma,
     gradient: "linear-gradient(155deg, #0B1C4D 0%, #1547E0 55%, #22D3EE 100%)",
-    href: "/tools#calculators",
+    href: "/tools/calculators",
     cta: "Browse Calculators",
   },
 ];

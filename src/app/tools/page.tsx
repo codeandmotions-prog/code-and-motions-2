@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ToolsHero from "@/components/tools/ToolsHero";
-import CalculatorDirectory from "@/components/tools/CalculatorDirectory";
 import ToolsGrid from "@/components/tools/ToolsGrid";
 import WhyUseTools from "@/components/tools/WhyUseTools";
 import HowToolsWork from "@/components/tools/HowToolsWork";
 import ServiceFAQSection from "@/components/services/detail/ServiceFAQSection";
 import ClosingCTA from "@/components/shared/ClosingCTA";
 import { freeTools } from "@/data/tools";
-import { calculators } from "@/data/calculators/registry";
 
 const siteUrl = "https://codeandmotions.com";
 
@@ -51,21 +49,6 @@ export const metadata: Metadata = {
 };
 
 const faqs = [
-  {
-    question: "What kinds of calculators are included?",
-    answer:
-      `The collection has ${calculators.length} calculators in four groups: financial (mortgage, loan, compound interest, ROI and VAT), fitness and health (BMI, BMR, calories, body fat and heart-rate zones), maths (arithmetic, algebra, statistics and geometry) and everyday tools (age, dates, tips, fuel cost and unit conversion).`,
-  },
-  {
-    question: "Do the calculators send my numbers anywhere?",
-    answer:
-      "No. Every calculator runs in your browser, so the values you enter are not sent to our servers.",
-  },
-  {
-    question: "Can I rely on the health calculators for medical decisions?",
-    answer:
-      "No. They give general estimates for information only and are not a diagnosis or medical advice. Speak to a doctor or registered dietitian before changing your diet, training or medication.",
-  },
   {
     question: "Are these tools free?",
     answer:
@@ -121,8 +104,7 @@ export default function ToolsPage() {
     ],
   };
 
-  // Anchor-only cards (such as All Calculators) are not separate pages, so they stay out of the ItemList.
-  const availableTools = freeTools.filter((tool) => tool.href && !tool.href.includes("#"));
+  const availableTools = freeTools.filter((tool) => tool.href);
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
@@ -154,7 +136,6 @@ export default function ToolsPage() {
 
       <main id="main" className="flex-1">
         <ToolsHero />
-        <CalculatorDirectory />
         <ToolsGrid />
         <WhyUseTools />
         <HowToolsWork />
