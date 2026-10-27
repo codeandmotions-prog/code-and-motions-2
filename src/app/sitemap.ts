@@ -4,6 +4,8 @@ import { softwareProducts } from "@/data/softwareProducts";
 import { aiSubServices } from "@/data/aiDevelopment";
 import { aiServices, aiServiceHref } from "@/data/aiServices";
 import { getAllSubServiceParams } from "@/data/subServices";
+import { calculators } from "@/data/calculators/registry";
+import { categoryHref, shopCategories } from "@/data/shopCategories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = "https://codeandmotions.com";
@@ -59,6 +61,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     {
+      url: `${siteUrl}/tools/calculators`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${siteUrl}/about`,
       lastModified,
       changeFrequency: "monthly",
@@ -98,6 +106,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // redirect target, not a public SEO landing page.
   ];
 
+  const shopCategoryRoutes: MetadataRoute.Sitemap = shopCategories.map((category) => ({
+    url: `${siteUrl}${categoryHref(category)}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  const calculatorRoutes: MetadataRoute.Sitemap = calculators.map((calc) => ({
+    url: `${siteUrl}/tools/${calc.slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   const serviceRoutes: MetadataRoute.Sitemap = serviceCategories.map((service) => ({
     url: `${siteUrl}/services/${service.id}`,
     lastModified,
@@ -133,5 +155,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...aiSubServiceRoutes, ...aiServicePageRoutes, ...softwareRoutes, ...subServiceRoutes];
+  return [...staticRoutes, ...shopCategoryRoutes, ...calculatorRoutes, ...serviceRoutes, ...aiSubServiceRoutes, ...aiServicePageRoutes, ...softwareRoutes, ...subServiceRoutes];
 }

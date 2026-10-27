@@ -31,7 +31,7 @@ export default function CalcPageHero({ calc }: { calc: CalcMeta }) {
           <ChevronRight size={14} aria-hidden="true" />
           <Link href="/tools" className="transition-colors hover:text-white">Free Tools</Link>
           <ChevronRight size={14} aria-hidden="true" />
-          <Link href={`/tools/calculators#${cat.anchor}`} className="transition-colors hover:text-white">{cat.title}</Link>
+          <Link href="/tools/calculators" className="transition-colors hover:text-white">All Calculators</Link>
           <ChevronRight size={14} aria-hidden="true" />
           <span aria-current="page" className="text-white/80">{calc.name}</span>
         </nav>
@@ -46,6 +46,14 @@ export default function CalcPageHero({ calc }: { calc: CalcMeta }) {
             </h1>
             <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]">{calc.short}</p>
             <ul className="mt-5 flex flex-wrap gap-2" aria-label="Topics">
+              <li>
+                <Link
+                  href={`/tools/calculators#${cat.anchor}`}
+                  className="inline-flex min-h-8 items-center rounded-full border border-(--color-cyan)/40 px-3 py-1 text-[12px] font-semibold text-(--color-cyan) transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-cyan)"
+                >
+                  {cat.title}
+                </Link>
+              </li>
               {calc.keywords.tags.map((t) => (
                 <li key={t} className="rounded-full border border-white/15 px-3 py-1 text-[12px] font-medium text-white/70">
                   {t}

@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ShopHero from "@/components/shop/ShopHero";
-import ShopGallery from "@/components/shop/ShopGallery";
-import ShopContent from "@/components/shop/ShopContent";
-import ServiceFAQSection from "@/components/services/detail/ServiceFAQSection";
+import ShopLandingHero from "@/components/shop/ShopLandingHero";
+import ShopCategories, { type ShopCategoryView } from "@/components/shop/ShopCategories";
 import ClosingCTA from "@/components/shared/ClosingCTA";
-import { shopCollections, shopDesigns, shopPreviewImage } from "@/data/shop";
+import { shopPreviewImage } from "@/data/shop";
+import { categoryHref, designsInCategory, previewDesigns, shopCategories } from "@/data/shopCategories";
 
 const siteUrl = "https://codeandmotions.com";
 
-const pageTitle = "Shop — 3D Flex Wallpaper for Home Décor";
-const pageDescription = `Browse ${shopDesigns.length} 3D flex wallpaper designs for home décor. View each ceiling and wall design full size, share your favorites, and get in touch with Code & Motions.`;
+const pageTitle = "Shop — Browse 3D Flex Wallpaper by Category";
+const pageDescription =
+  "Shop Code & Motions by category. Start with Home Décor to browse every 3D flex wallpaper design for ceilings and feature walls, view each one full size and share your favorites.";
 
 export const metadata: Metadata = {
   title: pageTitle,
@@ -47,40 +47,16 @@ export const metadata: Metadata = {
   },
 };
 
-const faqs = [
-  {
-    question: "What is 3D flex wallpaper?",
-    answer:
-      "3D flex wallpaper is a large-format printed wall and ceiling covering with a dimensional-looking design, such as carved florals, marble veining or gold relief, that runs across a whole surface instead of repeating a small pattern.",
-  },
-  {
-    question: "Are the pictures photos of finished rooms?",
-    answer:
-      "No. They are digital room visualizations that show how a ceiling design and matching wall panels can look together in a bedroom. They are meant to help you choose a style, not to show a finished installation.",
-  },
-  {
-    question: "How do I ask about a design?",
-    answer:
-      "Note the design code shown on the preview, for example R-12 or ROOM-07, and send it to us through the contact page, on WhatsApp or by email, along with a few words about your space.",
-  },
-  {
-    question: "Are prices shown on this page?",
-    answer:
-      "No. This page is a design gallery and there is no online ordering or checkout. Get in touch with the design code and we can talk through your project.",
-  },
-  {
-    question: "Can these styles be used outside the bedroom?",
-    answer:
-      "The previews show bedrooms, but the same styles can inspire feature walls and ceilings in living rooms, dining rooms, hallways and offices. Ask us if you would like a particular design considered for another space.",
-  },
-  {
-    question: "How can I share a design with someone?",
-    answer:
-      "Use the Share button on any design. On phones it opens your share options, including WhatsApp, and on browsers without sharing support it copies a link to that design to your clipboard instead.",
-  },
-];
-
 export default function ShopPage() {
+  const categories: ShopCategoryView[] = shopCategories.map((category) => ({
+    id: category.id,
+    name: category.name,
+    tagline: category.tagline,
+    href: categoryHref(category),
+    designs: designsInCategory(category),
+    previews: previewDesigns(category),
+  }));
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -90,19 +66,8 @@ export default function ShopPage() {
     ],
   };
 
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: { "@type": "Answer", text: faq.answer },
-    })),
-  };
-
-  // Describes only what the page really contains: a gallery of images.
-  // No Product/Offer data, prices, ratings or availability exist for these designs.
-  const galleryJsonLd = {
+  // Describes only what the page contains: a list of shop categories.
+  const collectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: pageTitle,
@@ -111,52 +76,27 @@ export default function ShopPage() {
     isPartOf: { "@type": "WebSite", name: "Code & Motions", url: siteUrl },
     publisher: { "@type": "Organization", name: "Code & Motions", url: siteUrl },
     mainEntity: {
-      "@type": "ImageGallery",
-      name: "3D flex wallpaper designs",
-      numberOfItems: shopDesigns.length,
-      image: shopDesigns.map((design) => ({
-        "@type": "ImageObject",
-        name: design.title,
-        description: design.alt,
-        contentUrl: `${siteUrl}${design.full.src}`,
-        thumbnailUrl: `${siteUrl}${design.thumb.src}`,
-        width: design.full.width,
-        height: design.full.height,
-        encodingFormat: "image/webp",
+      "@type": "ItemList",
+      numberOfItems: categories.length,
+      itemListElement: categories.map((category, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: category.name,
+        url: `${siteUrl}${category.href}`,
       })),
     },
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(galleryJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }} />
 
       <Header />
 
       <main id="main" className="flex-1">
-        <ShopHero
-          designCount={shopDesigns.length}
-          collectionCount={shopCollections.length}
-          featured={[
-            shopDesigns.find((d) => d.slug === "royal-designs-r-01")!,
-            shopDesigns.find((d) => d.slug === "collection-2025-room-02")!,
-            shopDesigns.find((d) => d.slug === "polite-designs-room-51")!,
-          ]}
-        />
-        <ShopGallery collections={shopCollections} designs={shopDesigns} />
-        <ShopContent />
-        <ServiceFAQSection faqs={faqs} heading="3D flex wallpaper questions" />
+        <ShopLandingHero />
+        <ShopCategories categories={categories} />
         <ClosingCTA
           headline="Talk to Us About Your Space"
           subtext="Tell us which design caught your eye and what you have in mind, and we will get back to you."

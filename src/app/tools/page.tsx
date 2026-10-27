@@ -11,10 +11,13 @@ import { freeTools } from "@/data/tools";
 
 const siteUrl = "https://codeandmotions.com";
 
+const TOOLS_TITLE = "Free Digital Business Tools & Calculators";
+const TOOLS_DESCRIPTION =
+  "Check Shopify store speed, plan a WooCommerce to Shopify migration, estimate a SaaS MVP cost, or browse 53 free online calculators. No signup required.";
+
 export const metadata: Metadata = {
-  title: "Free Online Calculators & Digital Business Tools",
-  description:
-    "Free online calculators for money, health, maths and everyday questions, plus Code & Motions tools for Shopify speed, WooCommerce migration and SaaS MVP planning. No signup required.",
+  title: TOOLS_TITLE,
+  description: TOOLS_DESCRIPTION,
   alternates: {
     canonical: "/tools",
   },
@@ -23,9 +26,8 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Free Online Calculators & Digital Business Tools | Code & Motions",
-    description:
-      "Free calculators for money, health, maths and everyday questions, plus tools for Shopify, WooCommerce and SaaS planning. No signup required.",
+    title: `${TOOLS_TITLE} | Code & Motions`,
+    description: TOOLS_DESCRIPTION,
     url: "/tools",
     type: "website",
     siteName: "Code & Motions",
@@ -41,9 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Calculators & Digital Business Tools | Code & Motions",
-    description:
-      "Free calculators for money, health, maths and everyday questions, plus tools for Shopify, WooCommerce and SaaS planning. No signup required.",
+    title: `${TOOLS_TITLE} | Code & Motions`,
+    description: TOOLS_DESCRIPTION,
     images: ["/images/logo-full.png"],
   },
 };
@@ -53,6 +54,11 @@ const faqs = [
     question: "Are these tools free?",
     answer:
       "Yes. All Code & Motions tools are completely free to use, with no hidden costs or trial limits.",
+  },
+  {
+    question: "Which tool should I start with?",
+    answer:
+      "Use the Shopify Speed Checker to look at a live store's performance, the WooCommerce to Shopify Migration Checker to scope a platform move, and the SaaS MVP Cost Estimator to plan a first software release. For money, health, maths and everyday questions, open the free online calculators directory.",
   },
   {
     question: "Do I need an account?",
@@ -117,8 +123,22 @@ export default function ToolsPage() {
     })),
   };
 
+  const pageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: TOOLS_TITLE,
+    url: `${siteUrl}/tools`,
+    description: TOOLS_DESCRIPTION,
+    inLanguage: "en",
+    isPartOf: { "@type": "WebSite", name: "Code & Motions", url: siteUrl },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

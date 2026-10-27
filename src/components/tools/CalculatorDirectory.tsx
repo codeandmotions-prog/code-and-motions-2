@@ -38,6 +38,8 @@ const popular = POPULAR_SLUGS.map((slug) => bySlug.get(slug)).filter((c): c is C
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } } };
+// Headline and intro are the largest paint; slide them in without hiding them in the server HTML.
+const slideUp: Variants = { hidden: { opacity: 1, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeOut } } };
 const fadeUp: Variants = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeOut } } };
 
 function matches(c: CalcMeta, q: string): boolean {
@@ -141,13 +143,13 @@ export default function CalculatorDirectory() {
             </motion.nav>
 
             <motion.h1
-              variants={fadeUp}
+              variants={slideUp}
               className="mt-7 max-w-3xl text-[38px] font-extrabold leading-[1.08] tracking-[-0.02em] text-white sm:text-[50px] lg:text-[58px]"
             >
               Free Online Calculators
             </motion.h1>
-            <motion.p variants={fadeUp} className="mt-5 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]">
-              {calculators.length} calculators for money, health, maths and everyday questions. Each one shows its working, and nothing you type leaves your browser.
+            <motion.p variants={slideUp} className="mt-5 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]">
+              {calculators.length} free online calculators for money, health, maths and everyday questions, from mortgage repayments and BMI to percentages, fractions and unit conversion. Each one explains its formula, and nothing you type leaves your browser.
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-8 max-w-2xl">
@@ -244,8 +246,8 @@ export default function CalculatorDirectory() {
                     </span>
                     <h2 className="mt-5 text-[22px] font-extrabold leading-snug tracking-[-0.01em] text-(--color-ink)">
                       {info.title}
-                      <span className="ml-2 align-middle text-[14px] font-semibold text-(--color-ink-soft)">{items.length}</span>
                     </h2>
+                    <p className="mt-1 text-[12.5px] font-semibold uppercase tracking-[0.1em] text-(--color-ink-soft)">{items.length} calculators</p>
                     <p className="mt-1 text-[13.5px] leading-snug text-(--color-ink-soft)">{info.blurb}</p>
                     {groups.map((g) => (
                       <div key={g} className="mt-4">
@@ -302,8 +304,8 @@ export default function CalculatorDirectory() {
                     </span>
                     <h2 className="text-[24px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[28px]">
                       {info.title}
-                      <span className="ml-3 align-middle text-[14px] font-semibold text-(--color-ink-soft)">{inCat.length}</span>
                     </h2>
+                    <span className="text-[14px] font-semibold text-(--color-ink-soft)">{inCat.length}</span>
                   </div>
                   <p className="mt-2 max-w-3xl text-[14.5px] text-(--color-ink-soft)">{info.blurb}</p>
                   {groups.map((g) => (

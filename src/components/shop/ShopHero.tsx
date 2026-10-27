@@ -9,6 +9,8 @@ import type { ShopDesign } from "@/data/shop";
 import { thumbLoader } from "./loaders";
 
 type ShopHeroProps = {
+  /** Category this hero introduces; shown in the breadcrumb. */
+  categoryName: string;
   designCount: number;
   collectionCount: number;
   /** Three real designs shown as a visual stack on large screens. */
@@ -33,7 +35,7 @@ const tilt = [
   "left-[18%] bottom-0 w-[60%] -rotate-1",
 ];
 
-export default function ShopHero({ designCount, collectionCount, featured }: ShopHeroProps) {
+export default function ShopHero({ categoryName, designCount, collectionCount, featured }: ShopHeroProps) {
   return (
     <section className="relative overflow-hidden bg-(--color-navy-deep) pb-16 pt-16 lg:pb-24 lg:pt-20">
       <div
@@ -66,8 +68,12 @@ export default function ShopHero({ designCount, collectionCount, featured }: Sho
               Home
             </Link>
             <ChevronRight size={14} aria-hidden="true" />
-            <span className="text-white/80" aria-current="page">
+            <Link href="/shop" className="transition-colors hover:text-white">
               Shop
+            </Link>
+            <ChevronRight size={14} aria-hidden="true" />
+            <span className="text-white/80" aria-current="page">
+              {categoryName}
             </span>
           </motion.nav>
 

@@ -21,10 +21,10 @@ function c(
 export const calculators: CalcMeta[] = [
   /* ---------------- Financial ---------------- */
   c("mortgage-calculator", "Mortgage Calculator", "financial", "Financial", "home", "mortgage-calculator.html",
-    "Estimate your monthly mortgage payment, total interest and payoff date, with optional tax, insurance and extra payments.",
+    "Work out your monthly mortgage payment, total interest and time to pay off, with optional tax, insurance and extra payments.",
     "mortgage calculator", ["monthly mortgage payment", "mortgage repayment calculator", "home loan calculator", "amortization schedule"], "plan", ["mortgage", "home loan", "repayments", "property"]),
   c("loan-calculator", "Loan Calculator", "financial", "Financial", "landmark", "loan-calculator.html",
-    "Work out the repayment, total interest and payoff schedule for a personal, car or student loan.",
+    "Work out the repayment, total interest and yearly breakdown for a personal, car or student loan.",
     "loan calculator", ["loan repayment calculator", "monthly loan payment", "loan interest calculator", "personal loan calculator"], "plan", ["loan", "repayments", "interest", "borrowing"]),
   c("compound-interest-calculator", "Compound Interest Calculator", "financial", "Financial", "piggy", "compound-interest-calculator.html",
     "See how savings or investments grow with compounding and regular contributions over time.",

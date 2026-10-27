@@ -12,6 +12,9 @@
  * none are modelled here.
  */
 
+/** Top-level shop categories (see ./shopCategories.ts). Every design belongs to exactly one. */
+export type ShopCategoryId = "home-decor";
+
 export type ShopCollectionId =
   | "collection-2025"
   | "royal-designs"
@@ -32,6 +35,7 @@ export type ShopImage = {
 
 export type ShopDesign = {
   slug: string;
+  category: ShopCategoryId;
   collection: ShopCollectionId;
   collectionName: string;
   /** Code printed on the design preview, e.g. "R-12" or "ROOM-07". */
@@ -196,6 +200,8 @@ export const shopDesigns: ShopDesign[] = rows.map(
     const file = `3d-flex-wallpaper-${slug}.webp`;
     return {
       slug,
+      // Every design currently supplied is a 3D flex wallpaper for home décor.
+      category: "home-decor" as const,
       collection,
       collectionName: name,
       code,

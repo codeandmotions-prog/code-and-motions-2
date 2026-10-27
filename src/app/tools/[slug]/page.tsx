@@ -11,6 +11,7 @@ import RelatedCalculators from "@/components/calculators/page/RelatedCalculators
 import { widgets } from "@/components/calculators/widgetRegistry";
 import { calculators, getCalculator, relatedCalculators } from "@/data/calculators/registry";
 import { getContent } from "@/data/calculators/content";
+import { getCalcSeo } from "@/data/calculators/seo";
 
 const siteUrl = "https://codeandmotions.com";
 
@@ -25,17 +26,29 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const calc = getCalculator(slug);
   if (!calc) return {};
-  const title = calc.name.toLowerCase().endsWith("calculator") || calc.name.toLowerCase().endsWith("generator") ? `Free ${calc.name}` : `${calc.name} – Free Online Calculator`;
+  const seo = getCalcSeo(slug);
+  const title = seo?.title ?? `${calc.name} – Free Online Calculator`;
+  const description = seo?.description ?? calc.short;
+  const socialTitle = `${title} | Code & Motions`;
   return {
     title,
-    description: calc.short,
+    description,
     alternates: { canonical: `/tools/${calc.slug}` },
+    robots: { index: true, follow: true },
     openGraph: {
-      title: `${title} | Code & Motions`,
-      description: calc.short,
+      title: socialTitle,
+      description,
       url: `/tools/${calc.slug}`,
       type: "website",
       siteName: "Code & Motions",
+      locale: "en_US",
+      images: [{ url: "/images/logo-full.png", width: 1262, height: 696, alt: "Code & Motions logo" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: socialTitle,
+      description,
+      images: ["/images/logo-full.png"],
     },
   };
 }
@@ -47,7 +60,11 @@ export default async function CalculatorPage({ params }: { params: Promise<{ slu
   const Widget = widgets[slug];
   if (!calc || !content || !Widget) notFound();
 
-  const related = relatedCalculators(slug, 4);
+  const seo = getCalcSeo(slug);
+  // Curated related links first (validated against the registry), registry neighbours as the fallback.
+  const curated = (seo?.related ?? []).map((s) => getCalculator(s)).filter((c): c is NonNullable<typeof c> => Boolean(c) && c!.slug !== slug);
+  const related = curated.length >= 4 ? curated.slice(0, 4) : relatedCalculators(slug, 4);
+  const description = seo?.description ?? calc.short;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -55,8 +72,24 @@ export default async function CalculatorPage({ params }: { params: Promise<{ slu
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
       { "@type": "ListItem", position: 2, name: "Free Tools", item: `${siteUrl}/tools` },
-      { "@type": "ListItem", position: 3, name: calc.name, item: `${siteUrl}/tools/${calc.slug}` },
+      { "@type": "ListItem", position: 3, name: "All Calculators", item: `${siteUrl}/tools/calculators` },
+      { "@type": "ListItem", position: 4, name: calc.name, item: `${siteUrl}/tools/${calc.slug}` },
     ],
+  };
+  // Describes the page's real function: a free, in-browser calculator. No ratings, reviews or prices are claimed.
+  const appJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: calc.name,
+    url: `${siteUrl}/tools/${calc.slug}`,
+    description,
+    applicationCategory: calc.category === "health" ? "HealthApplication" : calc.category === "financial" ? "FinanceApplication" : calc.category === "math" ? "EducationalApplication" : "UtilitiesApplication",
+    operatingSystem: "Any (runs in a web browser)",
+    browserRequirements: "Requires JavaScript",
+    inLanguage: "en",
+    isAccessibleForFree: true,
+    isPartOf: { "@type": "CollectionPage", name: "Free Online Calculators", url: `${siteUrl}/tools/calculators` },
+    publisher: { "@type": "Organization", name: "Code & Motions", url: siteUrl },
   };
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -72,6 +105,7 @@ export default async function CalculatorPage({ params }: { params: Promise<{ slu
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }} />
 
       <Header />
 
@@ -92,9 +126,9 @@ export default async function CalculatorPage({ params }: { params: Promise<{ slu
           </div>
         </section>
 
-        <CalcArticle name={calc.name} content={content} />
+        <CalcArticle name={calc.name} content={content} regional={seo?.regional} references={seo?.references} />
         <ServiceFAQSection faqs={content.faqs} heading={`${calc.name} FAQs`} />
-        <RelatedCalculators items={related} />
+        <RelatedCalculators items={related} tool={seo?.tool} />
         <ClosingCTA
           headline="Need Something Built Around Your Numbers?"
           subtext="Code & Motions designs and builds custom calculators, dashboards and web tools for businesses. Tell us what you have in mind."

@@ -23,6 +23,12 @@ const fadeUp: Variants = {
   },
 };
 
+// The headline and intro are the largest paint on the page, so they slide in but are never hidden in the server HTML.
+const slideUp: Variants = {
+  hidden: { opacity: 1, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeOut } },
+};
+
 export default function ToolsHero() {
   return (
     <section className="relative overflow-hidden bg-(--color-navy-deep) pb-20 pt-16 lg:pb-28 lg:pt-20">
@@ -65,18 +71,19 @@ export default function ToolsHero() {
         </motion.nav>
 
         <motion.h1
-          variants={fadeUp}
+          variants={slideUp}
           className="mt-7 max-w-3xl text-[40px] font-extrabold leading-[1.08] tracking-[-0.02em] text-white sm:text-[52px] lg:text-[60px]"
         >
-          Free Online Calculators &amp; Digital Business Tools
+          Free Digital Business Tools &amp; Online Calculators
         </motion.h1>
 
         <motion.p
-          variants={fadeUp}
+          variants={slideUp}
           className="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]"
         >
-          Free calculators plus our own tools to check a Shopify store, plan a
-          migration or estimate an MVP. No signup required.
+          Check a Shopify store&rsquo;s speed, plan a WooCommerce to Shopify
+          migration, estimate a SaaS MVP, or browse our free online calculators.
+          No signup required.
         </motion.p>
 
         <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-4">

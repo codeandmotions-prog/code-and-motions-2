@@ -2,8 +2,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import CalcIcon from "@/components/calculators/CalcIcon";
 import type { CalcMeta } from "@/data/calculators/types";
+import type { CalcSeo } from "@/data/calculators/seo";
 
-export default function RelatedCalculators({ items }: { items: CalcMeta[] }) {
+export default function RelatedCalculators({ items, tool }: { items: CalcMeta[]; tool?: CalcSeo["tool"] }) {
   if (items.length === 0) return null;
   return (
     <section className="bg-(--color-surface) py-16 lg:py-20" aria-labelledby="related-heading">
@@ -12,7 +13,7 @@ export default function RelatedCalculators({ items }: { items: CalcMeta[] }) {
           <h2 id="related-heading" className="text-[24px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[28px]">
             Related calculators
           </h2>
-          <Link href="/tools" className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-(--color-blue) hover:underline">
+          <Link href="/tools/calculators" className="inline-flex min-h-11 items-center gap-1.5 text-[14px] font-semibold text-(--color-blue) hover:underline">
             Browse all calculators <ArrowRight size={15} aria-hidden="true" />
           </Link>
         </div>
@@ -34,6 +35,15 @@ export default function RelatedCalculators({ items }: { items: CalcMeta[] }) {
             );
           })}
         </ul>
+        {tool && (
+          <p className="mt-8 rounded-2xl border border-(--color-line) bg-white px-5 py-4 text-[14.5px] leading-relaxed text-(--color-ink-soft)">
+            {tool.text}{" "}
+            <Link href={tool.href} className="font-semibold text-(--color-blue) underline-offset-4 hover:underline">
+              {tool.label}
+            </Link>
+            .
+          </p>
+        )}
       </div>
     </section>
   );

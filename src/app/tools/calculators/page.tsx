@@ -8,16 +8,34 @@ import { calculators } from "@/data/calculators/registry";
 
 const siteUrl = "https://codeandmotions.com";
 
+const DIR_TITLE = "Free Online Calculators: Finance, Health, Math";
+const DIR_DESCRIPTION =
+  "Browse 53 free online calculators: mortgage, loan, BMI, percentage, fraction, unit conversion, date and more. Each shows its formula and a worked example.";
+
 export const metadata: Metadata = {
-  title: "Free Online Calculators",
-  description:
-    "Search and browse free online calculators for money, health, maths and everyday questions. No signup required.",
+  title: DIR_TITLE,
+  description: DIR_DESCRIPTION,
   alternates: {
     canonical: "/tools/calculators",
   },
   robots: {
     index: true,
     follow: true,
+  },
+  openGraph: {
+    title: `${DIR_TITLE} | Code & Motions`,
+    description: DIR_DESCRIPTION,
+    url: "/tools/calculators",
+    type: "website",
+    siteName: "Code & Motions",
+    locale: "en_US",
+    images: [{ url: "/images/logo-full.png", width: 1262, height: 696, alt: "Code & Motions logo" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${DIR_TITLE} | Code & Motions`,
+    description: DIR_DESCRIPTION,
+    images: ["/images/logo-full.png"],
   },
 };
 
@@ -26,6 +44,11 @@ const faqs = [
   {
     question: "What kinds of calculators are included?",
     answer: `The collection has ${calculators.length} calculators in four groups: financial (mortgage, loan, compound interest, ROI and VAT), fitness and health (BMI, BMR, calories, body fat and heart-rate zones), maths (arithmetic, algebra, statistics and geometry) and everyday tools (age, dates, tips, fuel cost and unit conversion).`,
+  },
+  {
+    question: "Do the calculators work with different currencies and units?",
+    answer:
+      "The money calculators work with any currency because they calculate on the numbers you enter; the USD, GBP and EUR selector only changes the symbol shown. The BMI, fuel cost and unit conversion calculators accept metric, US and UK units. Rates, tax rules and mortgage conventions differ by country, so each page lists notes where they matter.",
   },
   {
     question: "Do the calculators send my numbers anywhere?",
@@ -59,8 +82,29 @@ export default function CalculatorsDirectoryPage() {
     ],
   };
 
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: DIR_TITLE,
+    url: `${siteUrl}/tools/calculators`,
+    description: DIR_DESCRIPTION,
+    inLanguage: "en",
+    isPartOf: { "@type": "WebSite", name: "Code & Motions", url: siteUrl },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: calculators.length,
+      itemListElement: calculators.map((c, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: c.name,
+        url: `${siteUrl}/tools/${c.slug}`,
+      })),
+    },
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
@@ -68,6 +112,19 @@ export default function CalculatorsDirectoryPage() {
 
       <main id="main" className="flex-1">
         <CalculatorDirectory />
+        <section className="bg-(--color-surface-raised) py-16 lg:py-20" aria-labelledby="about-calculators">
+          <div className="mx-auto max-w-3xl px-6 wrap-anywhere lg:px-10">
+            <h2 id="about-calculators" className="text-[24px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[28px]">
+              How these free online calculators work
+            </h2>
+            <p className="mt-4 text-[15.5px] leading-[1.75] text-(--color-ink-soft)">
+              Every calculator has its own page with the inputs explained, the formula written out, a worked example and the assumptions behind the answer, so you can check the result instead of just trusting a number. They are grouped into financial, fitness and health, maths and everyday tools.
+            </p>
+            <p className="mt-4 text-[15.5px] leading-[1.75] text-(--color-ink-soft)">
+              The calculations run in your browser. Where conventions differ between countries, such as VAT versus sales tax, EMI versus mortgage payment, litres per 100 km versus miles per gallon, or stone versus kilograms, the page says what it assumes. Results are estimates for planning and learning, not professional financial, medical or legal advice.
+            </p>
+          </div>
+        </section>
         <ServiceFAQSection faqs={faqs} heading="Calculator questions" />
         <ClosingCTA
           headline="Need Help With Your Project?"

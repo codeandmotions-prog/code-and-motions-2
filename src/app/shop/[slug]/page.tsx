@@ -13,6 +13,7 @@ import {
   shopSmallThumb,
   type ShopDesign,
 } from "@/data/shop";
+import { categoryHref, getShopCategoryById } from "@/data/shopCategories";
 
 const siteUrl = "https://codeandmotions.com";
 
@@ -89,15 +90,19 @@ export default async function ShopDesignPage({
     .filter((d) => d.collection === design.collection && d.slug !== design.slug)
     .slice(0, 4);
 
+  const category = getShopCategoryById(design.category);
+  const categoryPath = categoryHref(category);
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
       { "@type": "ListItem", position: 2, name: "Shop", item: `${siteUrl}/shop` },
+      { "@type": "ListItem", position: 3, name: category.name, item: `${siteUrl}${categoryPath}` },
       {
         "@type": "ListItem",
-        position: 3,
+        position: 4,
         name: design.title,
         item: `${siteUrl}/shop/${design.slug}`,
       },
@@ -141,6 +146,10 @@ export default async function ShopDesignPage({
             <ChevronRight size={14} aria-hidden="true" />
             <Link href="/shop" className="transition-colors hover:text-(--color-ink)">
               Shop
+            </Link>
+            <ChevronRight size={14} aria-hidden="true" />
+            <Link href={categoryPath} className="transition-colors hover:text-(--color-ink)">
+              {category.name}
             </Link>
             <ChevronRight size={14} aria-hidden="true" />
             <span className="text-(--color-ink)" aria-current="page">
@@ -219,7 +228,7 @@ export default async function ShopDesignPage({
                 More from {design.collectionName}
               </h2>
               <Link
-                href={`/shop#${design.collection}`}
+                href={`${categoryPath}#${design.collection}`}
                 className="text-[14px] font-semibold text-(--color-blue) underline-offset-4 hover:underline"
               >
                 View all designs
