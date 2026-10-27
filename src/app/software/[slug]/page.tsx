@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import ProductHero from "@/components/software/ProductHero";
 import AboutProduct from "@/components/software/AboutProduct";
 import FeatureGrid from "@/components/software/FeatureGrid";
+import ProductDownloadSection from "@/components/software/ProductDownloadSection";
 import HowItWorks from "@/components/software/HowItWorks";
 import TechStack from "@/components/software/TechStack";
 import WhoItsFor from "@/components/software/WhoItsFor";
@@ -95,6 +96,11 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     applicationCategory: product.applicationCategory,
     operatingSystem: product.operatingSystem,
     image: `${siteUrl}${product.logoFull}`,
+    ...(product.download && {
+      softwareVersion: product.download.version,
+      downloadUrl: `${siteUrl}${product.download.href}`,
+      fileSize: product.download.sizeLabel,
+    }),
     provider: {
       "@type": "Organization",
       name: "Code & Motions",
@@ -138,6 +144,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         <ProductHero slug={product.slug} />
         <AboutProduct slug={product.slug} />
         <FeatureGrid slug={product.slug} />
+        <ProductDownloadSection slug={product.slug} />
         <HowItWorks slug={product.slug} />
         <TechStack slug={product.slug} />
         <WhoItsFor slug={product.slug} />

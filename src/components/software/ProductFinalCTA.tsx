@@ -32,7 +32,7 @@ export default function ProductFinalCTA({ slug }: ProductFinalCTAProps) {
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <Link
-            href="/contact"
+            href={product.download ? "#download" : "/contact"}
             className="group inline-flex items-center gap-2 rounded-full px-8 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-white hover:text-(--color-ink)"
             style={{ backgroundColor: accentColor }}
           >

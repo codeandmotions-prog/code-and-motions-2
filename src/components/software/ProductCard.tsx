@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import type { SoftwareProduct } from "@/data/softwareProducts";
 
 type ProductCardProps = {
@@ -44,10 +44,21 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.shortDescription}
         </p>
 
-        <div className="mt-6 pt-1">
+        <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 pt-1">
+          {product.download && (
+            <a
+              href={product.download.href}
+              download={product.download.fileName}
+              className="inline-flex min-h-11 items-center gap-2 rounded-full px-5 text-[13.5px] font-semibold text-white transition-colors hover:bg-(--color-ink) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-blue)"
+              style={{ backgroundColor: product.accentColor }}
+            >
+              <Download size={16} aria-hidden="true" />
+              Download for {product.download.platform}
+            </a>
+          )}
           <Link
             href={`/software/${product.slug}`}
-            className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-(--color-ink)"
+            className="inline-flex min-h-11 items-center gap-1.5 text-[13.5px] font-semibold text-(--color-ink)"
           >
             Explore {product.name}
             <ArrowUpRight

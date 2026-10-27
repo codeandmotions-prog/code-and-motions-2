@@ -56,6 +56,22 @@ export type ProductTech = {
   icon: LucideIcon;
 };
 
+/** A real installer hosted under /public/downloads. Only add this once the file exists there. */
+export type ProductDownload = {
+  platform: string;
+  version: string;
+  /** File name as saved by the browser. */
+  fileName: string;
+  /** Site-relative URL of the installer (served from /public). */
+  href: string;
+  sizeBytes: number;
+  /** Human-readable size, matching what Windows Explorer shows. */
+  sizeLabel: string;
+  /** SHA-256 of the exact file in /public/downloads, so people can verify their copy. */
+  sha256: string;
+  publisher: string;
+};
+
 export type SoftwareProduct = {
   /** URL slug — the product's detail page lives at /software/{slug} */
   slug: string;
@@ -96,6 +112,8 @@ export type SoftwareProduct = {
   applicationCategory: string;
   /** schema.org SoftwareApplication operatingSystem value. */
   operatingSystem: string;
+  /** Installer for this product, when one is published. */
+  download?: ProductDownload;
   /** Optional real, internal cross-link to a related service page. */
   relatedServiceLink?: {
     label: string;
@@ -307,12 +325,17 @@ const labnova: SoftwareProduct = {
     {
       question: "How do I get started with LabNova?",
       answer:
-        "Contact the Code & Motions team through our contact page to get LabNova set up for your lab. If you need laboratory workflow software customized beyond LabNova's current features, our software development team can also help.",
+        "Download the Windows installer from the download section on this page and run it. If you need help setting LabNova up for your lab, or want laboratory workflow software customized beyond LabNova's current features, contact the Code & Motions team through our contact page.",
+    },
+    {
+      question: "How do I download and install LabNova?",
+      answer:
+        "Use the Download for Windows button on this page to save the installer, open the downloaded file and follow the setup wizard. Download LabNova only from this page so you know the file is the official one. The page also shows the file's SHA-256 checksum so you can confirm your copy is unchanged.",
     },
   ],
   closingHeadline: "Ready to Transform Your Laboratory?",
   closingSubtext:
-    "Get LabNova today and experience a smarter way to manage your lab.",
+    "Download LabNova for Windows today and experience a smarter way to manage your lab.",
   seoTitle: "LabNova — Laboratory Management Software",
   metaDescription:
     "LabNova is a Windows desktop laboratory management software that simplifies and automates lab operations — patient management, test results and report generation.",
@@ -329,6 +352,16 @@ const labnova: SoftwareProduct = {
   ],
   applicationCategory: "BusinessApplication",
   operatingSystem: "Windows",
+  download: {
+    platform: "Windows",
+    version: "1.1.0",
+    fileName: "LabNova-Setup-1.1.0.exe",
+    href: "/downloads/LabNova-Setup-1.1.0.exe",
+    sizeBytes: 16004917,
+    sizeLabel: "15.3 MB",
+    sha256: "1df7c54cc9974de41babaf63834b218cd1bdd4933080f6b894acbc311ea08abf",
+    publisher: "Code & Motions",
+  },
   relatedServiceLink: {
     label: "AI Agents for Healthcare, Laboratories & Schools",
     href: "/services/ai-development/ai-agents",
