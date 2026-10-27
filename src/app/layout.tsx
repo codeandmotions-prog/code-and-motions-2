@@ -63,7 +63,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <WhatsAppButton />
       </body>
-      <GoogleAnalytics gaId="G-ZSGSE7XX9M" />
+      <GoogleAnalytics gaId="G-329TX1QYVN" />
     </html>
   );
 }
