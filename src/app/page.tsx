@@ -8,6 +8,7 @@ import PlatformsMarquee from "@/components/home/PlatformsMarquee";
 import WhyWorkWithUs from "@/components/home/WhyWorkWithUs";
 import ByTheNumbers from "@/components/home/ByTheNumbers";
 import BusinessPlanningSolutions from "@/components/home/BusinessPlanningSolutions";
+import AiServicesShowcase from "@/components/home/AiServicesShowcase";
 import { contactInfo } from "@/data/contactInfo";
 
 const siteUrl = "https://codeandmotions.com";
@@ -91,6 +92,7 @@ export default function Home() {
         <ByTheNumbers />
         <CTA />
         <BusinessPlanningSolutions />
+        <AiServicesShowcase />
       </main>
 
       <Footer />

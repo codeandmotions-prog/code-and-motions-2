@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { serviceCategories } from "@/data/serviceCategories";
 import { softwareProducts } from "@/data/softwareProducts";
 import { aiSubServices } from "@/data/aiDevelopment";
+import { aiServices, aiServiceHref } from "@/data/aiServices";
 import { getAllSubServiceParams } from "@/data/subServices";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -111,6 +112,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const aiServicePageRoutes: MetadataRoute.Sitemap = aiServices.map((service) => ({
+    url: `${siteUrl}${aiServiceHref(service.slug)}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
   const softwareRoutes: MetadataRoute.Sitemap = softwareProducts.map((product) => ({
     url: `${siteUrl}/software/${product.slug}`,
     lastModified,
@@ -125,5 +133,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...aiSubServiceRoutes, ...softwareRoutes, ...subServiceRoutes];
+  return [...staticRoutes, ...serviceRoutes, ...aiSubServiceRoutes, ...aiServicePageRoutes, ...softwareRoutes, ...subServiceRoutes];
 }
