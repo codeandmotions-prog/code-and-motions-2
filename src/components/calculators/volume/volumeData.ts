@@ -144,7 +144,9 @@ const META: Record<SolidId, { title: string; short: string; formula: string; var
 
 export const SHAPES: ShapeConfig[] = SHAPE_ORDER.map((id) => ({ id, ...META[id], fields: fieldsFor(id) }));
 
+/** Anchor of a calculator card, and of the written explanation for the same shape further down the page. */
 export const shapeAnchor = (id: SolidId) => `${id}-volume-calculator`;
+export const shapeGuideAnchor = (id: SolidId) => `${id}-volume-formula`;
 
 /* ---------- Units ---------- */
 

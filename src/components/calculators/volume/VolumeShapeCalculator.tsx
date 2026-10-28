@@ -4,7 +4,7 @@ import { useId, useRef, useState } from "react";
 import { Calculator as CalcIcon, RotateCcw } from "lucide-react";
 import VolumeDiagram from "./VolumeDiagram";
 import { computeVolume, AUTO_UNIT, type VolumeOutcome } from "./volumeCompute";
-import { LENGTH_UNITS, VOLUME_UNITS, shapeAnchor, type ShapeConfig } from "./volumeData";
+import { LENGTH_UNITS, VOLUME_UNITS, shapeAnchor, shapeGuideAnchor, type ShapeConfig } from "./volumeData";
 
 const control =
   "h-11 min-w-0 rounded-xl border border-(--color-line) bg-white px-3 text-[16px] text-(--color-ink) focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-(--color-blue) aria-[invalid=true]:border-red-500";
@@ -68,10 +68,18 @@ export default function VolumeShapeCalculator({ shape }: { shape: ShapeConfig })
         <h3 id={headingId} className="text-[20px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[22px]">
           {shape.title.charAt(0).toUpperCase() + shape.title.slice(1)}
         </h3>
-        <p className="font-mono text-[13.5px] font-semibold text-(--color-blue)">{shape.formula}</p>
+        <a
+          href={`#${shapeGuideAnchor(shape.id)}`}
+          className="inline-flex min-h-8 items-center text-[13.5px] font-semibold text-(--color-blue) underline-offset-4 hover:underline"
+        >
+          Formula, example and tips
+        </a>
       </div>
+      <p className="mt-1 font-mono text-[13.5px] font-semibold text-(--color-blue)">{shape.formula}</p>
 
-      <div className="mt-4 grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,15rem)] md:items-start md:gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,17rem)]">
+      {/* DOM order is inputs then result (the natural reading order); from md up the result sits above the inputs, as on the reference layout. */}
+      <div className="mt-4 flex flex-col gap-5">
+        <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,15rem)] md:items-start md:gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,17rem)]">
         <form
           noValidate
           onSubmit={(e) => {
@@ -175,35 +183,48 @@ export default function VolumeShapeCalculator({ shape }: { shape: ShapeConfig })
             </button>
           </div>
         </form>
-
         <figure className="order-1 mx-auto w-full max-w-[15rem] rounded-2xl bg-(--color-surface) p-3 md:order-2 md:max-w-none">
           <VolumeDiagram shape={shape.id} className="mx-auto h-auto max-h-36 w-full md:max-h-none" />
           <figcaption className="mt-1 text-center text-[12px] leading-snug text-(--color-ink-soft)">{shape.variables}</figcaption>
         </figure>
-      </div>
+        </div>
 
-      <div className="mt-5 min-w-0 border-t border-(--color-line) pt-5" aria-live="polite" aria-label={`${shape.short} volume result`}>
-        {outcome.ok ? (
-          <div className="space-y-3">
-            <div className="rounded-2xl bg-(--color-navy-deep) px-5 py-4 text-white">
-              <p className="text-[12.5px] font-semibold uppercase tracking-[0.1em] text-(--color-cyan-soft)">{outcome.headline.label}</p>
-              <p className="mt-1 break-words text-[26px] font-extrabold leading-tight tracking-[-0.01em] sm:text-[30px]">{outcome.headline.value}</p>
-              {isExample && <p className="mt-1 text-[12.5px] text-white/65">Example values shown. Change them and press Calculate.</p>}
-            </div>
-            <dl className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-2 lg:grid-cols-5">
-              {outcome.stats.map((s) => (
-                <div key={s.label} className="min-w-0 rounded-xl border border-(--color-line) bg-white px-3 py-2.5">
-                  <dt className="text-[12px] font-medium text-(--color-ink-soft)">{s.label}</dt>
-                  <dd className="mt-0.5 break-words text-[15px] font-bold text-(--color-ink)">{s.value}</dd>
+        <div className="min-w-0 md:order-first" aria-live="polite" aria-label={`${shape.short} volume result`}>
+          {outcome.ok ? (
+            <div className="overflow-hidden rounded-2xl border border-(--color-line)">
+              <p className="bg-(--color-navy-deep) px-4 py-2 text-[14px] font-bold text-white">Result</p>
+              <div className="space-y-3 bg-white px-4 py-4 sm:px-5">
+                <div className="font-mono text-[13.5px] leading-relaxed text-(--color-ink-soft)">
+                  <p className="break-words">
+                    <span className="font-semibold text-(--color-ink)">Volume</span> = {shape.formula.replace(/^V = /, "")}
+                  </p>
+                  <p className="break-words">= {outcome.working.substituted}</p>
                 </div>
-              ))}
-            </dl>
-          </div>
-        ) : (
-          <p className="rounded-xl border border-dashed border-(--color-line) bg-(--color-surface) px-4 py-5 text-center text-[14px] text-(--color-ink-soft)">
-            Fix the highlighted entries, then press Calculate.
-          </p>
-        )}
+                <p className="break-words text-[24px] font-extrabold leading-tight tracking-[-0.01em] text-(--color-ink) sm:text-[28px]">
+                  <span aria-hidden="true" className="font-mono text-[18px] font-bold text-(--color-blue)">= </span>
+                  {outcome.headline.value}
+                </p>
+                {out !== AUTO_UNIT && (
+                  <p className="text-[13px] text-(--color-ink-soft)">Same volume in the working unit: {outcome.working.result}</p>
+                )}
+                {outcome.working.unitNote && <p className="text-[12.5px] leading-snug text-(--color-ink-soft)">{outcome.working.unitNote}</p>}
+                {isExample && <p className="text-[12.5px] text-(--color-ink-soft)">Example values shown. Change them and press Calculate.</p>}
+                <dl className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-2 lg:grid-cols-5">
+                  {outcome.stats.map((s) => (
+                    <div key={s.label} className="min-w-0 rounded-xl border border-(--color-line) bg-(--color-surface) px-3 py-2.5">
+                      <dt className="text-[12px] font-medium text-(--color-ink-soft)">{s.label}</dt>
+                      <dd className="mt-0.5 break-words text-[14.5px] font-bold text-(--color-ink)">{s.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          ) : (
+            <p className="rounded-xl border border-dashed border-(--color-line) bg-(--color-surface) px-4 py-5 text-center text-[14px] text-(--color-ink-soft)">
+              Fix the highlighted entries, then press Calculate.
+            </p>
+          )}
+        </div>
       </div>
     </section>
   );

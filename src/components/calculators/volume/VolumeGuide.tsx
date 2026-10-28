@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { ChevronDown, ShieldAlert } from "lucide-react";
+import { ShieldAlert } from "lucide-react";
 import type { ReactNode } from "react";
 import type { CalcContent } from "@/data/calculators/types";
 import type { CalcReference } from "@/data/calculators/seo";
 import { getCalculator } from "@/data/calculators/registry";
 import { fmt } from "@/lib/calculators/format";
-import { SHAPES, shapeAnchor, volumeUnit } from "./volumeData";
+import { SHAPES, shapeAnchor, shapeGuideAnchor, volumeUnit } from "./volumeData";
 import { WORKED_EXAMPLES } from "./volumeExamples";
+import { SHAPE_ARTICLES } from "./volumeShapeContent";
 
 const P = "mt-4 text-[15.5px] leading-[1.75] text-(--color-ink-soft)";
 const LI = "text-[15.5px] leading-[1.7] text-(--color-ink-soft)";
@@ -44,19 +45,20 @@ function factor(n: number): string {
 const TABLE_ROWS = ["mm3", "cm3", "l", "m3", "in3", "ft3", "yd3", "usgal", "ukgal"];
 const TABLE_COLS = ["cm3", "l", "m3", "in3", "ft3", "usgal", "ukgal"];
 
-const CHOOSE: Record<string, { watch: string }> = {
-  sphere: { watch: "Measure across the widest point and halve it to get the radius." },
-  cone: { watch: "Use the straight, vertical height, not the slanted side. If you only know the slant length, find the height with the Pythagorean theorem." },
-  cube: { watch: "All edges must be equal. If they are not, use the rectangular box." },
-  cylinder: { watch: "A tank lying on its side still uses the same formula: the length is h. Radius is half the diameter." },
-  box: { watch: "Convert thickness given in millimetres to the same unit as the other sides, or pick a unit per side." },
-  capsule: { watch: "h is only the straight middle. Overall length = h + 2r." },
-  cap: { watch: "Enter any two of R, h and a. The depth of liquid in a spherical tank measured from the bottom is the cap height h." },
-  frustum: { watch: "If r₁ = r₂ you have a cylinder; if r₂ = 0 you have a cone." },
-  ellipsoid: { watch: "Semi-axes are half of the full dimensions. Two equal semi-axes give a spheroid, such as a rugby ball." },
-  pyramid: { watch: "For a base that is not square, V = ⅓ × base area × height, using the area calculator for the base." },
-  tube: { watch: "This is the wall material. For the space inside a pipe use the cylinder with the inner radius." },
-};
+/** Real-world objects and the calculator that fits them best. */
+const OBJECTS: { object: string; shape: string; note: string }[] = [
+  { object: "Round water tank, drum, can, well or column", shape: "cylinder", note: "Use inside dimensions for capacity." },
+  { object: "Ball, bubble or spherical tank", shape: "sphere", note: "Halve the diameter to get the radius." },
+  { object: "Funnel, traffic cone or conical pile", shape: "cone", note: "Height is vertical, not along the slope." },
+  { object: "Cube-shaped box or block", shape: "cube", note: "All edges must be equal." },
+  { object: "Room, pool, aquarium, slab or planter bed", shape: "box", note: "For a sloping floor use the average depth." },
+  { object: "Pill, or tank with hemispherical ends", shape: "capsule", note: "Enter the straight middle length only." },
+  { object: "Dome, bowl or part-filled spherical tank", shape: "cap", note: "Enter any two of R, h and a." },
+  { object: "Bucket, flower pot or lampshade", shape: "frustum", note: "Measure both rim and base radius." },
+  { object: "Rugby ball or oval tank", shape: "ellipsoid", note: "Enter half of each full dimension." },
+  { object: "Pyramid, roof hip or square hopper", shape: "pyramid", note: "Use the vertical height." },
+  { object: "Pipe wall, ring or hollow column", shape: "tube", note: "This is the material, not the hollow space." },
+];
 
 /**
  * Server-rendered guide for the volume calculator page. Replaces the generic article for this slug so that the
@@ -66,8 +68,7 @@ export default function VolumeGuide({ content, references }: { content: CalcCont
   const toc = [
     ["about", "What a volume calculator does"],
     ["how-to-use", "How to use the calculators"],
-    ["formulas", "Volume formulas for 11 shapes"],
-    ["worked-examples", "Worked examples"],
+    ["shape-guide", "Formula, example and tips for every shape"],
     ["unit-conversion", "Volume unit conversion table"],
     ["units-explained", "Litres, cubic metres and gallons"],
     ["choose-a-shape", "Which shape should you choose?"],
@@ -97,8 +98,11 @@ export default function VolumeGuide({ content, references }: { content: CalcCont
             <p key={i} className={P}>{p}</p>
           ))}
           <p className={P}>
-            It sits alongside the <CalcLink slug="surface-area-calculator">surface area calculator</CalcLink> (the outside skin of a solid, useful for paint or coating) and the{" "}
-            <CalcLink slug="area-calculator">area calculator</CalcLink> (flat shapes such as floors and bases). Use volume when the question is “how much does it hold?” or “how much material fills it?”.
+            Volume is the amount of three-dimensional space a solid occupies, measured in cubic units. It is different from area, which measures a flat surface in square units: the{" "}
+            <CalcLink slug="area-calculator">area calculator</CalcLink> handles floors and bases, and the <CalcLink slug="surface-area-calculator">surface area calculator</CalcLink> gives the outer skin of a solid, useful for paint or coating. Use volume when the question is “how much does it hold?” or “how much material fills it?”.
+          </p>
+          <p className={P}>
+            Capacity is the volume of the inside of a container, so for tanks, buckets and boxes measure the inside dimensions. For a solid made of several simple parts, such as a silo (a cylinder topped by a cone), calculate each part and add the results; for a solid with a hole, subtract the hole. Irregular objects can be measured by the water they displace.
           </p>
           <ul className="mt-4 list-disc space-y-2 pl-5 marker:text-(--color-blue)">
             {content.whoFor.map((x, i) => <li key={i} className={LI}>{x}</li>)}
@@ -111,7 +115,7 @@ export default function VolumeGuide({ content, references }: { content: CalcCont
             <li className={LI}>Find your shape in the list above, or use the “Choose a shape” buttons to jump to it.</li>
             <li className={LI}>Type each dimension and pick its unit. Units can differ from one dimension to the next.</li>
             <li className={LI}>Choose the unit for the answer in “Show volume in”, or leave it on the default.</li>
-            <li className={LI}>Press Calculate. The answer appears under the shape together with litres, cubic metres, cubic feet and US and UK gallons.</li>
+            <li className={LI}>Press Calculate. The result shows the formula, your numbers put into it and the answer, together with litres, cubic metres, cubic feet and US and UK gallons.</li>
           </ol>
           <dl className="mt-6 divide-y divide-(--color-line) rounded-2xl border border-(--color-line)">
             {content.inputs.map((x) => (
@@ -127,54 +131,77 @@ export default function VolumeGuide({ content, references }: { content: CalcCont
         </div>
 
         <div className="mt-12">
-          <H2 id="formulas">Volume formulas for 11 shapes</H2>
+          <H2 id="shape-guide">Volume formula, worked example and tips for every shape</H2>
           <p className={P}>
-            These are the standard formulas used by every calculator on this page. π is taken at full precision (about 3.14159265). A circle’s radius is half its diameter; the{" "}
+            The sections below follow the same order as the calculators. Each one explains the shape, gives the formula, works through an example you can repeat in the calculator, and lists practical tips and common mistakes. π is used at full precision (about 3.14159265), and a circle’s radius is half its diameter; the{" "}
             <CalcLink slug="circle-calculator">circle calculator</CalcLink> converts between radius, diameter and circumference.
           </p>
-          <ul className="mt-6 grid gap-4 md:grid-cols-2">
+          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Jump to a shape">
             {SHAPES.map((s) => (
-              <li key={s.id} className="min-w-0 rounded-2xl border border-(--color-line) bg-(--color-surface) p-5">
-                <h3 className="text-[16.5px] font-bold text-(--color-ink)">
-                  <a href={`#${shapeAnchor(s.id)}`} className="hover:text-(--color-blue)">{s.short}</a>
-                </h3>
-                <p className="mt-2 break-words font-mono text-[14.5px] font-semibold text-(--color-blue)">{s.formula}</p>
-                <p className="mt-2 text-[14px] leading-relaxed text-(--color-ink-soft)">{s.variables}</p>
+              <li key={s.id}>
+                <a href={`#${shapeGuideAnchor(s.id)}`} className="inline-flex min-h-9 items-center rounded-full border border-(--color-line) bg-(--color-surface) px-3.5 text-[13.5px] font-semibold text-(--color-ink) hover:border-(--color-blue)/50 hover:text-(--color-blue) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-blue)">
+                  {s.short}
+                </a>
               </li>
             ))}
           </ul>
-          <h3 className="mt-8 text-[18px] font-bold text-(--color-ink)">Handy relationships</h3>
+
+          <div className="mt-8 space-y-12">
+            {SHAPE_ARTICLES.map((art) => {
+              const shape = SHAPES.find((s) => s.id === art.id)!;
+              const ex = WORKED_EXAMPLES.find((e) => e.id === art.id)!;
+              return (
+                <section key={art.id} id={shapeGuideAnchor(art.id)} aria-labelledby={`${shapeGuideAnchor(art.id)}-h`} className="scroll-mt-24 border-t border-(--color-line) pt-8">
+                  <h3 id={`${shapeGuideAnchor(art.id)}-h`} className="text-[21px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[24px]">
+                    {art.heading}
+                  </h3>
+                  {art.intro.map((p, i) => <p key={i} className={P}>{p}</p>)}
+
+                  <div className="mt-5 rounded-2xl bg-(--color-surface) px-5 py-4">
+                    <p className="text-[12.5px] font-semibold uppercase tracking-[0.1em] text-(--color-blue)">Formula</p>
+                    <p className="mt-1.5 break-words font-mono text-[15.5px] font-semibold text-(--color-ink)">{shape.formula}</p>
+                    <p className="mt-1.5 text-[14px] leading-relaxed text-(--color-ink-soft)">{shape.variables}</p>
+                  </div>
+                  <ul className="mt-4 list-disc space-y-2 pl-5 marker:text-(--color-blue)">
+                    {art.formulaNotes.map((x, i) => <li key={i} className={LI}>{x}</li>)}
+                  </ul>
+
+                  <h4 className="mt-6 text-[16.5px] font-bold text-(--color-ink)">Worked example: {ex.title.replace(/^[^:]+:\s*/, "")}</h4>
+                  <p className="mt-2 text-[15px] leading-relaxed text-(--color-ink-soft)">{ex.setup}</p>
+                  <ol className="mt-3 list-decimal space-y-1.5 pl-5 marker:font-semibold marker:text-(--color-blue)">
+                    {ex.steps.map((x, k) => <li key={k} className={LI}>{x}</li>)}
+                  </ol>
+                  <p className="mt-4 rounded-xl border border-(--color-blue)/20 bg-(--color-blue)/5 px-4 py-3 text-[14.5px] font-semibold leading-relaxed text-(--color-ink)">{ex.result}</p>
+
+                  <div className="mt-6 grid gap-5 md:grid-cols-2">
+                    <div>
+                      <h4 className="text-[16.5px] font-bold text-(--color-ink)">Practical details</h4>
+                      <ul className="mt-2 list-disc space-y-2 pl-5 marker:text-(--color-blue)">
+                        {art.practical.map((x, i) => <li key={i} className={LI}>{x}</li>)}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-[16.5px] font-bold text-(--color-ink)">Common mistakes</h4>
+                      <ul className="mt-2 list-disc space-y-2 pl-5 marker:text-(--color-blue)">
+                        {art.mistakes.map((x, i) => <li key={i} className={LI}>{x}</li>)}
+                      </ul>
+                    </div>
+                  </div>
+                  <p className="mt-5">
+                    <a href={`#${shapeAnchor(art.id)}`} className={linkClass}>Back to the {shape.short.toLowerCase()} calculator</a>
+                  </p>
+                </section>
+              );
+            })}
+          </div>
+
+          <h3 className="mt-12 text-[18px] font-bold text-(--color-ink)">Handy relationships</h3>
           <ul className="mt-3 list-disc space-y-2 pl-5 marker:text-(--color-blue)">
             <li className={LI}>A cone or pyramid holds exactly one third of the cylinder or box with the same base and height.</li>
             <li className={LI}>A sphere holds two thirds of the cylinder that just encloses it (same radius, height equal to the diameter).</li>
             <li className={LI}>Doubling every dimension multiplies the volume by 8, because volume scales with the cube of length.</li>
             <li className={LI}>For any pyramid or cone, V = ⅓ × base area × height, whatever the shape of the base.</li>
           </ul>
-        </div>
-
-        <div className="mt-12">
-          <H2 id="worked-examples">Volume calculation examples, step by step</H2>
-          <p className={P}>
-            One worked example for every shape. Open any example to see the working; the numbers are computed with the same formulas as the calculators, so you can type the same values in to check.
-          </p>
-          <div className="mt-6 space-y-3">
-            {WORKED_EXAMPLES.map((ex, i) => (
-              <details key={ex.id} open={i === 0} className="group rounded-2xl border border-(--color-line) bg-white open:bg-(--color-surface)">
-                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-5 py-3.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-blue) [&::-webkit-details-marker]:hidden">
-                  <h3 className="text-[15.5px] font-bold text-(--color-ink)">{ex.title}</h3>
-                  <ChevronDown size={18} aria-hidden="true" className="shrink-0 text-(--color-blue) transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none" />
-                </summary>
-                <div className="px-5 pb-5">
-                  <p className="text-[15px] leading-relaxed text-(--color-ink-soft)">{ex.setup}</p>
-                  <p className="mt-3 font-mono text-[13.5px] font-semibold text-(--color-blue)">{SHAPES.find((s) => s.id === ex.id)?.formula}</p>
-                  <ol className="mt-3 list-decimal space-y-1.5 pl-5 marker:font-semibold marker:text-(--color-blue)">
-                    {ex.steps.map((s, k) => <li key={k} className={LI}>{s}</li>)}
-                  </ol>
-                  <p className="mt-4 rounded-xl border border-(--color-blue)/20 bg-(--color-blue)/5 px-4 py-3 text-[14.5px] font-semibold leading-relaxed text-(--color-ink)">{ex.result}</p>
-                </div>
-              </details>
-            ))}
-          </div>
         </div>
 
         <div className="mt-12">
@@ -237,22 +264,25 @@ export default function VolumeGuide({ content, references }: { content: CalcCont
         <div className="mt-12">
           <H2 id="choose-a-shape">Which shape should you choose?</H2>
           <p className={P}>
-            Match the real object to the closest solid. For something made of several parts, such as a silo (cylinder plus cone) or a tank with domed ends, calculate each part and add the results. Oddly shaped containers are best treated as an estimate.
+            Match the real object to the closest solid, then use the calculator for that shape. Oddly shaped containers are best treated as an estimate. A cone’s height and slant length are linked by the{" "}
+            <CalcLink slug="pythagorean-theorem-calculator">Pythagorean theorem</CalcLink>, so you can recover the height from a measured slant length and the radius.
           </p>
-          <ul className="mt-6 grid gap-4 md:grid-cols-2">
-            {SHAPES.map((s) => (
-              <li key={s.id} className="min-w-0 rounded-2xl border border-(--color-line) p-5">
-                <h3 className="text-[16px] font-bold text-(--color-ink)">
-                  <a href={`#${shapeAnchor(s.id)}`} className={linkClass}>{s.short}</a>
-                </h3>
-                <p className="mt-2 text-[14.5px] leading-relaxed text-(--color-ink-soft)"><span className="font-semibold text-(--color-ink)">Good for:</span> {s.fits}.</p>
-                <p className="mt-1.5 text-[14.5px] leading-relaxed text-(--color-ink-soft)"><span className="font-semibold text-(--color-ink)">Watch out:</span> {CHOOSE[s.id].watch}</p>
-              </li>
-            ))}
+          <ul className="mt-6 divide-y divide-(--color-line) rounded-2xl border border-(--color-line)">
+            {OBJECTS.map((o) => {
+              const shape = SHAPES.find((s) => s.id === o.shape)!;
+              return (
+                <li key={o.shape} className="grid gap-1 px-5 py-3.5 sm:grid-cols-[minmax(0,1fr)_minmax(0,12rem)] sm:gap-6">
+                  <div>
+                    <p className="text-[15px] font-semibold text-(--color-ink)">{o.object}</p>
+                    <p className="mt-0.5 text-[14px] leading-relaxed text-(--color-ink-soft)">{o.note}</p>
+                  </div>
+                  <p className="text-[14.5px] font-semibold sm:text-right">
+                    <a href={`#${shapeAnchor(shape.id)}`} className={linkClass}>{shape.short} calculator</a>
+                  </p>
+                </li>
+              );
+            })}
           </ul>
-          <p className={P}>
-            A cone’s height and slant length are linked by the <CalcLink slug="pythagorean-theorem-calculator">Pythagorean theorem</CalcLink>, so you can recover the height from a measured slant length and the radius.
-          </p>
           <h3 className="mt-8 text-[18px] font-bold text-(--color-ink)">Practical uses</h3>
           <ul className="mt-3 list-disc space-y-2 pl-5 marker:text-(--color-blue)">
             {content.useCases.map((x, i) => <li key={i} className={LI}>{x}</li>)}

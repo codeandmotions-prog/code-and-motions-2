@@ -6,7 +6,8 @@ import { SHAPES, shapeAnchor } from "./volumeData";
 /** The vertical list of per-shape calculators with a jump menu. */
 export default function VolumeCalculators() {
   return (
-    <div>
+    <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_300px] xl:gap-8">
+      <div className="min-w-0">
       <nav aria-labelledby="volume-shapes-heading" className="rounded-2xl border border-(--color-line) bg-white px-4 py-4 sm:px-5">
         <h2 id="volume-shapes-heading" className="text-[20px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[24px]">
           Volume calculators for every shape
@@ -31,6 +32,12 @@ export default function VolumeCalculators() {
           <VolumeShapeCalculator key={s.id} shape={s} />
         ))}
       </div>
+      </div>
+
+      {/* Right-hand column reserved for future advertising (desktop only). Intentionally empty: no ad code or scripts yet. */}
+      <aside aria-hidden="true" data-reserved="ad-column" className="hidden xl:block">
+        <div className="sticky top-24 h-[600px] w-[300px]" />
+      </aside>
     </div>
   );
 }

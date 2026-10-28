@@ -94,7 +94,7 @@ export const mathGeometryContent: Record<string, CalcContent> = {
       { name: "Spherical cap inputs", text: "Enter exactly two of the sphere radius (R), cap height (h) and cap base radius (a) and leave the third blank." },
     ],
     how: [
-      "Each dimension is converted to metres, the standard formula for the shape is applied, and the volume in cubic metres is then converted into the unit you chose and into litres, cubic feet and US and UK gallons. Entries must be positive numbers; the tube needs an inner radius smaller than its outer radius, and a spherical cap cannot be taller than the sphere’s diameter.",
+      "Each dimension is converted to metres, the standard formula for the shape is applied, and the volume in cubic metres is then converted into the unit you chose and into litres, cubic feet and US and UK gallons. The result panel shows the formula, your numbers put into it and the answer, so you can follow the working. Entries must be positive numbers; the tube needs an inner radius smaller than its outer radius, and a spherical cap cannot be taller than the sphere’s diameter.",
     ],
     formulas: [
       { label: "Cylinder", expr: "V = π r² h" },
