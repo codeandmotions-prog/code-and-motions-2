@@ -480,12 +480,22 @@ export const calcSeo: Record<string, CalcSeo> = {
     gaps: "Overlap with the right triangle and Pythagorean calculators needed a clear boundary (general triangles here).",
   },
   "volume-calculator": {
-    title: "Volume Calculator – Cylinder, Sphere & More",
+    title: "Volume Calculator – Sphere, Cone, Cylinder",
     description:
-      "Find the volume of spheres, cones, cylinders, boxes, capsules, pyramids and more, with litre and gallon conversions and the formula for each shape.",
+      "Free volume calculator for sphere, cone, cube, cylinder, box, capsule and more. Mix units and get litres, m³ and gallons, with formulas and worked examples.",
     longTail: ["volume of a cylinder calculator", "volume of a sphere formula", "cubic metres to litres"],
     related: ["surface-area-calculator", "area-calculator", "circle-calculator", "unit-conversion-calculator"],
     gaps: "Overlap with surface area on sphere and cylinder queries needed a clear boundary (capacity versus outer surface).",
+    references: [
+      { label: "Wolfram MathWorld: Sphere", url: "https://mathworld.wolfram.com/Sphere.html" },
+      { label: "Wolfram MathWorld: Cylinder", url: "https://mathworld.wolfram.com/Cylinder.html" },
+      { label: "Wolfram MathWorld: Cone", url: "https://mathworld.wolfram.com/Cone.html" },
+      { label: "Wolfram MathWorld: Pyramid", url: "https://mathworld.wolfram.com/Pyramid.html" },
+      { label: "Wolfram MathWorld: Spherical Cap", url: "https://mathworld.wolfram.com/SphericalCap.html" },
+      { label: "Wolfram MathWorld: Conical Frustum", url: "https://mathworld.wolfram.com/ConicalFrustum.html" },
+      { label: "Wolfram MathWorld: Ellipsoid", url: "https://mathworld.wolfram.com/Ellipsoid.html" },
+      { label: "NIST Guide to the SI, Appendix B.8: factors for units listed alphabetically", url: "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8" },
+    ],
   },
   "slope-calculator": {
     title: "Slope Calculator – Line Equation",

@@ -8,6 +8,7 @@ import ClosingCTA from "@/components/shared/ClosingCTA";
 import CalcPageHero from "@/components/calculators/page/CalcPageHero";
 import CalcArticle from "@/components/calculators/page/CalcArticle";
 import RelatedCalculators from "@/components/calculators/page/RelatedCalculators";
+import VolumeGuide from "@/components/calculators/volume/VolumeGuide";
 import { widgets } from "@/components/calculators/widgetRegistry";
 import { calculators, getCalculator, relatedCalculators } from "@/data/calculators/registry";
 import { getContent } from "@/data/calculators/content";
@@ -110,9 +111,9 @@ export default async function CalculatorPage({ params }: { params: Promise<{ slu
       <Header />
 
       <main id="main" className="flex-1">
-        <CalcPageHero calc={calc} />
+        <CalcPageHero calc={calc} compact={slug === "volume-calculator"} />
 
-        <section className="bg-(--color-surface) py-10 lg:py-14" aria-label={`${calc.name}`}>
+        <section className={`bg-(--color-surface) ${slug === "volume-calculator" ? "py-6 lg:py-8" : "py-10 lg:py-14"}`} aria-label={`${calc.name}`}>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
             {calc.category === "health" && (
               <p className="mb-6 flex gap-3 rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 text-[13.5px] leading-relaxed text-amber-950">
@@ -126,7 +127,11 @@ export default async function CalculatorPage({ params }: { params: Promise<{ slu
           </div>
         </section>
 
-        <CalcArticle name={calc.name} content={content} regional={seo?.regional} references={seo?.references} />
+        {slug === "volume-calculator" ? (
+          <VolumeGuide content={content} references={seo?.references} />
+        ) : (
+          <CalcArticle name={calc.name} content={content} regional={seo?.regional} references={seo?.references} />
+        )}
         <ServiceFAQSection faqs={content.faqs} heading={`${calc.name} FAQs`} />
         <RelatedCalculators items={related} tool={seo?.tool} />
         <ClosingCTA

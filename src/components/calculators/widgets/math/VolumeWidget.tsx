@@ -1,7 +1,7 @@
 "use client";
 
-import SolidCalc from "./SolidCalc";
+import VolumeCalculators from "../../volume/VolumeCalculators";
 
 export default function VolumeWidget() {
-  return <SolidCalc kind="volume" />;
+  return <VolumeCalculators />;
 }

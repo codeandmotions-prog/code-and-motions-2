@@ -78,21 +78,23 @@ export const mathGeometryContent: Record<string, CalcContent> = {
 
   "volume-calculator": {
     intro: [
-      "The volume calculator finds the volume of eleven common solids: sphere, cone, cube, cylinder, rectangular box, capsule, spherical cap, conical frustum, ellipsoid, square pyramid and hollow tube. You choose the shape and length unit, and results are also given in litres, cubic metres, cubic feet and US and UK gallons.",
+      "A volume calculator finds how much three-dimensional space a solid takes up. This page gives each of eleven shapes its own calculator: sphere, cone, cube, cylinder, rectangular box, capsule, spherical cap, conical frustum, ellipsoid, square pyramid and hollow tube. Work down the page or jump straight to the shape you need.",
+      "For every shape you enter the dimensions, choose a unit for each one (millimetres to miles, including inches, feet and yards) and read the volume in the unit you pick, plus litres, cubic metres, cubic feet and US and UK gallons. Mixing units is fine, for example a radius in centimetres and a height in metres.",
       "It is useful for tanks, containers, concrete, soil and packaging as well as for school geometry.",
     ],
     whoFor: [
-      "Students and teachers.",
+      "Students and teachers checking geometry homework against the formula and working.",
       "DIY builders and gardeners estimating soil, gravel or concrete.",
-      "Anyone sizing a tank, pipe or container.",
+      "Anyone sizing a tank, pipe, bucket or container, or converting a volume to litres or gallons.",
     ],
     inputs: [
-      { name: "Shape", text: "Pick the solid. The fields change to match." },
-      { name: "Dimensions", text: "Radius, height, edge lengths and so on, all in the chosen length unit." },
-      { name: "Length unit", text: "mm, cm, m, km, in, ft, yd or mi." },
+      { name: "Dimensions", text: "Radius, height, edge lengths and so on. Each one has its own unit menu, and the labels match the letters on the diagram beside the inputs." },
+      { name: "Length unit (per dimension)", text: "mm, cm, m, km, in, ft, yd or mi, chosen separately for every dimension." },
+      { name: "Show volume in", text: "The unit of the headline answer: cubic units, litres, millilitres, or US or UK gallons. The default is the cube of the first length unit." },
+      { name: "Spherical cap inputs", text: "Enter exactly two of the sphere radius (R), cap height (h) and cap base radius (a) and leave the third blank." },
     ],
     how: [
-      "Each shape uses its standard formula. The volume is calculated in cubic units of the length you chose, then converted to cubic metres and onto the capacity units. Spherical caps can be entered from any two of the sphere radius, cap height and base radius.",
+      "Each dimension is converted to metres, the standard formula for the shape is applied, and the volume in cubic metres is then converted into the unit you chose and into litres, cubic feet and US and UK gallons. Entries must be positive numbers; the tube needs an inner radius smaller than its outer radius, and a spherical cap cannot be taller than the sphere’s diameter.",
     ],
     formulas: [
       { label: "Cylinder", expr: "V = π r² h" },
@@ -101,7 +103,7 @@ export const mathGeometryContent: Record<string, CalcContent> = {
       { label: "Box", expr: "V = l × w × h" },
     ],
     interpret: [
-      "Cubing means that doubling every dimension multiplies the volume by eight. For capacity, 1 cubic metre equals 1,000 litres. US and UK gallons differ, so both are shown.",
+      "Volume is measured in cubic units, so doubling every dimension multiplies the volume by eight. For capacity, 1 cubic metre equals 1,000 litres and 1 millilitre equals 1 cubic centimetre. US and UK gallons differ (3.785 L and 4.546 L), so both are shown.",
     ],
     example: {
       setup: "A cylinder with radius 3 cm and height 10 cm, and a sphere of radius 3 cm.",
@@ -112,19 +114,30 @@ export const mathGeometryContent: Record<string, CalcContent> = {
       result: `The cylinder holds ${fixed(cylVol, 2)} cm³, about ${fixed(cylVol / 1000, 3)} litres.`,
     },
     useCases: [
-      "Working out how much concrete or soil to order.",
-      "Sizing a water tank.",
-      "Checking packaging volumes.",
+      "Working out how much concrete, soil or gravel to order.",
+      "Sizing a water tank, bucket or planter.",
+      "Checking packaging and container volumes.",
+      "Converting a volume in cubic feet, cubic metres or litres into gallons.",
     ],
     limitations: [
-      "Ideal geometric shapes only; real objects have thickness, curvature and tolerances.",
-      "Hollow objects need their wall thickness handled separately; the tube shape covers pipes and hollow cylinders.",
+      "Ideal geometric shapes only; real objects have thickness, curvature, slopes and tolerances.",
+      "Hollow objects need their wall thickness handled separately; the tube shape gives the volume of the wall material, and a cylinder with the inner radius gives the space inside.",
+      "Partly filled horizontal cylindrical tanks are not covered. A part-filled spherical tank can be treated as a spherical cap.",
+      "Results are shown to 10 significant figures, but measurement error in your inputs is usually far larger than that.",
     ],
     faqs: [
-      { question: "How many litres are in a cubic metre?", answer: "1,000." },
-      { question: "Why does the result say cm³?", answer: "Volume is in cubic units of the length unit you chose." },
-      { question: "How do I find the volume of a hollow pipe?", answer: "Use the tube shape with outer radius, inner radius and length." },
-      { question: "What is a frustum?", answer: "A cone with the top cut off parallel to the base." },
+      { question: "How do I calculate the volume of a cylinder?", answer: "Multiply the area of the circular base by the height: V = π × r² × h. For a radius of 0.5 m and a height of 1.2 m, V = π × 0.25 × 1.2 ≈ 0.942 m³, which is about 942 litres." },
+      { question: "How many litres are in a cubic metre?", answer: "1,000 litres. A litre is exactly one thousandth of a cubic metre, and 1 litre also equals 1,000 cubic centimetres." },
+      { question: "What is the difference between a US gallon and a UK gallon?", answer: "A US gallon is 3.785411784 litres (231 cubic inches). An Imperial or UK gallon is 4.54609 litres, about 20% larger. The calculator shows both so you can pick the one your source uses." },
+      { question: "How do I find the volume of a sphere from its diameter?", answer: "Halve the diameter to get the radius, then use V = 4/3 × π × r³. A diameter of 6 cm gives r = 3 cm and V ≈ 113.1 cm³." },
+      { question: "Can I use different units for different dimensions?", answer: "Yes. Every dimension has its own unit menu, so you can enter a radius in centimetres and a height in metres. The calculator converts everything to metres before applying the formula." },
+      { question: "Why does the result say cm³, and how do I change the unit?", answer: "By default the answer is in the cube of the first length unit you chose. Use the “Show volume in” menu to switch to litres, millilitres, cubic metres, cubic feet, gallons or another unit." },
+      { question: "What is the difference between volume and capacity?", answer: "Volume is the space a solid occupies; capacity is how much a container can hold. For a container, measure the inside dimensions and the volume equals its capacity." },
+      { question: "Why is the volume of a cone one third of a cylinder?", answer: "A cone with the same base radius and height as a cylinder fills exactly one third of it. This follows from adding up the thin circular slices of the cone, whose areas shrink with the square of the distance from the tip." },
+      { question: "How do I find the volume of a hollow pipe?", answer: "Use the tube shape with the outer radius, inner radius and length to get the volume of the pipe wall. For the space inside the pipe, use the cylinder calculator with the inner radius." },
+      { question: "How do I calculate a dome or a part-filled spherical tank?", answer: "Use the spherical cap. Enter the sphere radius and the cap height (the depth of liquid measured from the bottom), or any two of R, h and the base radius a." },
+      { question: "What is a conical frustum?", answer: "A cone with its tip cut off parallel to the base, like a bucket or a flower pot. It needs the bottom radius, top radius and height. If the two radii are equal it becomes a cylinder." },
+      { question: "Is my data sent anywhere?", answer: "No. The calculation runs in your browser and the values you type are not sent to a server." },
     ],
   },
 

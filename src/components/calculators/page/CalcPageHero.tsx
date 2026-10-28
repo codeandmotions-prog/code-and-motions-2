@@ -5,10 +5,11 @@ import CalcIcon from "@/components/calculators/CalcIcon";
 import { CATEGORY_INFO, type CalcMeta } from "@/data/calculators/types";
 
 /** Server-rendered hero for a single calculator page. */
-export default function CalcPageHero({ calc }: { calc: CalcMeta }) {
+/** `compact` trims the vertical padding so the calculator itself sits higher on the page. */
+export default function CalcPageHero({ calc, compact = false }: { calc: CalcMeta; compact?: boolean }) {
   const cat = CATEGORY_INFO[calc.category];
   return (
-    <section className="relative overflow-hidden bg-(--color-navy-deep) pb-14 pt-14 lg:pb-20 lg:pt-16">
+    <section className={`relative overflow-hidden bg-(--color-navy-deep) ${compact ? "pb-8 pt-9 lg:pb-10 lg:pt-11" : "pb-14 pt-14 lg:pb-20 lg:pt-16"}`}>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -36,7 +37,7 @@ export default function CalcPageHero({ calc }: { calc: CalcMeta }) {
           <span aria-current="page" className="text-white/80">{calc.name}</span>
         </nav>
 
-        <div className="mt-7 flex items-start gap-4 sm:gap-5">
+        <div className={`flex items-start gap-4 sm:gap-5 ${compact ? "mt-5" : "mt-7"}`}>
           <span className="mt-1 hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-(--color-cyan) sm:flex">
             <CalcIcon name={calc.icon} size={26} strokeWidth={1.75} />
           </span>
