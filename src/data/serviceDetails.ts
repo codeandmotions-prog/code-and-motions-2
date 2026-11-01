@@ -1,5 +1,7 @@
 import {
   softwareDevelopmentRichSections,
+  websiteDevelopmentPageSections,
+  type PageSection,
   type ServiceRichSections,
 } from "./serviceRichSections";
 
@@ -74,6 +76,12 @@ export type ServiceDetail = {
    * them; all other service pages are unaffected.
    */
   richSections?: ServiceRichSections;
+  /**
+   * Optional fully sequenced page: when set, the page renders exactly these
+   * sections in this order after the definition block (see PageSection).
+   * Takes precedence over `richSections`.
+   */
+  pageSections?: PageSection[];
 };
 
 export const serviceDetails: ServiceDetail[] = [
@@ -230,18 +238,20 @@ export const serviceDetails: ServiceDetail[] = [
   },
   {
     slug: "website-development",
-    seoTitle: "Custom Website Development Services",
+    seoTitle: "Website Design & Development Services",
     metaDescription:
-      "Custom website development, WordPress and Elementor builds, landing pages and web applications for growing businesses in the USA, UK and Europe.",
-    h1: "Website Development Services",
-    primaryKeyword: "website development services",
+      "Website design and development services from Code & Motions: custom sites, WordPress, Elementor, landing pages and web apps, with maintenance after launch.",
+    h1: "Website Design and Development Services",
+    primaryKeyword: "website design and development services",
     secondaryKeywords: [
-      "custom website development company",
-      "WordPress development agency",
-      "web application development",
+      "website design services",
+      "website maintenance services",
+      "small business web design",
+      "WordPress development",
+      "bespoke website design",
     ],
     intro:
-      "We build custom websites, WordPress sites, Elementor pages, landing pages and web applications that load fast, rank well and convert — for growing businesses across the USA, UK and Europe. Whether you need a fully custom build or a client-editable WordPress site, we match the platform to your goals.",
+      "We design and build custom websites, WordPress sites, Elementor pages, landing pages and web applications for growing businesses across the USA, UK and Europe, and we host, deploy and maintain them after launch. Whether you need a fully custom build or a client-editable WordPress site, we match the platform to your goals.",
     benefits: [
       {
         title: "Built for Speed",
@@ -254,9 +264,9 @@ export const serviceDetails: ServiceDetail[] = [
           "Clean semantic markup and proper technical foundations, so search engines can actually find you.",
       },
       {
-        title: "Fully Custom Design",
+        title: "Designed Around Your Brand",
         description:
-          "No templates. Every site reflects your brand, not a theme marketplace.",
+          "Every site is designed around your brand and content, whether it is custom-coded or built on WordPress or Elementor.",
       },
       {
         title: "Easy to Maintain",
@@ -265,51 +275,81 @@ export const serviceDetails: ServiceDetail[] = [
       },
     ],
     useCases: [
+      "Small businesses that need a professional website designed and built from scratch",
       "Businesses replacing an outdated or slow website",
       "Brands that need a landing page built to convert for a specific campaign",
       "Companies migrating off page builders onto a faster, custom-coded site",
-      "Teams that need ongoing redesign and maintenance support",
     ],
-    overviewHeading: "Why Our Website Development Stands Out",
+    overviewHeading: "Why Choose Code & Motions for Your Website",
     useCasesHeading: "Who We Build Websites For",
-    faqHeading: "Website Development FAQs",
+    faqHeading: "Website Project FAQs",
     faqs: [
       {
-        question: "Do you build on WordPress or custom code?",
+        question: "What is included in website design and development services?",
         answer:
-          "Both, depending on your needs. We build fully custom sites on modern frameworks for performance-critical projects, and WordPress or Elementor sites when a client-editable CMS is the priority.",
+          "Our website design services cover the layout and visual design of every page, built around your brand. Development turns those designs into a working site, with hosting, domain setup and deployment, plus maintenance and ongoing support after launch. That covers custom-coded sites, WordPress and Elementor builds, landing pages and web applications. The exact scope is set out in your quotation.",
       },
       {
-        question: "Will my website be mobile-friendly?",
+        question: "How much does a custom website cost?",
         answer:
-          "Yes — every site we build is fully responsive and tested across desktop, tablet and mobile.",
+          "It depends on the number and type of pages, design complexity, custom functionality, integrations and any content migration. We provide custom quotations based on your project requirements rather than fixed price lists.",
       },
       {
-        question: "Can you redesign my existing website?",
+        question: "How long does a website project take?",
         answer:
-          "Yes, we regularly redesign and rebuild existing sites, migrating content and preserving existing SEO value.",
+          "Timelines depend on requirements, complexity and scope. A small marketing site and a custom web application are very different builds. A realistic schedule comes out of planning and structure, and we do not promise delivery dates before the scope is understood.",
       },
       {
-        question: "Do you offer ongoing maintenance after launch?",
+        question: "Should I choose WordPress, Elementor or custom code?",
         answer:
-          "Yes, we offer maintenance packages covering updates, fixes and small content changes.",
+          "Custom code suits performance-critical projects and sites with specific functionality. WordPress suits projects where a client-editable CMS is the priority, and Elementor suits teams that want to adjust page layouts visually. We recommend the platform that fits your goals.",
       },
       {
-        question: "Do you build landing pages for ad campaigns?",
+        question: "Can I edit my website content myself?",
         answer:
-          "Yes. We build standalone landing pages optimized for a single conversion goal, designed to work with paid campaigns and A/B testing.",
+          "Yes, on a CMS-based site such as WordPress or Elementor, which we use when client editing is the priority. For a custom-coded site, we agree during planning which content you need to be able to change.",
       },
       {
-        question: "What does a website redesign typically involve?",
+        question: "Will my website work on mobile devices?",
         answer:
-          "A redesign starts with an audit of your current site's performance, structure and content, then a rebuild that keeps what works, fixes what doesn't, and preserves your existing SEO rankings where possible.",
+          "Yes. Every site we build is fully responsive and tested across desktop, tablet and mobile.",
+      },
+      {
+        question: "Will a redesign keep my existing search rankings?",
+        answer:
+          "A redesign starts with an audit of your current site's performance, structure and content, and content is migrated with existing search value preserved where possible. No one can guarantee rankings, but the rebuild is planned to avoid unnecessary losses.",
+      },
+      {
+        question: "Can you migrate or take over a site built elsewhere?",
+        answer:
+          "Yes. We rebuild and migrate existing sites, including those on page builders, and we can audit and continue development on a site started elsewhere.",
+      },
+      {
+        question: "Do you provide hosting, domain setup and deployment?",
+        answer:
+          "Yes. We provide hosting, domain setup and deployment as part of delivering your site. The specifics are agreed in your quotation.",
+      },
+      {
+        question: "What does website maintenance and support include?",
+        answer:
+          "Maintenance packages cover updates, fixes and small content changes, with ongoing support after launch.",
+      },
+      {
+        question: "Who owns the website and its code after launch?",
+        answer:
+          "On project completion and agreed payment, the complete source files are handed over to you. The final terms are set out in the project agreement.",
+      },
+      {
+        question: "Do you build landing pages and online stores?",
+        answer:
+          "Yes. We build standalone landing pages optimized for a single conversion goal and designed for paid campaigns and A/B testing, and WooCommerce online stores. Shopify stores are handled through our Shopify development service.",
       },
     ],
-    relatedSlugs: ["shopify-development", "software-development", "seo"],
-    whatIsQuestion: "What Is Website Development?",
+    relatedSlugs: ["graphic-design", "shopify-development", "software-development", "seo"],
+    whatIsQuestion: "What Are Website Design and Development Services?",
     whatIsAnswer:
-      "Website development is the process of designing and building the site that represents your business online — from custom-coded pages and web applications to WordPress and Elementor builds. At Code & Motions, it means a site that loads quickly, follows sound SEO structure, and is genuinely easy to maintain after launch.",
-    processHeading: "Our Website Development Process",
+      "Website design and development services cover planning, designing, building, launching and maintaining a website for your business, from custom-coded sites and web applications to WordPress and Elementor builds and landing pages. At Code & Motions this includes hosting, domain setup and deployment, with maintenance and ongoing support after launch.",
+    processHeading: "Our Website Design and Development Process",
     process: [
       {
         title: "Plan & Structure",
@@ -319,7 +359,7 @@ export const serviceDetails: ServiceDetail[] = [
       {
         title: "Design",
         description:
-          "Pages are designed around your brand, with layouts that work for both visitors and search engines.",
+          "Our website design services start with your brand: pages are designed around it, with layouts that work for both visitors and search engines.",
       },
       {
         title: "Build",
@@ -329,11 +369,12 @@ export const serviceDetails: ServiceDetail[] = [
       {
         title: "Launch & Maintain",
         description:
-          "After launch we test across devices, then offer ongoing maintenance for updates and fixes.",
+          "We handle hosting, domain setup and deployment, test across devices, then offer ongoing maintenance and support.",
       },
     ],
     closingSubtext:
       "Tell us about your site and we'll put together the right build plan for it.",
+    pageSections: websiteDevelopmentPageSections,
   },
   {
     slug: "shopify-development",

@@ -31,9 +31,13 @@ export type RichServiceItem = {
   description: string;
   icon: RichIconKey;
   link?: RichLink;
+  /** Optional labelled lines shown under the description (e.g. "Best when" / "Less suited when"). */
+  points?: { label: string; text: string }[];
 };
 
 export type RichServiceGroup = {
+  /** Optional DOM id so the section can be linked to from elsewhere on the page. */
+  id?: string;
   eyebrow: string;
   heading: string;
   intro?: string;
@@ -74,6 +78,8 @@ export type RichTechBlock = {
   intro: string;
   groups: RichTechGroup[];
   note: string;
+  /** Optional contextual link shown after the note. */
+  noteLink?: RichLink;
 };
 
 export type RichWorkBlock = {
@@ -349,3 +355,326 @@ export const softwareDevelopmentRichSections: ServiceRichSections = {
     ],
   },
 };
+
+/**
+ * Ordered section list for services that opt into a fully sequenced page
+ * (see `pageSections` in serviceDetails.ts). Each entry either carries its
+ * own copy or points at data the service already has (benefits, use cases,
+ * process), so the order lives in one place and other service pages are
+ * unaffected.
+ */
+export type PageSection =
+  | { type: "cards"; tone: "surface" | "raised"; columns?: 3 | 4; group: RichServiceGroup }
+  | { type: "overview" }
+  | { type: "usecases" }
+  | { type: "process" }
+  | { type: "subgrid"; heading: string; subheading: string; slugs: string[]; id?: string; raised?: boolean }
+  | { type: "cost"; tone: "surface" | "raised"; block: RichCostBlock }
+  | { type: "tech"; tone: "surface" | "raised"; block: RichTechBlock };
+
+export const websiteDevelopmentPageSections: PageSection[] = [
+  {
+    type: "cards",
+    tone: "raised",
+    columns: 4,
+    group: {
+      id: "website-services",
+      eyebrow: "Services",
+      heading: "Website Services We Offer",
+      intro:
+        "Seven kinds of website work, each designed and built by the same team and supported after launch.",
+      items: [
+        {
+          title: "Custom Website Design and Development",
+          icon: "custom",
+          description:
+            "Fully custom-coded websites with a design shaped around your brand, built on modern frameworks for projects where performance and flexibility matter most.",
+          link: { label: "Custom websites", href: "/services/website-development/custom-websites" },
+        },
+        {
+          title: "Business Websites",
+          icon: "web",
+          description:
+            "Professional websites that present your business and services clearly to customers, designed and built to match your brand.",
+        },
+        {
+          title: "WordPress Development",
+          icon: "crm",
+          description:
+            "WordPress sites for when a client-editable CMS is the priority, including WooCommerce online stores.",
+          link: { label: "WordPress websites", href: "/services/website-development/wordpress-websites" },
+        },
+        {
+          title: "Elementor Development",
+          icon: "saas",
+          description:
+            "Elementor-built pages and sites on WordPress, for teams that want to edit layouts and content themselves.",
+          link: { label: "Elementor websites", href: "/services/website-development/elementor-websites" },
+        },
+        {
+          title: "Landing Pages",
+          icon: "api",
+          description:
+            "Standalone landing pages optimized for a single conversion goal, designed to work with paid campaigns and A/B testing.",
+        },
+        {
+          title: "Web Applications",
+          icon: "ai",
+          description:
+            "Browser-based applications and portals, built by the same engineering team that delivers our software projects.",
+          link: { label: "Software development services", href: "/services/software-development" },
+        },
+        {
+          title: "Redesign and Maintenance",
+          icon: "automation",
+          description:
+            "Redesigns of existing sites, migrations from other platforms, and ongoing maintenance and support after launch.",
+          link: { label: "Website maintenance", href: "#website-maintenance" },
+        },
+      ],
+    },
+  },
+  {
+    type: "cards",
+    tone: "surface",
+    columns: 3,
+    group: {
+      id: "platform-choice",
+      eyebrow: "Choosing a Platform",
+      heading: "Custom, WordPress or Elementor: Which Is Right for You?",
+      intro:
+        "We build on all three and recommend the one that fits your goals, not the one that is easiest for us.",
+      items: [
+        {
+          title: "Custom-coded website",
+          icon: "custom",
+          description: "Built from scratch on a modern framework, with the design and functionality planned around your requirements.",
+          points: [
+            { label: "Best when", text: "performance matters, or the site needs functionality a CMS does not handle well." },
+            { label: "Less suited when", text: "your requirements are simple and you need to launch quickly." },
+          ],
+        },
+        {
+          title: "WordPress",
+          icon: "web",
+          description: "A widely used CMS that lets your team manage pages and posts without a developer.",
+          points: [
+            { label: "Best when", text: "a client-editable CMS is the priority, or you need an online store through WooCommerce." },
+            { label: "Less suited when", text: "the site needs highly specific functionality beyond what a CMS handles well." },
+          ],
+        },
+        {
+          title: "Elementor",
+          icon: "saas",
+          description: "A visual page builder on WordPress, for editing layouts as well as content.",
+          points: [
+            { label: "Best when", text: "your team wants to adjust page layouts visually after launch." },
+            { label: "Less suited when", text: "the project needs a very lean, performance-critical build." },
+          ],
+        },
+      ],
+    },
+  },
+  { type: "overview" },
+  { type: "usecases" },
+  {
+    type: "subgrid",
+    id: "industry-websites",
+    raised: true,
+    heading: "Websites for Your Industry",
+    subheading:
+      "Websites for real estate, e-commerce, healthcare, education, agencies and startups. Each has its own dedicated page.",
+    slugs: [
+      "real-estate-websites",
+      "ecommerce-websites",
+      "hospital-websites",
+      "school-websites",
+      "agency-websites",
+      "startup-websites",
+    ],
+  },
+  {
+    type: "subgrid",
+    id: "platform-websites",
+    heading: "Websites by Platform and Build Type",
+    subheading:
+      "Custom-coded, WordPress, WooCommerce and Elementor builds. Each has its own dedicated page.",
+    slugs: ["custom-websites", "wordpress-websites", "woocommerce-websites", "elementor-websites"],
+  },
+  { type: "process" },
+  {
+    type: "tech",
+    tone: "raised",
+    block: {
+      eyebrow: "Technologies",
+      heading: "Technologies We Use for Websites",
+      intro:
+        "We choose the stack for each website based on its requirements, your existing systems and who will maintain it afterwards.",
+      groups: [
+        { label: "Front end", items: ["React", "Next.js", "Angular", "TypeScript"] },
+        { label: "Back end", items: ["Node.js", "Python", "Go"] },
+        { label: "CMS and platforms", items: ["WordPress", "Elementor", "WooCommerce"] },
+        { label: "Databases", items: ["PostgreSQL", "MySQL", "MongoDB"] },
+        { label: "Backend services", items: ["Supabase", "Firebase"] },
+        {
+          label: "Cloud and deployment",
+          items: ["Google Cloud Platform", "Docker", "GitHub Actions", "CI/CD"],
+        },
+        { label: "AI features, where a site needs them", items: ["OpenAI API", "Google Gemini API"] },
+      ],
+      note: "This is a guide, not a fixed list.",
+      noteLink: {
+        label: "Websites with built-in AI features",
+        href: "/services/ai-development/ai-website-development",
+      },
+    },
+  },
+  {
+    type: "cards",
+    tone: "surface",
+    columns: 3,
+    group: {
+      id: "website-quality",
+      eyebrow: "Quality",
+      heading: "Performance, Responsive Design and SEO-Ready Structure",
+      intro:
+        "What we build in from the start. None of it is a ranking guarantee, because no one can promise one.",
+      items: [
+        {
+          title: "Performance",
+          icon: "automation",
+          description:
+            "Performance is considered from the start of the build, not patched on afterward.",
+        },
+        {
+          title: "Responsive design",
+          icon: "web",
+          description:
+            "Every site is fully responsive and tested across desktop, tablet and mobile before it goes live.",
+        },
+        {
+          title: "SEO-ready structure",
+          icon: "api",
+          description:
+            "Clean semantic markup, a clear heading structure and proper technical foundations give search engines a solid base to work from.",
+        },
+      ],
+    },
+  },
+  {
+    type: "cards",
+    tone: "raised",
+    columns: 3,
+    group: {
+      id: "hosting-deployment",
+      eyebrow: "Delivery",
+      heading: "Hosting, Domain Setup and Deployment",
+      intro:
+        "We take care of getting the site live as well as building it. The specifics are agreed in your quotation.",
+      items: [
+        {
+          title: "Hosting",
+          icon: "security",
+          description: "We provide hosting for your website, so you are not left to arrange it separately.",
+        },
+        {
+          title: "Domain setup",
+          icon: "ownership",
+          description: "We set up your domain so the finished site is reachable at your own web address.",
+        },
+        {
+          title: "Deployment",
+          icon: "automation",
+          description: "We deploy the finished site and test it across devices at launch.",
+        },
+      ],
+    },
+  },
+  {
+    type: "cards",
+    tone: "surface",
+    columns: 3,
+    group: {
+      id: "website-redesign",
+      eyebrow: "Redesign and Migration",
+      heading: "Redesign and Migration",
+      intro:
+        "Replacing an existing website starts with understanding it. Rankings cannot be guaranteed, so the work is planned to preserve what is already working.",
+      items: [
+        {
+          title: "Audit first",
+          icon: "custom",
+          description: "A redesign starts with an audit of your current site's performance, structure and content.",
+        },
+        {
+          title: "Rebuild what needs it",
+          icon: "web",
+          description: "We keep what works, fix what does not, and rebuild the pages and design that hold the site back.",
+        },
+        {
+          title: "Migration",
+          icon: "api",
+          description: "Content is migrated from your current site or page builder, with existing search value preserved where possible.",
+        },
+      ],
+    },
+  },
+  {
+    type: "cards",
+    tone: "raised",
+    columns: 3,
+    group: {
+      id: "website-maintenance",
+      eyebrow: "After Launch",
+      heading: "Website Maintenance and Support",
+      intro: "A website needs looking after once it is live. Our website maintenance services are available as packages after launch.",
+      items: [
+        {
+          title: "Updates and fixes",
+          icon: "security",
+          description: "Regular updates and fixes keep the site working as software and browsers change.",
+        },
+        {
+          title: "Small content changes",
+          icon: "web",
+          description: "Small content changes can be handled for you, so the site stays current.",
+        },
+        {
+          title: "Ongoing support",
+          icon: "support",
+          description: "Support continues after launch, so there is someone to ask when something needs attention.",
+        },
+      ],
+    },
+  },
+  {
+    type: "cost",
+    tone: "surface",
+    block: {
+      eyebrow: "Cost and Timeline",
+      heading: "What Affects Website Cost and Timeline",
+      intro:
+        "Every website is quoted from its requirements, so we do not publish fixed prices. Quotations are custom and based on what you need built.",
+      factorsHeading: "What moves the price",
+      factors: [
+        "The number and type of pages",
+        "Design complexity and brand requirements",
+        "Custom functionality or web application features",
+        "Platform choice: custom-coded, WordPress or Elementor",
+        "Integrations, such as payments, forms or third-party services",
+        "Content migration from an existing site",
+        "Hosting, domain setup and ongoing maintenance",
+      ],
+      timelineHeading: "Timeline",
+      timeline:
+        "Timelines depend on requirements, complexity and scope. A realistic schedule comes out of planning and structure, not before it, and we do not promise delivery dates until the scope is understood.",
+      links: [
+        {
+          label: "Request a custom quotation",
+          href: "/contact",
+          description: "Tell us about your website and we will respond with a quotation.",
+        },
+      ],
+    },
+  },
+];

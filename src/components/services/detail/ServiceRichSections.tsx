@@ -96,7 +96,7 @@ export function ServiceCardGroup({
   columns?: 3 | 4;
 }) {
   return (
-    <section className={`${toneClass(tone)} py-20 lg:py-28`}>
+    <section id={group.id} className={`${toneClass(tone)} py-20 lg:py-28 ${group.id ? "scroll-mt-20" : ""}`}>
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader eyebrow={group.eyebrow} heading={group.heading} intro={group.intro} />
 
@@ -124,6 +124,18 @@ export function ServiceCardGroup({
                 <p className="mt-2 flex-1 text-[14px] leading-relaxed text-(--color-ink-soft)">
                   {card.description}
                 </p>
+                {card.points && (
+                  <dl className="mt-4 space-y-2.5 border-t border-(--color-line) pt-4">
+                    {card.points.map((point) => (
+                      <div key={point.label}>
+                        <dt className="text-[12px] font-semibold uppercase tracking-[0.1em] text-(--color-blue)">
+                          {point.label}
+                        </dt>
+                        <dd className="mt-0.5 text-[13.5px] leading-relaxed text-(--color-ink-soft)">{point.text}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
                 {card.link && (
                   <Link
                     href={card.link.href}
@@ -273,7 +285,18 @@ export function TechSection({ block, tone = "surface" }: { block: RichTechBlock;
           ))}
         </motion.dl>
 
-        <p className="mt-6 max-w-3xl text-[14px] leading-relaxed text-(--color-ink-soft)">{block.note}</p>
+        <p className="mt-6 max-w-3xl text-[14px] leading-relaxed text-(--color-ink-soft)">
+          {block.note}
+          {block.noteLink && (
+            <>
+              {" "}
+              <Link href={block.noteLink.href} className="font-semibold text-(--color-blue) hover:underline">
+                {block.noteLink.label}
+              </Link>{" "}
+              are covered by our AI website development service.
+            </>
+          )}
+        </p>
       </div>
     </section>
   );

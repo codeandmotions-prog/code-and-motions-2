@@ -170,7 +170,64 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
         {detail.whatIsQuestion && detail.whatIsAnswer && (
           <ServiceDefinition question={detail.whatIsQuestion} answer={detail.whatIsAnswer} />
         )}
-        {rich ? (
+        {detail.pageSections ? (
+          detail.pageSections.map((section, index) => {
+            switch (section.type) {
+              case "cards":
+                return (
+                  <ServiceCardGroup
+                    key={`cards-${index}`}
+                    group={section.group}
+                    tone={section.tone}
+                    columns={section.columns}
+                  />
+                );
+              case "overview":
+                return (
+                  <ServiceOverview
+                    key="overview"
+                    title={category.title}
+                    offerings={category.subServices}
+                    benefits={detail.benefits}
+                    heading={detail.overviewHeading}
+                    benefitsOnly
+                  />
+                );
+              case "usecases":
+                return (
+                  <ServiceUseCases
+                    key="usecases"
+                    useCases={detail.useCases}
+                    heading={detail.useCasesHeading}
+                  />
+                );
+              case "process":
+                return detail.process && detail.process.length > 0 ? (
+                  <ServiceProcessSteps
+                    key="process"
+                    steps={detail.process}
+                    heading={detail.processHeading}
+                  />
+                ) : null;
+              case "subgrid":
+                return (
+                  <SubServicesGrid
+                    key={`subgrid-${index}`}
+                    mainSlug={slug}
+                    heading={section.heading}
+                    subheading={section.subheading}
+                    slugs={section.slugs}
+                    sectionId={section.id}
+                    raised={section.raised}
+                  />
+                );
+              case "cost":
+                return <CostTimelineSection key="cost" block={section.block} tone={section.tone} />;
+              case "tech":
+                return <TechSection key="tech" block={section.block} tone={section.tone} />;
+            }
+          })
+        ) : rich ? (
           <>
             <ServiceCardGroup group={rich.services} tone="raised" />
             <ChoiceSection block={rich.choice} tone="surface" />
