@@ -1,3 +1,8 @@
+import {
+  softwareDevelopmentRichSections,
+  type ServiceRichSections,
+} from "./serviceRichSections";
+
 export type ServiceFAQ = {
   question: string;
   answer: string;
@@ -63,6 +68,12 @@ export type ServiceDetail = {
    * copy/FAQs genuinely reference an additional market (e.g. Pakistan).
    */
   areaServed?: string[];
+  /**
+   * Optional long-form sections (services list, when-custom-fits, cost,
+   * technologies, ownership, case study). Only services that set this render
+   * them; all other service pages are unaffected.
+   */
+  richSections?: ServiceRichSections;
 };
 
 export const serviceDetails: ServiceDetail[] = [
@@ -70,16 +81,17 @@ export const serviceDetails: ServiceDetail[] = [
     slug: "software-development",
     seoTitle: "Custom Software Development Services",
     metaDescription:
-      "Custom software, SaaS, AI and CRM/ERP development for growing businesses in the USA, UK and Europe — built and supported by a senior engineering team.",
-    h1: "Software Development Services",
-    primaryKeyword: "software development services",
+      "Custom software development services from Code & Motions: SaaS, web apps, CRM/ERP and AI tools built around your workflow, with support after launch.",
+    h1: "Custom Software Development Services",
+    primaryKeyword: "custom software development services",
     secondaryKeywords: [
       "custom software development company",
       "SaaS application development",
-      "enterprise software development services",
+      "custom software application development",
+      "CRM and ERP software development",
     ],
     intro:
-      "Code & Motions designs and builds custom software for businesses that have outgrown off-the-shelf tools — from SaaS platforms and AI-powered applications to CRM/ERP systems and internal automation. We handle the full lifecycle for clients across the USA, UK and Europe: architecture, engineering and long-term support.",
+      "Code & Motions provides custom software development services for small businesses, startups, growing companies and established organizations — from SaaS products and web applications to CRM/ERP systems, AI tools and business automation. We work with clients across the USA, UK and Europe, from architecture and engineering through to support after launch.",
     benefits: [
       {
         title: "Built Around Your Workflow",
@@ -104,13 +116,13 @@ export const serviceDetails: ServiceDetail[] = [
     ],
     useCases: [
       "Startups building a SaaS product from the ground up",
-      "Businesses replacing spreadsheets and manual processes with a proper internal system",
-      "Teams needing custom integrations between existing tools",
-      "Companies scaling past what a no-code platform can handle",
+      "Small businesses replacing spreadsheets and manual processes with a proper internal system",
+      "Growing businesses that need custom integrations between the tools they already use",
+      "Established companies modernizing older systems or outgrowing a no-code platform",
     ],
-    overviewHeading: "Why Choose Our Software Development Team",
+    overviewHeading: "Why Choose Code & Motions as Your Custom Software Development Company",
     useCasesHeading: "Who We Build Software For",
-    faqHeading: "Software Development FAQs",
+    faqHeading: "Custom Software Development FAQs",
     exampleWork: {
       label: "LabNova",
       href: "/software/labnova",
@@ -125,29 +137,59 @@ export const serviceDetails: ServiceDetail[] = [
     },
     faqs: [
       {
-        question: "How long does a custom software project take?",
+        question: "What are custom software development services?",
         answer:
-          "Timelines vary by scope, but most projects move from discovery to a working first version within 8–16 weeks, with iterative releases after that.",
+          "They cover designing, building and maintaining software made for one organization's processes, instead of buying a ready-made product and adapting the business to it. That can be a SaaS product, a web application, a CRM or ERP system, an integration between existing tools or an AI-powered feature.",
       },
       {
-        question: "Do you work with startups or only established companies?",
+        question: "How much does custom software development cost?",
         answer:
-          "Both. We work with early-stage startups building their first product and established businesses modernizing internal systems.",
+          "It depends on scope, complexity, the number of integrations and design requirements. We provide custom quotations based on your project requirements rather than fixed price lists. For a SaaS product, our free MVP cost and timeline estimator gives a first indication.",
+      },
+      {
+        question: "How long does a custom software project take?",
+        answer:
+          "Timelines depend on requirements, complexity and scope. A small internal tool and a multi-user SaaS platform are very different builds. A realistic schedule comes out of discovery, and larger projects are usually delivered in iterative releases rather than all at once.",
+      },
+      {
+        question: "Should I build custom software or use an off-the-shelf product?",
+        answer:
+          "If a standard product already covers your needs with minor settings changes, it is usually the cheaper and faster choice. Custom software fits when your process is a real advantage, when you rely on several disconnected tools, when you need integrations ready-made products lack, or when the software itself is your product.",
+      },
+      {
+        question: "What engagement models do you offer?",
+        answer:
+          "Fixed-price projects when the scope is clear, hourly development when the scope is evolving or needs flexibility, and ongoing maintenance and support after launch. We can suggest the best fit once we understand the project.",
+      },
+      {
+        question: "Do you work with startups, small businesses or only established companies?",
+        answer:
+          "All of them. We work with startups building their first product, small and growing businesses replacing manual processes, and established companies modernizing internal systems.",
       },
       {
         question: "What technologies do you use?",
         answer:
-          "We choose the stack based on the project — typically modern frameworks like React and Node.js, backed by cloud infrastructure such as Supabase.",
+          "We choose the stack based on the project. Common choices include React, Next.js, Angular and TypeScript on the front end; Node.js, Python and Go on the back end; PostgreSQL, MySQL and MongoDB for data; Supabase and Firebase as backend services; Flutter for cross-platform apps; and Docker, Kubernetes and CI/CD for deployment.",
       },
       {
         question: "Do you build AI-powered software?",
         answer:
-          "Yes. We build AI-powered features and applications — from automation and intelligent workflows to AI-assisted tools embedded directly in your product.",
+          "Yes. We build AI-powered features and applications — from automation and intelligent workflows to AI-assisted tools embedded directly in your product — using services such as the OpenAI API and Google Gemini API, and TensorFlow where machine learning is needed.",
       },
       {
         question: "Can you integrate with our existing CRM or ERP system?",
         answer:
           "Yes. We regularly build custom integrations and extensions for existing CRM and ERP platforms, as well as full custom CRM/ERP systems where an off-the-shelf tool no longer fits.",
+      },
+      {
+        question: "Will I own the source code?",
+        answer:
+          "On project completion and agreed payment, the complete source code is handed over to you. The final terms are set out in the project agreement.",
+      },
+      {
+        question: "Do you provide support after launch?",
+        answer:
+          "Yes. Ongoing maintenance and support are available after launch, covering fixes, updates and improvements as your needs change.",
       },
       {
         question: "Can you take over an existing codebase?",
@@ -156,10 +198,10 @@ export const serviceDetails: ServiceDetail[] = [
       },
     ],
     relatedSlugs: ["website-development", "seo", "ai-development"],
-    whatIsQuestion: "What Is Software Development?",
+    whatIsQuestion: "What Are Custom Software Development Services?",
     whatIsAnswer:
-      "Software development is the process of designing, building and maintaining custom applications — from SaaS platforms to internal tools and AI-powered features — rather than relying on off-the-shelf products. At Code & Motions, it covers architecture, engineering, testing and ongoing support, built around how your business actually operates rather than a generic template.",
-    processHeading: "Our Software Development Process",
+      "Custom software development services cover designing, building and maintaining software made for one organization's processes, rather than buying a ready-made product and adapting the business to it. That can be a SaaS product, a web application, a CRM or ERP system, an integration between existing tools or an AI-powered feature. Scope, features and ownership are agreed with you, so the result fits how your team works.",
+    processHeading: "Our Custom Software Development Process",
     process: [
       {
         title: "Discovery & Architecture",
@@ -184,6 +226,7 @@ export const serviceDetails: ServiceDetail[] = [
     ],
     closingSubtext:
       "Tell us what you're building and we'll put together the right engineering plan and team for it.",
+    richSections: softwareDevelopmentRichSections,
   },
   {
     slug: "website-development",

@@ -26,6 +26,16 @@ type SubServicesGridProps = {
   mainSlug: string;
   heading?: string;
   subheading?: string;
+  /**
+   * Optional allow-list of sub-service slugs (plain strings, so it stays
+   * serializable). Lets a page show one parent's sub-services as several
+   * themed groups. Omitted = every sub-service, as before.
+   */
+  slugs?: string[];
+  /** Optional DOM id so the group can be linked to. */
+  sectionId?: string;
+  /** Alternate section background. Default keeps the original surface tone. */
+  raised?: boolean;
 };
 
 /**
@@ -39,15 +49,19 @@ export default function SubServicesGrid({
   mainSlug,
   heading = "Sub-Services",
   subheading = "Each sub-service has its own dedicated page with the detail you need to scope a project.",
+  slugs,
+  sectionId,
+  raised = false,
 }: SubServicesGridProps) {
-  const subServices = getSubServicesForMainService(mainSlug);
+  const all = getSubServicesForMainService(mainSlug);
+  const subServices = slugs ? slugs.map((s) => all.find((x) => x.slug === s)).filter((x): x is (typeof all)[number] => Boolean(x)) : all;
 
   if (subServices.length === 0) {
     return null;
   }
 
   return (
-    <section className="bg-(--color-surface) py-20 lg:py-28">
+    <section id={sectionId} className={`${raised ? "bg-(--color-surface-raised)" : "bg-(--color-surface)"} py-20 lg:py-28`}>
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-xl">
           <span className="text-[13px] font-semibold uppercase tracking-[0.14em] text-(--color-blue)">

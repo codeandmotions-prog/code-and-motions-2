@@ -34,6 +34,12 @@ type ServiceOverviewProps = {
   relatedTool?: ServiceExampleWork;
   /** Optional "see also" link back to a parent or sibling service page. */
   seeAlso?: ServiceExampleWork;
+  /**
+   * When true, only the "Why It Works" column renders (as a two-column
+   * benefits grid). Used where the offerings are covered by their own
+   * richer section elsewhere on the page. Default false: unchanged layout.
+   */
+  benefitsOnly?: boolean;
 };
 
 function OverviewLinkCard({ prefix, link }: { prefix: string; link: ServiceExampleWork }) {
@@ -66,7 +72,45 @@ export default function ServiceOverview({
   exampleWork,
   relatedTool,
   seeAlso,
+  benefitsOnly = false,
 }: ServiceOverviewProps) {
+  if (benefitsOnly) {
+    return (
+      <section className="bg-(--color-surface-raised) py-20 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="max-w-2xl">
+            <span className="text-[13px] font-semibold uppercase tracking-[0.14em] text-(--color-blue)">
+              Why It Works
+            </span>
+            <h2 className="mt-4 text-[26px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[30px]">
+              {heading}
+            </h2>
+          </div>
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="mt-10 grid grid-cols-1 gap-x-14 border-t border-(--color-line) md:grid-cols-2"
+          >
+            {benefits.map((benefit) => (
+              <motion.div
+                key={benefit.title}
+                variants={item}
+                className="border-b border-(--color-line) py-5"
+              >
+                <h3 className="text-[15.5px] font-bold text-(--color-ink)">{benefit.title}</h3>
+                <p className="mt-1.5 text-[14px] leading-relaxed text-(--color-ink-soft)">
+                  {benefit.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="bg-(--color-surface-raised) py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">

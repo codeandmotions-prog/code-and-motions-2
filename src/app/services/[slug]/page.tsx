@@ -9,6 +9,13 @@ import ServiceUseCases from "@/components/services/detail/ServiceUseCases";
 import ServiceProcessSteps from "@/components/services/detail/ServiceProcessSteps";
 import ServiceFAQSection from "@/components/services/detail/ServiceFAQSection";
 import RelatedServices from "@/components/services/detail/RelatedServices";
+import {
+  ChoiceSection,
+  CostTimelineSection,
+  ServiceCardGroup,
+  TechSection,
+  WorkSection,
+} from "@/components/services/detail/ServiceRichSections";
 import ClosingCTA from "@/components/shared/ClosingCTA";
 import SubServicesGrid from "@/components/services/subservice/SubServicesGrid";
 import { serviceCategories } from "@/data/serviceCategories";
@@ -69,6 +76,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
   const detail = getServiceDetail(slug);
   const category = serviceCategories.find((item) => item.id === slug);
   const subServices = getSubServicesForMainService(slug);
+  const rich = detail?.richSections;
 
   if (!detail || !category) {
     notFound();
@@ -162,24 +170,64 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
         {detail.whatIsQuestion && detail.whatIsAnswer && (
           <ServiceDefinition question={detail.whatIsQuestion} answer={detail.whatIsAnswer} />
         )}
-        <ServiceOverview
-          title={category.title}
-          offerings={category.subServices}
-          benefits={detail.benefits}
-          heading={detail.overviewHeading}
-          exampleWork={detail.exampleWork}
-          relatedTool={detail.relatedTool}
-        />
-        <ServiceUseCases useCases={detail.useCases} heading={detail.useCasesHeading} />
-        {subServices.length > 0 && (
-          <SubServicesGrid
-            mainSlug={slug}
-            heading={`${category.title} Sub-Services`}
-            subheading={`Specific ${category.title.toLowerCase()} work we do most often — each with its own dedicated page.`}
-          />
-        )}
-        {detail.process && detail.process.length > 0 && (
-          <ServiceProcessSteps steps={detail.process} heading={detail.processHeading} />
+        {rich ? (
+          <>
+            <ServiceCardGroup group={rich.services} tone="raised" />
+            <ChoiceSection block={rich.choice} tone="surface" />
+            <ServiceOverview
+              title={category.title}
+              offerings={category.subServices}
+              benefits={detail.benefits}
+              heading={detail.overviewHeading}
+              benefitsOnly
+            />
+            <ServiceUseCases useCases={detail.useCases} heading={detail.useCasesHeading} />
+            <SubServicesGrid
+              mainSlug={slug}
+              heading={rich.industryGroup.heading}
+              subheading={rich.industryGroup.subheading}
+              slugs={rich.industryGroup.slugs}
+              sectionId="industry-software"
+              raised
+            />
+            <SubServicesGrid
+              mainSlug={slug}
+              heading={rich.planningGroup.heading}
+              subheading={rich.planningGroup.subheading}
+              slugs={rich.planningGroup.slugs}
+              sectionId="planning-software"
+            />
+            {detail.process && detail.process.length > 0 && (
+              <ServiceProcessSteps steps={detail.process} heading={detail.processHeading} />
+            )}
+            <ServiceCardGroup group={rich.engagement} tone="raised" />
+            <CostTimelineSection block={rich.cost} tone="surface" />
+            <TechSection block={rich.tech} tone="raised" />
+            <ServiceCardGroup group={rich.assurance} tone="surface" />
+            <WorkSection block={rich.work} tone="raised" />
+          </>
+        ) : (
+          <>
+            <ServiceOverview
+              title={category.title}
+              offerings={category.subServices}
+              benefits={detail.benefits}
+              heading={detail.overviewHeading}
+              exampleWork={detail.exampleWork}
+              relatedTool={detail.relatedTool}
+            />
+            <ServiceUseCases useCases={detail.useCases} heading={detail.useCasesHeading} />
+            {subServices.length > 0 && (
+              <SubServicesGrid
+                mainSlug={slug}
+                heading={`${category.title} Sub-Services`}
+                subheading={`Specific ${category.title.toLowerCase()} work we do most often — each with its own dedicated page.`}
+              />
+            )}
+            {detail.process && detail.process.length > 0 && (
+              <ServiceProcessSteps steps={detail.process} heading={detail.processHeading} />
+            )}
+          </>
         )}
         <ServiceFAQSection faqs={detail.faqs} heading={detail.faqHeading} />
         <RelatedServices relatedSlugs={detail.relatedSlugs} />
