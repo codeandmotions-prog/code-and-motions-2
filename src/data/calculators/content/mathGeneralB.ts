@@ -1,7 +1,7 @@
 import type { CalcContent } from "../types";
 import { q, qFromString, qToFraction } from "@/lib/calculators/rational";
 import { determinant, inverse, mMul, cellText, type Matrix } from "@/lib/calculators/matrix";
-import { gcdMany, lcmMany, euclidSteps, factorize, factorsFromPrimes, primeFactorText } from "@/lib/calculators/numtheory";
+import { gcdMany, lcmMany, euclidSteps, factorize, factorsFromPrimes, primeFactorSuperscript } from "@/lib/calculators/numtheory";
 import { roundToPlaces } from "@/lib/calculators/mathmisc";
 import { simplifySqrt } from "@/lib/calculators/mathmisc";
 import { parseDec, mul, toScientific, toENotation, toEngineering, toPlain } from "@/lib/calculators/decimal";
@@ -274,8 +274,8 @@ export const mathGeneralBContent: Record<string, CalcContent> = {
 
   "factor-calculator": {
     intro: [
-      "The factor calculator lists every factor of a positive whole number, shows each factor pair, gives the prime factorisation and tells you whether the number is prime, composite or a perfect square.",
-      "It also reports the number of factors and their sum.",
+      "This factor calculator lists every factor of a whole number, shows each factor pair and gives its prime factorization. Enter a number and the result appears at once, together with the number of factors, their sum and whether the number is prime or composite.",
+      "It works as a free online factors calculator for homework, for checking your own working, or for finding the prime factors you need before a GCF, LCM or fraction problem. Everything is calculated in your browser, and you can use numbers up to 10¹⁵.",
     ],
     whoFor: [
       "Students learning factors, primes and divisibility.",
@@ -284,7 +284,7 @@ export const mathGeneralBContent: Record<string, CalcContent> = {
     ],
     inputs: [{ name: "Number", text: "A positive whole number up to 10¹⁵." }],
     how: [
-      "The number is divided by candidate primes up to its square root (trial division) to find its prime factorisation. All factors are then built from combinations of those primes, and factor pairs are the factors paired with their cofactors.",
+      "The number is divided by candidate primes up to its square root (trial division) to find its prime factorization. All factors are then built from combinations of those primes, and factor pairs are the factors paired with their cofactors.",
     ],
     formulas: [
       { label: "Number of factors", expr: "(e₁ + 1)(e₂ + 1)… where n = p₁^e₁ × p₂^e₂ × …" },
@@ -293,13 +293,13 @@ export const mathGeneralBContent: Record<string, CalcContent> = {
       "A prime number has exactly two factors, 1 and itself. A perfect square has an odd number of factors. A number whose factors (excluding itself) add up to the number is a perfect number.",
     ],
     example: {
-      setup: "Factorise 360.",
+      setup: "Factorize 360.",
       steps: [
-        `Prime factorisation: 360 = ${primeFactorText(f360)}.`,
+        `Prime factorization: 360 = ${primeFactorSuperscript(f360)}.`,
         `Number of factors: (3 + 1)(2 + 1)(1 + 1) = ${fs360.length}.`,
         `The factors are ${fs360.join(", ")}.`,
       ],
-      result: `360 = ${primeFactorText(f360)} with ${fs360.length} factors.`,
+      result: `360 = ${primeFactorSuperscript(f360)} with ${fs360.length} factors.`,
     },
     useCases: [
       "Finding all ways to arrange items into equal rows.",
@@ -311,9 +311,13 @@ export const mathGeneralBContent: Record<string, CalcContent> = {
       "Positive whole numbers only.",
     ],
     faqs: [
+      { question: "How do I find all the factors of a number?", answer: "Enter the number and press Calculate. The calculator finds the prime factors first, then combines them to list every factor and each factor pair. By hand, divide the number by 1, 2, 3 and so on up to its square root, and write down each divisor together with its partner." },
+      { question: "What is the difference between factors and prime factors?", answer: "Factors are all the whole numbers that divide a number exactly. Prime factors are only the factors that are prime. The factors of 12 are 1, 2, 3, 4, 6 and 12, and its prime factors are 2 and 3." },
       { question: "What is the difference between a factor and a multiple?", answer: "Factors divide into a number evenly; multiples are the results of multiplying it. The factors of 12 include 3, and 12 is a multiple of 3." },
       { question: "Is 1 a prime number?", answer: "No. A prime has exactly two distinct factors, and 1 has only one." },
-      { question: "How many factors does a number have?", answer: "Add one to each exponent in the prime factorisation and multiply the results." },
+      { question: "How many factors does a number have?", answer: "Add one to each exponent in the prime factorization and multiply the results. For 72 = 2³ × 3², that is (3 + 1)(2 + 1) = 12 factors." },
+      { question: "What are proper factors?", answer: "The proper factors of a number are its factors other than the number itself. The proper factors of 12 are 1, 2, 3, 4 and 6." },
+      { question: "How can I tell if a number is prime or composite?", answer: "A prime number has exactly two factors, 1 and itself, and a composite number has more than two. Enter the number: the Type line of the result shows Prime when it has two factors and Composite when it has more." },
       { question: "What is a perfect number?", answer: "A number equal to the sum of its proper factors, such as 6 = 1 + 2 + 3." },
     ],
   },

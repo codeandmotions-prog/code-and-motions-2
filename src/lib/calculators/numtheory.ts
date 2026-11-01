@@ -63,6 +63,21 @@ export function primeFactorText(pf: [number, number][]): string {
   return pf.map(([p, e]) => (e === 1 ? `${p}` : `${p}^${e}`)).join(" × ");
 }
 
+const SUPERSCRIPT_DIGITS = ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹"];
+
+/** Prime factorization with real superscript exponents, for display: 2³ × 3² × 5. */
+export function primeFactorSuperscript(pf: [number, number][]): string {
+  if (pf.length === 0) return "1";
+  return pf
+    .map(([p, e]) => (e === 1 ? `${p}` : `${p}${String(e).replace(/\d/g, (d) => SUPERSCRIPT_DIGITS[Number(d)])}`))
+    .join(" × ");
+}
+
+/** Prime factors in ascending order, repeated by exponent: 360 -> [2, 2, 2, 3, 3, 5]. */
+export function primeFactorList(pf: [number, number][]): number[] {
+  return pf.flatMap(([p, e]) => Array<number>(e).fill(p));
+}
+
 export function primeFactorExpanded(pf: [number, number][]): string {
   if (pf.length === 0) return "1";
   return pf.flatMap(([p, e]) => Array(e).fill(String(p))).join(" × ");

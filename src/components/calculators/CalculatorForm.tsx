@@ -34,6 +34,8 @@ type Props = {
   initialRun?: boolean;
   submitLabel?: string;
   resetLabel?: string;
+  /** Replaces the default number-entry note under the buttons (for example for whole-number-only tools). */
+  entryNote?: string;
 };
 
 const inputClass =
@@ -51,6 +53,7 @@ export default function CalculatorForm({
   initialRun = true,
   submitLabel = "Calculate",
   resetLabel = "Reset",
+  entryNote,
 }: Props) {
   const uid = useId();
   const resultRef = useRef<HTMLDivElement>(null);
@@ -278,8 +281,8 @@ export default function CalculatorForm({
           </button>
         </div>
         <p className="mt-4 text-[12px] leading-relaxed text-(--color-ink-soft)">
-          Number entry: use a point for decimals (1.5). Commas grouped in threes are thousands separators (1,250), and a
-          single comma such as 1,5 is read as a decimal comma. Nothing you enter leaves your device.
+          {entryNote ??
+            "Number entry: use a point for decimals (1.5). Commas grouped in threes are thousands separators (1,250), and a single comma such as 1,5 is read as a decimal comma. Nothing you enter leaves your device."}
         </p>
       </form>
 

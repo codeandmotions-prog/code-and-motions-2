@@ -5,11 +5,32 @@ import CalcIcon from "@/components/calculators/CalcIcon";
 import { CATEGORY_INFO, type CalcMeta } from "@/data/calculators/types";
 
 /** Server-rendered hero for a single calculator page. */
-/** `compact` trims the vertical padding so the calculator itself sits higher on the page. */
-export default function CalcPageHero({ calc, compact = false }: { calc: CalcMeta; compact?: boolean }) {
+/**
+ * `compact` trims the vertical padding so the calculator itself sits higher on the page.
+ * `toolFirst` goes further for pages where the tool should be in the first screen of a phone: tighter spacing,
+ * a one-line breadcrumb and no topic chips below 640 px. Pages that pass neither render exactly as before.
+ */
+export default function CalcPageHero({
+  calc,
+  compact = false,
+  toolFirst = false,
+}: {
+  calc: CalcMeta;
+  compact?: boolean;
+  toolFirst?: boolean;
+}) {
   const cat = CATEGORY_INFO[calc.category];
+  const pad = toolFirst
+    ? "pb-5 pt-6 lg:pb-8 lg:pt-9"
+    : compact
+      ? "pb-8 pt-9 lg:pb-10 lg:pt-11"
+      : "pb-14 pt-14 lg:pb-20 lg:pt-16";
+  // On a phone the first two breadcrumb steps are dropped so the trail stays on one line (the full trail is in the structured data).
+  const crumb = "transition-colors hover:text-white";
+  const crumbClass = toolFirst ? `${crumb} hidden sm:block` : crumb;
+  const chevronClass = toolFirst ? "hidden sm:block" : undefined;
   return (
-    <section className={`relative overflow-hidden bg-(--color-navy-deep) ${compact ? "pb-8 pt-9 lg:pb-10 lg:pt-11" : "pb-14 pt-14 lg:pb-20 lg:pt-16"}`}>
+    <section className={`relative overflow-hidden bg-(--color-navy-deep) ${pad}`}>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -28,25 +49,39 @@ export default function CalcPageHero({ calc, compact = false }: { calc: CalcMeta
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-[13px] font-medium text-white/50">
-          <Link href="/" className="transition-colors hover:text-white">Home</Link>
-          <ChevronRight size={14} aria-hidden="true" />
-          <Link href="/tools" className="transition-colors hover:text-white">Free Tools</Link>
-          <ChevronRight size={14} aria-hidden="true" />
+          <Link href="/" className={crumbClass}>Home</Link>
+          <ChevronRight size={14} aria-hidden="true" className={chevronClass} />
+          <Link href="/tools" className={crumbClass}>Free Tools</Link>
+          <ChevronRight size={14} aria-hidden="true" className={chevronClass} />
           <Link href="/tools/calculators" className="transition-colors hover:text-white">All Calculators</Link>
           <ChevronRight size={14} aria-hidden="true" />
           <span aria-current="page" className="text-white/80">{calc.name}</span>
         </nav>
 
-        <div className={`flex items-start gap-4 sm:gap-5 ${compact ? "mt-5" : "mt-7"}`}>
+        <div className={`flex items-start gap-4 sm:gap-5 ${toolFirst ? "mt-3 sm:mt-5" : compact ? "mt-5" : "mt-7"}`}>
           <span className="mt-1 hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-(--color-cyan) sm:flex">
             <CalcIcon name={calc.icon} size={26} strokeWidth={1.75} />
           </span>
           <div className="min-w-0">
-            <h1 className="max-w-3xl text-[34px] font-extrabold leading-[1.1] tracking-[-0.02em] text-white sm:text-[44px] lg:text-[52px]">
+            <h1
+              className={
+                toolFirst
+                  ? "max-w-3xl text-[30px] font-extrabold leading-[1.1] tracking-[-0.02em] text-white sm:text-[44px] lg:text-[52px]"
+                  : "max-w-3xl text-[34px] font-extrabold leading-[1.1] tracking-[-0.02em] text-white sm:text-[44px] lg:text-[52px]"
+              }
+            >
               {calc.name}
             </h1>
-            <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]">{calc.short}</p>
-            <ul className="mt-5 flex flex-wrap gap-2" aria-label="Topics">
+            <p
+              className={
+                toolFirst
+                  ? "mt-2.5 max-w-2xl text-[15px] leading-relaxed text-white/70 sm:mt-4 sm:text-[16px] lg:text-[17px]"
+                  : "mt-4 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]"
+              }
+            >
+              {calc.short}
+            </p>
+            <ul className={toolFirst ? "mt-5 hidden flex-wrap gap-2 sm:flex" : "mt-5 flex flex-wrap gap-2"} aria-label="Topics">
               <li>
                 <Link
                   href={`/tools/calculators#${cat.anchor}`}

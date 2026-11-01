@@ -3,8 +3,12 @@
 import CalculatorForm, { type FieldDef } from "../../CalculatorForm";
 import { fail, type CalcOutcome } from "@/lib/calculators/types";
 import { readNum, type Values } from "@/lib/calculators/validate";
-import { factorize, factorsFromPrimes, primeFactorExpanded, primeFactorText, FACTOR_LIMIT } from "@/lib/calculators/numtheory";
+import { factorize, factorsFromPrimes, primeFactorExpanded, primeFactorList, primeFactorSuperscript, FACTOR_LIMIT } from "@/lib/calculators/numtheory";
 import { groupDigits } from "@/lib/calculators/format";
+import FactorTree from "../../factor/FactorTree";
+
+const ENTRY_NOTE =
+  "Enter a whole number from 1 to 1,000,000,000,000,000 (10¹⁵). Thousands separators such as 1,250 are fine. Nothing you enter leaves your device.";
 
 const fields: FieldDef[] = [
   { id: "n", kind: "number", label: "Positive whole number", default: "360", hint: "Up to 1,000,000,000,000,000 (10¹⁵)." },
@@ -25,7 +29,15 @@ function compute(v: Values): CalcOutcome {
   const text = factors.map((x) => groupDigits(String(x))).join(", ");
   return {
     ok: true,
-    headline: { label: `Prime factorisation of ${groupDigits(String(n))}`, value: n === 1 ? "1 (neither prime nor composite)" : isPrime ? `${groupDigits(String(n))} is prime` : primeFactorText(pf), sub: n > 1 && !isPrime ? `= ${primeFactorExpanded(pf)}` : undefined },
+    headline: { label: `Prime factorization of ${groupDigits(String(n))}`, value: n === 1 ? "1 (neither prime nor composite)" : isPrime ? `${groupDigits(String(n))} is prime` : primeFactorSuperscript(pf), sub: n > 1 && !isPrime ? `= ${primeFactorExpanded(pf)}` : undefined },
+    figure: primeFactorList(pf).length >= 2 ? <FactorTree n={n} pf={pf} /> : undefined,
+    notes: [
+      n === 1
+        ? "1 is neither prime nor composite: it has only one factor."
+        : isPrime
+          ? `${groupDigits(String(n))} is prime: its only factors are 1 and itself.`
+          : `${groupDigits(String(n))} is composite: it has ${factors.length} factors, more than the two a prime number has.`,
+    ],
     stats: [
       { label: "Number of factors", value: String(factors.length) },
       { label: "Sum of factors", value: groupDigits(String(sum)) },
@@ -37,5 +49,5 @@ function compute(v: Values): CalcOutcome {
 }
 
 export default function FactorWidget() {
-  return <CalculatorForm fields={fields} compute={compute} />;
+  return <CalculatorForm fields={fields} compute={compute} entryNote={ENTRY_NOTE} />;
 }

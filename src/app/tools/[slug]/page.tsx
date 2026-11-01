@@ -8,7 +8,9 @@ import ClosingCTA from "@/components/shared/ClosingCTA";
 import CalcPageHero from "@/components/calculators/page/CalcPageHero";
 import CalcArticle from "@/components/calculators/page/CalcArticle";
 import RelatedCalculators from "@/components/calculators/page/RelatedCalculators";
+import RelatedStrip from "@/components/calculators/page/RelatedStrip";
 import VolumeGuide from "@/components/calculators/volume/VolumeGuide";
+import FactorGuide from "@/components/calculators/factor/FactorGuide";
 import { widgets } from "@/components/calculators/widgetRegistry";
 import { calculators, getCalculator, relatedCalculators } from "@/data/calculators/registry";
 import { getContent } from "@/data/calculators/content";
@@ -66,6 +68,8 @@ export default async function CalculatorPage({ params }: { params: Promise<{ slu
   const curated = (seo?.related ?? []).map((s) => getCalculator(s)).filter((c): c is NonNullable<typeof c> => Boolean(c) && c!.slug !== slug);
   const related = curated.length >= 4 ? curated.slice(0, 4) : relatedCalculators(slug, 4);
   const description = seo?.description ?? calc.short;
+  // The factor calculator uses a tool-first layout: tight hero, related links directly under the tool, and its own guide.
+  const isFactor = slug === "factor-calculator";
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -111,9 +115,9 @@ export default async function CalculatorPage({ params }: { params: Promise<{ slu
       <Header />
 
       <main id="main" className="flex-1">
-        <CalcPageHero calc={calc} compact={slug === "volume-calculator"} />
+        <CalcPageHero calc={calc} compact={slug === "volume-calculator"} toolFirst={isFactor} />
 
-        <section className={`bg-(--color-surface) ${slug === "volume-calculator" ? "py-6 lg:py-8" : "py-10 lg:py-14"}`} aria-label={`${calc.name}`}>
+        <section className={`bg-(--color-surface) ${isFactor ? "pb-5 pt-4 lg:pb-8 lg:pt-8" : slug === "volume-calculator" ? "py-6 lg:py-8" : "py-10 lg:py-14"}`} aria-label={`${calc.name}`}>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
             {calc.category === "health" && (
               <p className="mb-6 flex gap-3 rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 text-[13.5px] leading-relaxed text-amber-950">
@@ -127,8 +131,12 @@ export default async function CalculatorPage({ params }: { params: Promise<{ slu
           </div>
         </section>
 
+        {isFactor && <RelatedStrip items={related} />}
+
         {slug === "volume-calculator" ? (
           <VolumeGuide content={content} references={seo?.references} />
+        ) : isFactor ? (
+          <FactorGuide content={content} references={seo?.references} />
         ) : (
           <CalcArticle name={calc.name} content={content} regional={seo?.regional} references={seo?.references} />
         )}

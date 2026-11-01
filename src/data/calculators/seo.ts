@@ -27,7 +27,7 @@ export type CalcSeo = {
   regional?: string[];
   /** Optional authoritative external references. */
   references?: CalcReference[];
-  /** Optional link to one of our own non-calculator tools that is genuinely relevant. */
+  /** Optional callout under the related calculators: a genuinely relevant tool, such as one of our own non-calculator tools or a calculator that goes deeper. Renders as "text label." */
   tool?: { label: string; href: string; text: string };
 };
 
@@ -345,6 +345,11 @@ export const calcSeo: Record<string, CalcSeo> = {
     longTail: ["lowest common multiple of 12 and 18", "LCM using prime factorization", "common denominator for fractions"],
     related: ["gcf-calculator", "factor-calculator", "fraction-calculator", "ratio-calculator"],
     gaps: "Overlap with the GCF calculator needed a clear boundary (multiples versus factors).",
+    tool: {
+      label: "Factor Calculator",
+      href: "/tools/factor-calculator",
+      text: "To list every factor of one number, or see its prime factorization, use the",
+    },
   },
   "gcf-calculator": {
     title: "GCF Calculator – Greatest Common Factor",
@@ -353,14 +358,26 @@ export const calcSeo: Record<string, CalcSeo> = {
     longTail: ["greatest common divisor of two numbers", "HCF calculator with steps", "Euclidean algorithm example"],
     related: ["lcm-calculator", "factor-calculator", "fraction-calculator", "ratio-calculator"],
     gaps: "Overlap with the LCM calculator needed a clear boundary (factors versus multiples).",
+    tool: {
+      label: "Factor Calculator",
+      href: "/tools/factor-calculator",
+      text: "Want every factor of a single number, its factor pairs or its prime factorization? Use the",
+    },
   },
   "factor-calculator": {
-    title: "Factor Calculator – Prime Factorization",
+    title: "Factor Calculator – Factors & Prime Factors",
     description:
-      "List every factor and factor pair of a number, check whether it is prime and see its prime factorisation, with the steps explained.",
-    longTail: ["factors of a number list", "prime factorization calculator", "is this number prime"],
-    related: ["gcf-calculator", "lcm-calculator", "big-number-calculator", "permutation-combination-calculator"],
-    gaps: META_ONLY,
+      "Free factor calculator: enter a whole number to list all its factors and factor pairs, see its prime factorization and check if it is prime.",
+    longTail: [
+      "factors calculator",
+      "how to find all the factors of a number",
+      "prime factors list",
+      "factor pairs of a number",
+      "factor tree",
+      "prime or composite calculator",
+    ],
+    related: ["gcf-calculator", "lcm-calculator", "fraction-calculator", "big-number-calculator"],
+    gaps: "Tool-first layout, factor tree, how-to and prime-factor sections, common-numbers table and eight FAQs added. No external references: none could be verified.",
   },
   "rounding-calculator": {
     title: "Rounding Calculator – Decimals & Places",
