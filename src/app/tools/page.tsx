@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ToolsHero from "@/components/tools/ToolsHero";
-import ToolsSearch from "@/components/tools/ToolsSearch";
 import ToolsGrid from "@/components/tools/ToolsGrid";
 import WhyUseTools from "@/components/tools/WhyUseTools";
 import HowToolsWork from "@/components/tools/HowToolsWork";
@@ -157,7 +156,6 @@ export default function ToolsPage() {
 
       <main id="main" className="flex-1">
         <ToolsHero />
-        <ToolsSearch />
         <ToolsGrid />
         <WhyUseTools />
         <HowToolsWork />

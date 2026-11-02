@@ -125,13 +125,13 @@ export default function ToolsSearch() {
   }
 
   return (
-    <section aria-label="Search tools" className="bg-(--color-surface) pt-12 lg:pt-14">
-      <div className="mx-auto max-w-2xl px-6">
+    <div className="mx-auto w-full max-w-2xl">
+      <div>
         <form role="search" onSubmit={handleSubmit}>
           <label htmlFor="tools-search" className="sr-only">
             Search tools
           </label>
-          <div className="flex items-center gap-1 rounded-full border border-(--color-line) bg-white p-1.5 shadow-[0_24px_50px_-30px_rgba(11,28,77,0.4)] transition-shadow duration-300 focus-within:border-(--color-blue)/40 focus-within:shadow-[0_24px_50px_-26px_rgba(21,71,224,0.45)] focus-within:ring-2 focus-within:ring-(--color-blue)/20 sm:p-2">
+          <div className="flex items-center gap-1 rounded-full border border-(--color-line) bg-white p-1.5 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.7)] transition-shadow duration-300 focus-within:border-(--color-cyan)/60 focus-within:shadow-[0_24px_50px_-26px_rgba(34,211,238,0.35)] focus-within:ring-2 focus-within:ring-(--color-cyan)/50 sm:p-2">
             <input
               id="tools-search"
               type="text"
@@ -226,6 +226,6 @@ export default function ToolsSearch() {
           )}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

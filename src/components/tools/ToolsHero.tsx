@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ChevronRight, CalendarCheck, Wrench } from "lucide-react";
 import MotionStreaks from "@/components/MotionStreaks";
+import ToolsSearch from "@/components/tools/ToolsSearch";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -85,6 +86,10 @@ export default function ToolsHero() {
           migration, estimate a SaaS MVP, or browse our free online calculators.
           No signup required.
         </motion.p>
+
+        <motion.div variants={slideUp} className="mt-9 lg:mt-10">
+          <ToolsSearch />
+        </motion.div>
 
         <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-4">
           <a
