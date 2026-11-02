@@ -277,10 +277,20 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
             {subServices.length > 0 && (
               <SubServicesGrid
                 mainSlug={slug}
-                heading={`${category.title} Sub-Services`}
-                subheading={`Specific ${category.title.toLowerCase()} work we do most often — each with its own dedicated page.`}
+                heading={detail.subServicesHeading ?? `${category.title} Sub-Services`}
+                subheading={
+                  detail.subServicesSubheading ??
+                  `Specific ${category.title.toLowerCase()} work we do most often — each with its own dedicated page.`
+                }
               />
             )}
+            {detail.extraGroups?.map((group, index) => (
+              <ServiceCardGroup
+                key={group.id ?? `extra-${index}`}
+                group={group}
+                tone={index % 2 === 0 ? "raised" : "surface"}
+              />
+            ))}
             {detail.process && detail.process.length > 0 && (
               <ServiceProcessSteps steps={detail.process} heading={detail.processHeading} />
             )}
