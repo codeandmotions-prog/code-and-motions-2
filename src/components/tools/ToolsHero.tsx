@@ -87,10 +87,6 @@ export default function ToolsHero() {
           No signup required.
         </motion.p>
 
-        <motion.div variants={slideUp} className="mt-9 lg:mt-10">
-          <ToolsSearch />
-        </motion.div>
-
         <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-4">
           <a
             href="#tools"
@@ -106,6 +102,10 @@ export default function ToolsHero() {
             <CalendarCheck size={17} aria-hidden="true" />
             Book a Free Call
           </Link>
+        </motion.div>
+
+        <motion.div variants={slideUp} className="mt-7">
+          <ToolsSearch />
         </motion.div>
       </motion.div>
     </section>

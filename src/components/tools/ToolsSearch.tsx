@@ -125,7 +125,7 @@ export default function ToolsSearch() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-2xl">
+    <div className="w-full max-w-3xl">
       <div>
         <form role="search" onSubmit={handleSubmit}>
           <label htmlFor="tools-search" className="sr-only">
