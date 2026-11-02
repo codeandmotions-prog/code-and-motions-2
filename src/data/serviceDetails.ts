@@ -2,6 +2,7 @@ import {
   softwareDevelopmentRichSections,
   websiteDevelopmentPageSections,
   type PageSection,
+  type RichServiceGroup,
   type ServiceRichSections,
 } from "./serviceRichSections";
 
@@ -70,6 +71,17 @@ export type ServiceDetail = {
    * copy/FAQs genuinely reference an additional market (e.g. Pakistan).
    */
   areaServed?: string[];
+  /**
+   * Optional per-service overrides for the sub-services grid heading and
+   * subheading in the default layout. Left undefined, the shared copy is used.
+   */
+  subServicesHeading?: string;
+  subServicesSubheading?: string;
+  /**
+   * Optional card groups rendered right after the sub-services grid in the
+   * default layout (not used when `pageSections` or `richSections` is set).
+   */
+  extraGroups?: RichServiceGroup[];
   /**
    * Optional long-form sections (services list, when-custom-fits, cost,
    * technologies, ownership, case study). Only services that set this render
@@ -378,18 +390,20 @@ export const serviceDetails: ServiceDetail[] = [
   },
   {
     slug: "shopify-development",
-    seoTitle: "Shopify Development & Migration Services",
+    seoTitle: "Shopify Web Development Company",
     metaDescription:
-      "Shopify store development, custom Shopify 2.0 themes, app integrations, and WooCommerce-to-Shopify migration for e-commerce brands in the USA, UK and Europe.",
-    h1: "Shopify Development Services",
-    primaryKeyword: "Shopify development services",
+      "Shopify web development company: custom stores, Shopify 2.0 themes, apps and migrations for brands in the USA, UK, Europe, Canada and Australia.",
+    h1: "Shopify Web Development Company",
+    primaryKeyword: "Shopify web development company",
     secondaryKeywords: [
-      "Shopify store development company",
+      "Shopify development services",
+      "hire Shopify developers",
       "custom Shopify theme development",
       "WooCommerce to Shopify migration",
     ],
+    areaServed: ["United States", "United Kingdom", "Europe", "Canada", "Australia"],
     intro:
-      "We design, build and optimize Shopify stores for e-commerce brands across the USA, UK and Europe — from custom Shopify 2.0 themes and app integrations to WooCommerce-to-Shopify migrations, we handle the full store experience end to end.",
+      "Code & Motions is a Shopify web development company for e-commerce brands in the USA, UK, Europe, Canada, Australia and other international markets. Our Shopify development services cover the full store experience end to end: custom Shopify 2.0 themes, app integrations, payments and shipping setup, speed optimization, and WooCommerce-to-Shopify migrations.",
     benefits: [
       {
         title: "Conversion-Focused Builds",
@@ -407,9 +421,9 @@ export const serviceDetails: ServiceDetail[] = [
           "We connect the tools you rely on without bloating your store's load time.",
       },
       {
-        title: "Migration Without Downtime",
+        title: "Migrations Planned to Minimize Downtime",
         description:
-          "Moving from WooCommerce or another platform is handled carefully, with your data and SEO intact.",
+          "Moving from WooCommerce or another supported platform is planned to minimize downtime, with redirects set up to protect your existing search visibility.",
       },
     ],
     useCases: [
@@ -452,7 +466,109 @@ export const serviceDetails: ServiceDetail[] = [
         answer:
           "Yes. When an off-the-shelf app doesn't fit, we build custom Shopify apps and integrations tailored to your store's workflow.",
       },
+      {
+        question: "Do you work with clients around the world?",
+        answer:
+          "Yes. We work with e-commerce brands around the world, including the USA, UK, Europe, Canada and Australia, as well as other international markets.",
+      },
+      {
+        question: "Can I hire you for one specific piece of Shopify work?",
+        answer:
+          "Yes. We take individual tasks as well as complete projects, such as a store build, a theme, an app integration, a custom app or a speed fix on an existing store. Tell us what you need and we will scope it.",
+      },
+      {
+        question: "How much does Shopify development cost?",
+        answer:
+          "We offer both fixed-price and hourly Shopify development projects. The cost depends on the number of products, the amount of theme work, the integrations you need and whether you are migrating from another platform. Tell us about your store and we will put together a plan and a quote for it.",
+      },
+      {
+        question: "What happens after my store launches?",
+        answer:
+          "After launch we test checkout, payments and speed, then stay available for ongoing optimization.",
+      },
+      {
+        question: "Which platforms can you migrate from?",
+        answer:
+          "We handle migrations from supported e-commerce platforms, including WooCommerce. Tell us which platform you are on and we will confirm whether we can migrate it.",
+      },
+      {
+        question: "Will my store be offline during a migration?",
+        answer:
+          "We plan migrations to minimize downtime, but we cannot promise zero downtime for every store. We review your existing store first, so we can tell you what to expect before work starts.",
+      },
     ],
+    subServicesHeading: "Shopify Development Services We Offer",
+    subServicesSubheading:
+      "Six focused services, each with its own page. Choose the one that matches your store, or tell us what you need and we will point you to the right one.",
+    extraGroups: [
+      {
+        id: "hire-shopify-developers",
+        eyebrow: "Hire",
+        heading: "Hire Shopify Developers for Your Store",
+        intro:
+          "If you are looking to hire Shopify developers, bring us the work your store needs. Design, development and store configuration sit with one team, so you are not coordinating separate specialists for theme, apps and checkout. We work on both fixed-price and hourly Shopify development projects, and we take individual tasks as well as complete projects. If you need Shopify developers for hire for a defined task, tell us what it is and we will scope it.",
+        items: [
+          {
+            title: "A new Shopify store build",
+            icon: "web",
+            description:
+              "Full store builds: theme setup, catalog structure, and payments, shipping and checkout configuration.",
+            link: {
+              label: "Shopify Store Development",
+              href: "/services/shopify-development/shopify-store-development",
+            },
+          },
+          {
+            title: "A custom Shopify 2.0 theme",
+            icon: "custom",
+            description: "A fully custom theme on Shopify 2.0, or changes to the theme you already have.",
+          },
+          {
+            title: "App integrations and custom apps",
+            icon: "api",
+            description:
+              "The apps your store relies on, connected without bloating load time, or a custom Shopify app when an off-the-shelf one does not fit.",
+            link: {
+              label: "Shopify E-commerce Development",
+              href: "/services/shopify-development/shopify-ecommerce-development",
+            },
+          },
+          {
+            title: "Speed and Core Web Vitals",
+            icon: "automation",
+            description: "An audit and optimization of an existing store's load time and Core Web Vitals.",
+          },
+          {
+            title: "Support after launch",
+            icon: "support",
+            description: "Checkout, payments and speed tested at launch, then ongoing optimization.",
+            link: {
+              label: "Shopify Tools & Services",
+              href: "/services/shopify-development/shopify-tools-services",
+            },
+          },
+        ],
+      },
+      {
+        id: "migrating-to-shopify",
+        eyebrow: "Migration",
+        heading: "Migrating to Shopify",
+        intro:
+          "Moving to Shopify? We handle migrations from supported e-commerce platforms, including WooCommerce. We review your existing store first, then move your products, customer data and SEO redirects. We plan each migration to minimize downtime and protect your existing search visibility.",
+        items: [
+          {
+            title: "WooCommerce to Shopify Migration Checker",
+            icon: "automation",
+            description:
+              "Not sure how ready your store is? Answer a few questions about your WooCommerce store and get a readiness score before you plan a Shopify migration.",
+            link: {
+              label: "Try the free migration checker",
+              href: "/tools/woocommerce-to-shopify-migration-checker",
+            },
+          },
+        ],
+      },
+    ] satisfies RichServiceGroup[],
     relatedSlugs: ["website-development", "seo", "video-animation"],
     whatIsQuestion: "What Is Shopify Development?",
     whatIsAnswer:
@@ -472,7 +588,7 @@ export const serviceDetails: ServiceDetail[] = [
       {
         title: "Migration & Data",
         description:
-          "For migrations, products, customers and SEO redirects are moved carefully to avoid downtime or lost rankings.",
+          "For migrations, products, customers and SEO redirects are moved carefully to minimize downtime and protect your search visibility.",
       },
       {
         title: "Launch & Optimize",
