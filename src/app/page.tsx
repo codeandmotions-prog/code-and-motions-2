@@ -10,6 +10,7 @@ import ByTheNumbers from "@/components/home/ByTheNumbers";
 import BusinessPlanningSolutions from "@/components/home/BusinessPlanningSolutions";
 import AiServicesShowcase from "@/components/home/AiServicesShowcase";
 import { contactInfo } from "@/data/contactInfo";
+import { getServiceSearchItems } from "@/data/serviceSearchIndex";
 
 const siteUrl = "https://codeandmotions.com";
 
@@ -85,7 +86,7 @@ export default function Home() {
       <Header />
 
       <main id="main" className="flex-1">
-        <Hero />
+        <Hero serviceSearchItems={getServiceSearchItems()} />
         <HeroProjectCTA />
         <PlatformsMarquee />
         <WhyWorkWithUs />

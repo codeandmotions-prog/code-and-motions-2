@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import MotionStreaks from "./MotionStreaks";
+import HeroServiceSearch from "./home/HeroServiceSearch";
+import type { ServiceSearchItem } from "@/data/serviceSearchIndex";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -45,7 +47,7 @@ const servicePills = [
 // Purely decorative — generic silhouettes, never presented as real people.
 const avatarTones = ["#1547E0", "#22D3EE", "#0B1C4D", "#2F6BFF", "#7CE6F7"];
 
-export default function Hero() {
+export default function Hero({ serviceSearchItems = [] }: { serviceSearchItems?: ServiceSearchItem[] }) {
   return (
     <section className="relative overflow-hidden bg-(--color-navy-deep)">
       <div
@@ -59,12 +61,21 @@ export default function Hero() {
       <MotionStreaks className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 opacity-[0.06] lg:h-[26rem] lg:w-[26rem]" />
 
       <div className="relative mx-auto max-w-4xl px-6 pb-24 pt-16 text-center lg:px-10 lg:pb-32 lg:pt-24">
+        {/* service search */}
+        <motion.div
+          initial={{ y: 16 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.6, ease: easeOut }}
+        >
+          <HeroServiceSearch items={serviceSearchItems} />
+        </motion.div>
+
         {/* trust bar */}
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap"
+          className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap"
         >
           <motion.div
             variants={fadeUp}
