@@ -71,6 +71,10 @@ export default function ToolsHero() {
           <span className="text-white/80">Free Tools</span>
         </motion.nav>
 
+        <motion.div variants={slideUp} className="mt-8">
+          <ToolsSearch />
+        </motion.div>
+
         <motion.h1
           variants={slideUp}
           className="mt-7 max-w-3xl text-[40px] font-extrabold leading-[1.08] tracking-[-0.02em] text-white sm:text-[52px] lg:text-[60px]"
@@ -102,10 +106,6 @@ export default function ToolsHero() {
             <CalendarCheck size={17} aria-hidden="true" />
             Book a Free Call
           </Link>
-        </motion.div>
-
-        <motion.div variants={slideUp} className="mt-7">
-          <ToolsSearch />
         </motion.div>
       </motion.div>
     </section>
