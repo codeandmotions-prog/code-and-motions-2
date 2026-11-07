@@ -141,7 +141,7 @@ export default function Hero({ serviceSearchItems = [] }: { serviceSearchItems?:
           transition={{ delay: 0.34 }}
           className="mx-auto mt-6 max-w-2xl text-[15.5px] leading-relaxed text-white/70 sm:text-[16.5px]"
         >
-          Code &amp; Motions is a full-service digital agency delivering
+          Code &amp; Motions is a full-service digital solutions agency delivering
           custom software, websites, Shopify solutions, AI-powered
           products, creative design, animation, and SEO for businesses
           across the USA, UK, and Europe.

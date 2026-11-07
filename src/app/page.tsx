@@ -15,9 +15,9 @@ import { getServiceSearchItems } from "@/data/serviceSearchIndex";
 const siteUrl = "https://codeandmotions.com";
 
 export const metadata: Metadata = {
-  title: "Code & Motions | Software, Web & AI Development Agency",
+  title: "Digital Solutions Agency for Web & Software | Code & Motions",
   description:
-    "Code & Motions is a digital agency building custom software, websites, Shopify stores, AI solutions and SEO for businesses across the USA, UK and Europe.",
+    "Code & Motions is a digital solutions agency and web and software development company: software, websites, Shopify, AI and SEO for the USA, UK and Europe.",
   alternates: {
     canonical: "/",
   },
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Code & Motions | Software, Web & AI Development Agency",
+    title: "Digital Solutions Agency for Web & Software | Code & Motions",
     description:
-      "Custom software development, website development, Shopify, AI development and SEO — one digital agency for businesses in the USA, UK and Europe.",
+      "Digital solutions agency and web and software development company: custom software, websites, Shopify, AI and SEO for businesses in the USA, UK and Europe.",
     url: siteUrl,
     type: "website",
     siteName: "Code & Motions",
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Code & Motions | Software, Web & AI Development Agency",
+    title: "Digital Solutions Agency for Web & Software | Code & Motions",
     description:
-      "Custom software development, website development, Shopify, AI development and SEO — one digital agency for businesses in the USA, UK and Europe.",
+      "Digital solutions agency and web and software development company: custom software, websites, Shopify, AI and SEO for businesses in the USA, UK and Europe.",
     images: ["/images/logo-full.png"],
   },
 };
@@ -59,7 +59,7 @@ export default function Home() {
     url: siteUrl,
     logo: `${siteUrl}/images/logo-full.png`,
     description:
-      "Code & Motions is a digital agency offering software development, website development, Shopify development, AI development, video & animation, graphic design and SEO.",
+      "Code & Motions is a digital solutions agency and web and software development company offering software development, website development, Shopify development, AI development, video & animation, graphic design and SEO.",
     slogan: "Design, Develop, Grow.",
     sameAs: [contactInfo.instagramUrl],
     areaServed: ["United States", "United Kingdom", "Europe"],

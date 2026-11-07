@@ -135,16 +135,29 @@ export default function WhyWorkWithUs() {
               variants={fadeUp}
               className="mt-6 max-w-xl text-[16px] leading-relaxed text-(--color-ink-soft)"
             >
-              We help startups, small businesses, and growing companies
-              build high-performing{" "}
+              As a web and software development company, we help startups,
+              small businesses, and growing companies build high-performing{" "}
               <Link
                 href="/services"
                 className="font-semibold text-(--color-blue) underline decoration-(--color-blue)/30 underline-offset-2 transition-colors hover:decoration-(--color-blue)"
               >
                 digital solutions
               </Link>{" "}
-              — from custom software and websites to Shopify, AI, design,
-              explainer videos, 2D animation, and SEO.
+              — from{" "}
+              <Link
+                href="/services/software-development"
+                className="font-semibold text-(--color-blue) underline decoration-(--color-blue)/30 underline-offset-2 transition-colors hover:decoration-(--color-blue)"
+              >
+                custom software
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/services/website-development"
+                className="font-semibold text-(--color-blue) underline decoration-(--color-blue)/30 underline-offset-2 transition-colors hover:decoration-(--color-blue)"
+              >
+                websites
+              </Link>{" "}
+              to Shopify, AI, design, explainer videos, 2D animation, and SEO.
             </motion.p>
 
             <div className="mt-11 space-y-8">
