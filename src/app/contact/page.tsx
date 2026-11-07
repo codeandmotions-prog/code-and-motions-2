@@ -5,14 +5,22 @@ import ContactHero from "@/components/contact/ContactHero";
 import ContactForm from "@/components/contact/ContactForm";
 import ContactInfoSidebar from "@/components/contact/ContactInfoSidebar";
 import ContactTrustBadges from "@/components/contact/ContactTrustBadges";
+import ContactHelpOptions from "@/components/contact/ContactHelpOptions";
+import ContactLocationsFaq from "@/components/contact/ContactLocationsFaq";
 import { contactInfo } from "@/data/contactInfo";
 
 const siteUrl = "https://codeandmotions.com";
 
+const pageTitle = "Contact Code & Motions | Web Development Consultation";
+const pageDescription =
+  "Book a free or paid web development consultation, hire dedicated developers or start a project with Code & Motions. Based in Sargodha, Pakistan.";
+const socialDescription =
+  "Book a free or paid web development consultation, hire dedicated developers or start a software project with Code & Motions in Sargodha, Pakistan.";
+
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description:
-    "Contact Code & Motions for software development, website development, Shopify development, 2D animation, explainer videos and SEO services. We reply within 24 hours.",
+  // Absolute so the root "%s | Code & Motions" template is not appended twice.
+  title: { absolute: pageTitle },
+  description: pageDescription,
   alternates: {
     canonical: "/contact",
   },
@@ -21,9 +29,8 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Contact Us | Code & Motions",
-    description:
-      "Get in touch with Code & Motions — a digital agency for software, website, Shopify, animation and SEO projects.",
+    title: pageTitle,
+    description: socialDescription,
     url: "/contact",
     type: "website",
     siteName: "Code & Motions",
@@ -39,9 +46,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact Us | Code & Motions",
-    description:
-      "Get in touch with Code & Motions — a digital agency for software, website, Shopify, animation and SEO projects.",
+    title: pageTitle,
+    description: socialDescription,
     images: ["/images/logo-full.png"],
   },
 };
@@ -66,25 +72,59 @@ export default function ContactPage() {
     ],
   };
 
-  // ContactPage schema with a real, verified contactPoint — email and
-  // phone come from contactInfo.ts, the same source the page itself
-  // renders. No address/LocalBusiness: no address exists in this
-  // project, and inventing one is explicitly out of scope.
+  // ContactPage schema describing the business. Every value comes from
+  // contactInfo.ts (the same source the page renders). The street line is
+  // not available yet, so no streetAddress is published; Sydney and the USA
+  // are service areas, not offices, so no extra locations are listed.
   const contactPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     name: "Contact Code & Motions",
     url: `${siteUrl}/contact`,
+    description: pageDescription,
     about: {
-      "@type": "Organization",
+      "@type": "ProfessionalService",
+      "@id": `${siteUrl}/#organization`,
       name: "Code & Motions",
       url: siteUrl,
+      logo: `${siteUrl}/images/logo-full.png`,
+      email: contactInfo.email,
+      telephone: contactInfo.phoneDisplay,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: contactInfo.address.locality,
+        addressRegion: contactInfo.address.region,
+        postalCode: contactInfo.address.postalCode,
+        addressCountry: contactInfo.address.countryCode,
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+          opens: "09:00",
+          closes: "17:00",
+        },
+      ],
+      areaServed: [
+        "United States",
+        "United Kingdom",
+        "Europe",
+        "Middle East",
+        "Australia",
+      ],
+      sameAs: [contactInfo.instagramUrl],
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "customer service",
         email: contactInfo.email,
         telephone: contactInfo.phoneDisplay,
-        areaServed: ["US", "GB", "EU"],
         availableLanguage: ["English"],
       },
     },
@@ -106,6 +146,8 @@ export default function ContactPage() {
       <main id="main" className="flex-1">
         <ContactHero />
 
+        <ContactHelpOptions />
+
         <section
           id="contact-form"
           className="bg-(--color-surface-raised) px-6 py-16 lg:px-10 lg:py-20"
@@ -115,6 +157,8 @@ export default function ContactPage() {
             <ContactInfoSidebar />
           </div>
         </section>
+
+        <ContactLocationsFaq />
 
         <section className="border-t border-(--color-line) bg-(--color-surface-raised) px-6 py-16 lg:px-10 lg:py-20">
           <div className="mx-auto max-w-5xl">

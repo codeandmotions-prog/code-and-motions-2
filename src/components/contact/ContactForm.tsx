@@ -122,7 +122,7 @@ export default function ContactForm() {
     >
       <div className="max-w-md">
         <h2 className="text-[24px] font-extrabold text-(--color-ink) sm:text-[26px]">
-          Contact form
+          Send us your project details
         </h2>
         <p className="mt-2 text-[14.5px] leading-relaxed text-(--color-ink-soft)">
           Fill out the form below and we&apos;ll get back to you as soon as

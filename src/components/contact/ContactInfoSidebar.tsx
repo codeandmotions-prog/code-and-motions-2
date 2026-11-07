@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { Clock, FileText, ShieldCheck, Users, Mail, Phone, CalendarCheck } from "lucide-react";
+import { Clock, FileText, ShieldCheck, Users, Mail, Phone, CalendarCheck, MapPin, RefreshCw } from "lucide-react";
 import SocialIcon from "@/components/SocialIcon";
 import { contactInfo } from "@/data/contactInfo";
 
@@ -38,9 +38,18 @@ const expectations = [
     title: "Talk to the Team",
     description: "You'll hear directly from the people who'd actually build it.",
   },
+  {
+    icon: RefreshCw,
+    title: "Progress Updates",
+    description: "Clients on ongoing paid projects receive progress updates every 24 hours.",
+  },
 ];
 
-const contactPoints = [
+type ContactPoint =
+  | { kind: "lucide"; Icon: typeof Mail; label: string; value: string; href?: string }
+  | { kind: "social"; network: "whatsapp" | "instagram"; label: string; value: string; href: string };
+
+const contactPoints: ContactPoint[] = [
   {
     kind: "lucide" as const,
     Icon: Mail,
@@ -69,6 +78,18 @@ const contactPoints = [
     value: contactInfo.instagramHandle,
     href: contactInfo.instagramUrl,
   },
+  {
+    kind: "lucide" as const,
+    Icon: MapPin,
+    label: "Office",
+    value: contactInfo.addressDisplay,
+  },
+  {
+    kind: "lucide" as const,
+    Icon: Clock,
+    label: "Hours",
+    value: `${contactInfo.hoursDisplay}. ${contactInfo.hoursNote}.`,
+  },
 ];
 
 export default function ContactInfoSidebar() {
@@ -91,9 +112,9 @@ export default function ContactInfoSidebar() {
           }}
         />
         <div className="relative">
-          <span className="text-[12px] font-semibold uppercase tracking-[0.14em] text-(--color-cyan-soft)">
+          <h2 className="text-[12px] font-semibold uppercase tracking-[0.14em] text-(--color-cyan-soft)">
             What to Expect
-          </span>
+          </h2>
           <ul className="mt-5 space-y-4">
             {expectations.map(({ icon: Icon, title, description }) => (
               <li key={title} className="flex items-start gap-3">
@@ -136,14 +157,20 @@ export default function ContactInfoSidebar() {
                 <span className="block text-[12px] font-medium text-(--color-ink-soft)">
                   {point.label}
                 </span>
-                <Link
-                  href={point.href}
-                  target={point.href.startsWith("http") ? "_blank" : undefined}
-                  rel={point.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="block truncate text-[14.5px] font-semibold text-(--color-ink) transition-colors hover:text-(--color-blue)"
-                >
-                  {point.value}
-                </Link>
+                {point.href ? (
+                  <Link
+                    href={point.href}
+                    target={point.href.startsWith("http") ? "_blank" : undefined}
+                    rel={point.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="block truncate text-[14.5px] font-semibold text-(--color-ink) transition-colors hover:text-(--color-blue)"
+                  >
+                    {point.value}
+                  </Link>
+                ) : (
+                  <span className="block text-[14.5px] font-semibold leading-snug text-(--color-ink)">
+                    {point.value}
+                  </span>
+                )}
               </div>
             </li>
           ))}

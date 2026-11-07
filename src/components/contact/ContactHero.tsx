@@ -69,17 +69,25 @@ export default function ContactHero() {
           variants={fadeUp}
           className="mt-7 max-w-3xl text-[40px] font-extrabold leading-[1.08] tracking-[-0.02em] text-white sm:text-[52px] lg:text-[60px]"
         >
-          <span className="block">Let&apos;s Talk About</span>
-          <span className="block">Your Project</span>
+          <span className="block">Contact</span>{" "}
+          <span className="block">Code &amp; Motions</span>
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
-          className="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]"
+          className="mt-5 text-[19px] font-semibold text-(--color-cyan-soft) lg:text-[21px]"
         >
-          No sales pitch, no pressure — tell us about your software,
-          website, Shopify, animation or SEO project and we&apos;ll get
-          back to you with honest, straightforward advice.
+          Let&apos;s talk about your project
+        </motion.p>
+
+        <motion.p
+          variants={fadeUp}
+          className="mt-4 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]"
+        >
+          Code &amp; Motions is a digital agency based in Sargodha, Pakistan,
+          working with clients in the USA, UK, Europe, the Middle East and
+          Australia. Tell us about your software, website, Shopify, AI, SEO,
+          design or video project and we&apos;ll reply within 24 hours.
         </motion.p>
       </motion.div>
     </section>
