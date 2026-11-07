@@ -23,7 +23,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const app = getApp(slug);
   if (!app) return {};
-  return { title: app.name, description: app.shortDescription };
+  return {
+    title: app.name,
+    description: app.shortDescription,
+    alternates: { canonical: `/apps/${app.slug}` },
+    // Placeholder apps ("Coming soon") stay out of the index until they ship.
+    robots: app.placeholder ? { index: false, follow: true } : undefined,
+  };
 }
 
 export default async function AppDetailPage({

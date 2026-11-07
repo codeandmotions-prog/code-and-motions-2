@@ -8,6 +8,7 @@ import { apps } from "@/data/apps";
 export const metadata: Metadata = {
   title: "Apps",
   description: "Apps built by Code & Motions to make everyday tasks easier.",
+  alternates: { canonical: "/apps" },
 };
 
 export default function AppsPage() {
