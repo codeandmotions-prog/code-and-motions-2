@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ChevronRight, CalendarCheck, Briefcase } from "lucide-react";
 import MotionStreaks from "@/components/MotionStreaks";
+import { aboutFacts } from "@/data/aboutFacts";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -66,20 +67,22 @@ export default function AboutHero() {
 
         <motion.h1
           variants={fadeUp}
-          className="mt-7 max-w-3xl text-[40px] font-extrabold leading-[1.08] tracking-[-0.02em] text-white sm:text-[52px] lg:text-[60px]"
+          className="mt-7 max-w-3xl lg:max-w-4xl text-[40px] font-extrabold leading-[1.08] tracking-[-0.02em] text-white sm:text-[52px] lg:text-[60px]"
         >
-          <span className="block">We Build Digital Solutions.</span>
-          <span className="block">We Mean It.</span>
+          <span className="block">A Software House in Sargodha.</span>{" "}
+          <span className="block">Serving Clients Worldwide.</span>
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
           className="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/70 lg:text-[17px]"
         >
-          Code &amp; Motions helps businesses across the USA, UK, Europe,
-          and beyond build powerful digital solutions — from software
-          development and websites to Shopify, AI, design, explainer
-          videos, 2D animation, and SEO.
+          Code &amp; Motions is a software house and digital agency based
+          in Sargodha, Pakistan, with {aboutFacts.yearsOfExperience} years
+          of experience. Our {aboutFacts.teamSize}-member team builds
+          software, websites, Shopify stores, AI solutions, design, video
+          and SEO for businesses in the USA, UK, Australia, Germany, the
+          UAE, Saudi Arabia and beyond.
         </motion.p>
 
         <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-4">
@@ -95,7 +98,7 @@ export default function AboutHero() {
             className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:border-white"
           >
             <Briefcase size={17} />
-            See Our Work
+            Explore Our Services
           </Link>
         </motion.div>
       </motion.div>

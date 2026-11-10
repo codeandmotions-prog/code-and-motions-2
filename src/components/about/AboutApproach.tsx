@@ -38,7 +38,7 @@ const principles = [
     icon: LineChart,
     title: "Experience Across Disciplines",
     description:
-      "From backend systems to brand identity, our team has hands-on experience across the six disciplines we offer — not just one narrow specialty.",
+      "From backend systems and AI to Shopify stores, animation, design and SEO, our team works hands-on across the services we offer — not one narrow specialty.",
   },
   {
     icon: Clock,
@@ -57,7 +57,7 @@ export default function AboutApproach() {
             Our Approach
           </span>
           <h2 className="mt-4 text-[28px] font-extrabold tracking-[-0.01em] text-(--color-ink) sm:text-[34px]">
-            Why clients work with us
+            Why clients work with Code &amp; Motions
           </h2>
         </div>
 

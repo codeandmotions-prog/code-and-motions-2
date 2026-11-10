@@ -3,6 +3,14 @@
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { services } from "@/data/services";
+import { aboutFacts } from "@/data/aboutFacts";
+
+// The shared services list holds six items; AI Development has its own
+// route and is appended here so the About page links to every service.
+const serviceLinks = [
+  ...services.map(({ id, title }) => ({ id, title })),
+  { id: "ai-development", title: "AI Development" },
+];
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -30,15 +38,15 @@ export default function AboutIntro() {
               Who We Are
             </span>
             <h2 className="mt-4 max-w-lg text-[28px] font-extrabold leading-[1.15] tracking-[-0.01em] text-(--color-ink) sm:text-[34px]">
-              A digital agency built around one accountable team.
+              A software house built around one accountable team.
             </h2>
             <div className="mt-6 max-w-lg space-y-4 text-[16px] leading-relaxed text-(--color-ink-soft)">
               <p>
-                Code & Motions is a digital agency that designs, develops
-                and grows digital products for businesses that want to move
-                faster than their competitors. We work across software,
-                web, Shopify, video, design and SEO — bringing every
-                discipline a modern brand needs under one roof.
+                Code & Motions is a software house and digital agency in
+                Sargodha, Pakistan. For {aboutFacts.yearsOfExperience} years
+                we have designed, developed and grown digital products for
+                businesses that want to move faster than their competitors,
+                across software, web, Shopify, AI, video, design and SEO.
               </p>
               <p>
                 Instead of handing your project between separate vendors,
@@ -60,10 +68,10 @@ export default function AboutIntro() {
               What We Do
             </span>
             <h2 className="mt-4 text-[22px] font-bold text-(--color-ink)">
-              Six disciplines, one workflow
+              Our services, one workflow
             </h2>
             <ul className="mt-6 divide-y divide-(--color-line) border-t border-(--color-line)">
-              {services.map((service) => (
+              {serviceLinks.map((service) => (
                 <li key={service.id}>
                   <Link
                     href={`/services/${service.id}`}
