@@ -64,7 +64,7 @@ export default function AiServicesShowcase() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "0px 0px -80px 0px" }}
-            className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-6"
+            className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-6"
           >
             {aiServices.map((service, index) => {
               const Icon = service.icon;

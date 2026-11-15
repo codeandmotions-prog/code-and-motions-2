@@ -44,7 +44,7 @@ export default function AiSubServicesGrid() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.1 }}
-          className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2"
+          className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3"
         >
           {aiSubServices.map((service) => (
             <motion.div key={service.slug} variants={item} className="h-full">

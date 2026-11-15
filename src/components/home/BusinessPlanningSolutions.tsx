@@ -41,7 +41,7 @@ export default function BusinessPlanningSolutions() {
           </p>
         </div>
 
-        <ul className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
+        <ul className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {planningSubServices.map((service) => {
             const Icon = service.icon;
             return (
@@ -59,7 +59,7 @@ export default function BusinessPlanningSolutions() {
             );
           })}
 
-          <li className="lg:col-span-2">
+          <li className="md:col-span-2">
             <div className="flex h-full flex-col items-start justify-between gap-6 rounded-2xl border border-(--color-cyan)/30 bg-gradient-to-br from-(--color-blue)/30 to-transparent p-7 sm:flex-row sm:items-center">
               <div>
                 <h3 className="text-[22px] font-bold text-white">
