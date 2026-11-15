@@ -7,6 +7,8 @@
  * function and can't be passed from a Server Component as a prop.
  */
 
+import type { SubServiceSection } from "./subServiceTypes";
+
 export type RichIconKey =
   | "custom"
   | "saas"
@@ -365,6 +367,7 @@ export const softwareDevelopmentRichSections: ServiceRichSections = {
  */
 export type PageSection =
   | { type: "cards"; tone: "surface" | "raised"; columns?: 3 | 4; group: RichServiceGroup }
+  | { type: "article"; tone: "soft" | "light"; sections: SubServiceSection[] }
   | { type: "overview" }
   | { type: "usecases" }
   | { type: "process" }
@@ -677,4 +680,168 @@ export const websiteDevelopmentPageSections: PageSection[] = [
       ],
     },
   },
+];
+
+/**
+ * Sequenced layout for the main Video & Animation page. The long-form text
+ * carries the main-page keywords (animated video production, video animation
+ * services, animation services); each format's own wording stays on its own
+ * page, and this page links to every one of them.
+ */
+export const videoAnimationPageSections: PageSection[] = [
+  {
+    type: "article",
+    tone: "light",
+    sections: [
+      {
+        heading: "Animated video production services for brands worldwide",
+        paragraphs: [
+          "Code & Motions is an animated video production company. We make the video from start to finish, so you receive a finished piece that is ready to publish rather than a set of files to assemble. Our video animation services cover the full range of styles, from illustrated 2D and 3D animation to whiteboard videos and motion graphics, and we also produce filmed corporate and promotional video.",
+          "We work with businesses worldwide, including the USA, UK, Australia, Canada, Germany, the UAE, Saudi Arabia and the wider European and Middle Eastern markets. Projects run remotely, with scripts, storyboards and drafts shared for your review at each stage.",
+        ],
+        bullets: [
+          {
+            title: "Script and storyboard",
+            text: "We write the script from your brief or work from yours, and storyboard it so you approve the story before production.",
+          },
+          {
+            title: "Design and animation",
+            text: "Characters, scenes, models and graphics are designed for your brand and animated in the style that fits.",
+          },
+          {
+            title: "Voiceover, music and sound",
+            text: "Arranged as part of the production, or fitted to audio you supply.",
+          },
+          {
+            title: "Versions for every channel",
+            text: "Landscape for the web, square or vertical for social, and shorter cut-downs for ads.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: "subgrid",
+    id: "animation-services",
+    heading: "Animation Services by Style",
+    subheading:
+      "Video animation services in the style that fits your subject. Each style has its own page with the detail you need to scope a project.",
+    slugs: [
+      "2d-animated-explainer-videos",
+      "3d-animation-services",
+      "3d-product-animation-services",
+      "whiteboard-animation-services",
+      "motion-graphics",
+    ],
+  },
+  {
+    type: "subgrid",
+    id: "explainer-product-videos",
+    heading: "Explainer and Product Videos",
+    subheading:
+      "Videos that explain what you offer, from a general introduction to a feature-level walkthrough or a demo of real software.",
+    slugs: [
+      "explainer-videos",
+      "saas-explainer-videos",
+      "product-explanation-videos",
+      "saas-product-demo-videos",
+    ],
+    raised: true,
+  },
+  {
+    type: "subgrid",
+    id: "promotional-corporate-social-video",
+    heading: "Promotional, Corporate and Social Video",
+    subheading:
+      "Video made to promote, present and publish: campaign and corporate video, plus content built for social feeds.",
+    slugs: [
+      "promotional-video-production",
+      "corporate-video-production",
+      "social-media-videos",
+      "ai-video-automation",
+    ],
+  },
+  {
+    type: "article",
+    tone: "soft",
+    sections: [
+      {
+        heading: "Which type of video do you need?",
+        paragraphs: [
+          "If you are not sure where to start, begin with what the video must do. These are the routes we most often recommend:",
+        ],
+        bullets: [
+          {
+            title: "To explain an idea or process",
+            text: "[2D animation services](/services/video-animation/2d-animated-explainer-videos), [whiteboard animation](/services/video-animation/whiteboard-animation-services) or [explainer video production](/services/video-animation/explainer-videos).",
+          },
+          {
+            title: "To show a physical product",
+            text: "[3D product animation](/services/video-animation/3d-product-animation-services) for launch films, exploded views and feature callouts, or wider [3D animation services](/services/video-animation/3d-animation-services).",
+          },
+          {
+            title: "To explain software",
+            text: "[SaaS explainer videos](/services/video-animation/saas-explainer-videos) for an animated introduction and [SaaS product demo videos](/services/video-animation/saas-product-demo-videos) to show the real interface.",
+          },
+          {
+            title: "To promote an offer or present your company",
+            text: "[Promotional video production](/services/video-animation/promotional-video-production) for campaigns and launches, and [corporate video production](/services/video-animation/corporate-video-production) for filmed company and brand video.",
+          },
+          {
+            title: "To add on-brand movement, titles and data",
+            text: "[Motion graphics services](/services/video-animation/motion-graphics) for animated text, icons, charts and brand assets.",
+          },
+          {
+            title: "To publish on social platforms",
+            text: "[Social media video production](/services/video-animation/social-media-videos), including Reels, TikTok and Shorts.",
+          },
+        ],
+      },
+      {
+        heading: "How to choose an animation company",
+        paragraphs: [
+          "Choosing an animation company is mostly about fit and process. Look at whether their work matches the style and tone you want, and ask who writes the script, because that decides whether the video is clear. Check what is included, such as voiceover, music, revision rounds and delivery versions, so quotes can be compared fairly.",
+          "A good studio asks about your audience and your goal before it talks about style, and will tell you when a different format would serve you better. That is the approach we take, and it is why we cover animation and filmed video under one roof.",
+        ],
+      },
+      {
+        heading: "What makes a good animated video",
+        paragraphs: [
+          "The best animated videos are built around a single clear message, open with the point rather than a logo, use simple visuals that support the voiceover instead of competing with it, and end with a specific next step. Style and polish matter, but clarity matters more. We agree the script and storyboard with you before animation begins, because that is where most of a video's quality is decided.",
+        ],
+      },
+    ],
+  },
+  {
+    type: "cost",
+    tone: "surface",
+    block: {
+      eyebrow: "Cost and Timeline",
+      heading: "What Affects the Cost of an Animated Video",
+      intro:
+        "Every animated video is quoted from its requirements, so we do not publish prices. Each quotation is based on what you need made.",
+      factorsHeading: "What moves the price",
+      factors: [
+        "The length of the finished video and the number of scenes",
+        "The animation style: simple graphics, character animation, 3D or filmed footage",
+        "The level of illustration or model detail",
+        "Whether we write the script",
+        "Voiceover, music and sound design",
+        "The number of revision rounds and output versions",
+      ],
+      timelineHeading: "Timeline",
+      timeline:
+        "Most explainer videos take three to five weeks from script to final delivery, depending on length and complexity. Other formats vary, and we agree a schedule once the scope is clear.",
+      links: [
+        {
+          label: "Request a custom quotation",
+          href: "/contact",
+          description: "Tell us about your video and we will respond with a quotation.",
+        },
+      ],
+    },
+  },
+  { type: "overview" },
+  { type: "usecases" },
+  { type: "process" },
 ];

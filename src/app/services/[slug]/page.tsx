@@ -18,6 +18,7 @@ import {
 } from "@/components/services/detail/ServiceRichSections";
 import ClosingCTA from "@/components/shared/ClosingCTA";
 import SubServicesGrid from "@/components/services/subservice/SubServicesGrid";
+import SubServiceSections from "@/components/services/subservice/SubServiceSections";
 import { serviceCategories } from "@/data/serviceCategories";
 import { getServiceDetail, serviceDetails } from "@/data/serviceDetails";
 import { getSubServicesForMainService } from "@/data/subServices";
@@ -180,6 +181,14 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                     group={section.group}
                     tone={section.tone}
                     columns={section.columns}
+                  />
+                );
+              case "article":
+                return (
+                  <SubServiceSections
+                    key={`article-${index}`}
+                    sections={section.sections}
+                    tone={section.tone}
                   />
                 );
               case "overview":

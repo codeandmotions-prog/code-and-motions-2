@@ -111,6 +111,12 @@ type SubServicePageContent = {
   relatedLinks?: SubServiceLink[];
   /** Tailored closing CTA copy. */
   closingCta?: { headline: string; subtext: string };
+  /**
+   * Markets named in this page's Service structured data. When omitted the
+   * page template's default (United States, United Kingdom, Europe) applies,
+   * so setting it for one service never changes any other service page.
+   */
+  areaServed?: string[];
 };
 
 /**

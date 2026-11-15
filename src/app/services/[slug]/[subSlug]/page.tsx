@@ -97,7 +97,7 @@ export default async function SubServicePage({ params }: SubServicePageProps) {
       name: "Code & Motions",
       url: siteUrl,
     },
-    areaServed: ["United States", "United Kingdom", "Europe"],
+    areaServed: service.areaServed ?? ["United States", "United Kingdom", "Europe"],
     url: pageUrl,
     isPartOf: {
       "@type": "Service",

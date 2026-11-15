@@ -80,13 +80,13 @@ export const serviceCategories: ServiceCategory[] = [
     icon: Clapperboard,
     gradient: "linear-gradient(155deg, #0A0E1A 0%, #1B2440 55%, #384057 100%)",
     subServices: [
-      "2D Animation",
+      "2D & 3D Animation",
       "Explainer Videos",
+      "Whiteboard Animation",
       "Motion Graphics",
-      "Logo Animation",
       "Product Animation",
       "Social Media Videos",
-      "Promotional Videos",
+      "Promotional & Corporate Video",
     ],
   },
   {

@@ -13,6 +13,13 @@ const nextConfig: NextConfig = {
         destination: "https://codeandmotions.com/:path*",
         permanent: true,
       },
+      {
+        // The Short/Reels/TikTok page was folded into Social Media Videos.
+        // Permanent (308) so search engines move to the new address.
+        source: "/services/video-animation/short-reels-tiktok-videos",
+        destination: "/services/video-animation/social-media-videos",
+        permanent: true,
+      },
     ];
   },
   async headers() {

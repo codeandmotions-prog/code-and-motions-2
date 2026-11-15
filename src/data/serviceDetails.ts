@@ -1,10 +1,12 @@
 import {
   softwareDevelopmentRichSections,
+  videoAnimationPageSections,
   websiteDevelopmentPageSections,
   type PageSection,
   type RichServiceGroup,
   type ServiceRichSections,
 } from "./serviceRichSections";
+import { videoAreaServed } from "./subServices/videoAnimation/shared";
 
 export type ServiceFAQ = {
   question: string;
@@ -607,18 +609,19 @@ export const serviceDetails: ServiceDetail[] = [
   },
   {
     slug: "video-animation",
-    seoTitle: "2D Animation & Explainer Video Services",
+    seoTitle: "Animated Video Production Services",
     metaDescription:
-      "2D animation, explainer videos and motion graphics for SaaS and product brands in the USA, UK and Europe — from product animation to promotional videos.",
-    h1: "Video & Animation Services",
-    primaryKeyword: "video and animation services",
+      "Animated video production services for brands worldwide: 2D, 3D, whiteboard and explainer videos, motion graphics, plus promotional and corporate video.",
+    h1: "Animated Video Production & Animation Services",
+    primaryKeyword: "animated video production",
     secondaryKeywords: [
-      "2D animation studio",
-      "SaaS explainer video production",
-      "promotional video production",
+      "video animation services",
+      "animation services",
+      "animated video production company",
+      "animated video services",
     ],
     intro:
-      "We produce 2D animation, explainer videos and motion graphics that turn complex products into content people actually watch — including SaaS and product explainer videos, logo animation, and promotional videos for brands across the USA, UK and Europe.",
+      "Code & Motions is an animated video production company working with brands worldwide. Our video animation services cover 2D and 3D animation, explainer and whiteboard videos, motion graphics, social media video, and promotional and corporate video, produced from script to final delivery for clients in the USA, UK, Australia, Canada, Europe and the Middle East.",
     benefits: [
       {
         title: "Built to Explain",
@@ -626,14 +629,14 @@ export const serviceDetails: ServiceDetail[] = [
           "Complex products and ideas, made clear in seconds, not paragraphs.",
       },
       {
-        title: "Platform-Native Formats",
+        title: "The Right Style for the Job",
         description:
-          "Content sized and paced for where it will actually run — social, web or ads.",
+          "2D, 3D, whiteboard, motion graphics or filmed video, recommended for what you need to say rather than what is easiest to make.",
       },
       {
-        title: "Consistent Brand Motion",
+        title: "Platform-Native Formats",
         description:
-          "A visual style that stays recognizable across every video you publish.",
+          "Content sized and paced for where it will actually run: social, web or ads.",
       },
       {
         title: "Structured Production",
@@ -643,14 +646,41 @@ export const serviceDetails: ServiceDetail[] = [
     ],
     useCases: [
       "SaaS products that need an explainer video for their landing page",
+      "Brands that want an animated video to explain a product, service or idea",
+      "Companies launching a product that needs a 2D or 3D animated showcase",
+      "Businesses that need promotional or corporate video for a campaign or their website",
       "Brands producing ongoing social media video content",
-      "Companies launching a product that needs an animated demo",
       "Teams that want a consistent motion identity across campaigns",
     ],
     overviewHeading: "Why Brands Choose Our Animation Studio",
-    useCasesHeading: "Who We Create Animation For",
-    faqHeading: "Video & Animation FAQs",
+    useCasesHeading: "Who We Create Video and Animation For",
+    faqHeading: "Animated Video Production FAQs",
     faqs: [
+      {
+        question: "How much does an animated video cost?",
+        answer:
+          "We do not publish prices, because the cost of an animated video depends on the work involved. The main factors are the length, the animation style (simple graphics, character animation or 3D), the number of scenes, the level of detail, whether we write the script, voiceover, and the number of revisions and versions. We scope each project from your brief and quote from that.",
+      },
+      {
+        question: "How do I choose an animation company?",
+        answer:
+          "Look at whether their work matches the style you want, ask who writes the script, and check what is included, such as voiceover, music and revision rounds. A good company asks about your audience and goal before it talks about style, and will tell you if another format would suit you better.",
+      },
+      {
+        question: "What makes a good animated video?",
+        answer:
+          "A single clear message, the main point early, simple visuals that support the voiceover, and a specific next step. Clarity matters more than polish.",
+      },
+      {
+        question: "How long should an animated video be?",
+        answer:
+          "As long as the message needs. Many explainer videos run roughly 60 to 90 seconds, while social clips are shorter. We recommend a length from your goal and where the video will run.",
+      },
+      {
+        question: "Which animation styles do you offer?",
+        answer:
+          "We produce 2D animation, 3D animation, 3D product animation, whiteboard animation and motion graphics, and we also produce filmed corporate and promotional video. We will recommend the style that fits your subject.",
+      },
       {
         question: "How long does an explainer video take to produce?",
         answer:
@@ -659,33 +689,28 @@ export const serviceDetails: ServiceDetail[] = [
       {
         question: "Do you write the script, or do we provide it?",
         answer:
-          "Either — we can write the script from your brief, or animate a script you've already prepared.",
+          "Either. We can write the script from your brief, or animate a script you have already prepared.",
       },
       {
         question: "What formats do you deliver?",
         answer:
-          "Whatever formats and aspect ratios you need — landscape for web, square or vertical for social.",
+          "Whatever formats and aspect ratios you need: landscape for web, square or vertical for social.",
       },
       {
         question: "Can you animate our existing logo?",
         answer:
-          "Yes, logo animation is one of our most common smaller-scope projects.",
-      },
-      {
-        question: "Do you specialize in 2D animation specifically?",
-        answer:
-          "Yes. Most of our explainer and product videos are 2D animation — it's typically faster to produce and more cost-effective than 3D or live-action for explaining a product or idea.",
+          "Yes. Logo animation is one of our most common smaller-scope projects.",
       },
       {
         question: "Can you create an explainer video for our SaaS product?",
         answer:
-          "Yes. SaaS and product explainer videos are one of our most common projects — we break down what your product does and why it matters into a short, watchable video for your landing page or onboarding flow.",
+          "Yes. SaaS and product explainer videos are one of our most common projects. We break down what your product does and why it matters into a short, watchable video for your landing page or onboarding flow.",
       },
     ],
     relatedSlugs: ["graphic-design", "website-development", "software-development"],
-    whatIsQuestion: "What Is Video & Animation?",
+    whatIsQuestion: "What is animated video production?",
     whatIsAnswer:
-      "Video and animation covers 2D animation, explainer videos and motion graphics built to communicate a product or idea quickly. At Code & Motions, this means scripting, storyboarding and animating content sized for where it will run — landing pages, social or ads — so complex ideas become something people actually watch.",
+      "Animated video production is the process of making a video from drawn or computer-built images brought to life through motion. It covers writing the script, storyboarding, designing the visuals, animating, adding voiceover and sound, and delivering the finished video. Styles include 2D, 3D, whiteboard and motion graphics.",
     processHeading: "Our Video & Animation Process",
     process: [
       {
@@ -711,6 +736,8 @@ export const serviceDetails: ServiceDetail[] = [
     ],
     closingSubtext:
       "Tell us what you need animated and we'll put together the right production plan for it.",
+    areaServed: videoAreaServed,
+    pageSections: videoAnimationPageSections,
   },
   {
     slug: "graphic-design",
