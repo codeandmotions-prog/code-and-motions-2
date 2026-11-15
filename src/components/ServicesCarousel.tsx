@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { services } from "@/data/services";
 import ServiceCard from "./ServiceCard";
 
-const SCROLL_STEP = 296; // card width + gap
+const SCROLL_STEP = 340; // card width + gap
 
 export default function ServicesCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
