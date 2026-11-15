@@ -29,7 +29,7 @@ export default function ServicesGrid() {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.12 }}
-      className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7"
+      className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-7"
     >
       {serviceCategories.map((category) => (
         <motion.div key={category.id} variants={item} className="h-full">

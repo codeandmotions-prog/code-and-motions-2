@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import ServiceCardShell from "@/components/services/card/ServiceCardShell";
+import { illustrationKeyFor } from "@/components/services/card/ServiceIllustration";
 import { planningSubServices } from "@/data/subServices/planning";
 
 /**
@@ -39,42 +41,25 @@ export default function BusinessPlanningSolutions() {
           </p>
         </div>
 
-        <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
           {planningSubServices.map((service) => {
             const Icon = service.icon;
             return (
               <li key={service.slug} className="h-full">
-                <article className="group relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition duration-300 hover:-translate-y-1 hover:border-(--color-cyan)/50 hover:bg-white/[0.07] focus-within:border-(--color-cyan)/60">
-                  <div
-                    className="flex h-12 w-12 items-center justify-center rounded-xl"
-                    style={{ background: service.gradient }}
-                  >
-                    <Icon size={22} className="text-white" strokeWidth={1.75} aria-hidden="true" />
-                  </div>
-                  <h3 className="mt-5 text-[19px] font-bold leading-snug text-white">
-                    {service.name}
-                  </h3>
-                  <p className="mt-2 flex-1 text-[14.5px] leading-relaxed text-white/65">
-                    {service.shortDescription}
-                  </p>
-                  <Link
-                    href={`/services/software-development/${service.slug}`}
-                    className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold text-(--color-cyan-soft) after:absolute after:inset-0 after:rounded-2xl after:content-[''] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--color-cyan)"
-                  >
-                    Explore Service
-                    <span className="sr-only"> : {service.name}</span>
-                    <ArrowUpRight
-                      size={16}
-                      aria-hidden="true"
-                      className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    />
-                  </Link>
-                </article>
+                <ServiceCardShell
+                  name={service.name}
+                  description={service.shortDescription}
+                  icon={Icon}
+                  illustration={illustrationKeyFor(service.slug, "software-development")}
+                  href={`/services/software-development/${service.slug}`}
+                  cta={{ label: "Explore Service", srSuffix: ` : ${service.name}` }}
+                  overlayLink
+                />
               </li>
             );
           })}
 
-          <li className="sm:col-span-2 lg:col-span-2">
+          <li className="lg:col-span-2">
             <div className="flex h-full flex-col items-start justify-between gap-6 rounded-2xl border border-(--color-cyan)/30 bg-gradient-to-br from-(--color-blue)/30 to-transparent p-7 sm:flex-row sm:items-center">
               <div>
                 <h3 className="text-[22px] font-bold text-white">

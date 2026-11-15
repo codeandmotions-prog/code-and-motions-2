@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
+import ServiceCardShell from "@/components/services/card/ServiceCardShell";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -105,12 +106,28 @@ export function ServiceCardGroup({
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.1 }}
-          className={`mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 ${
-            columns === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"
-          }`}
+          className={
+            group.serviceCards
+              ? "mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2"
+              : `mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 ${columns === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`
+          }
         >
           {group.items.map((card) => {
             const Icon = ICONS[card.icon];
+            if (group.serviceCards) {
+              return (
+                <motion.div key={card.title} variants={item} className="h-full">
+                  <ServiceCardShell
+                    name={card.title}
+                    description={card.description}
+                    icon={Icon}
+                    illustration={card.art ?? "website-development"}
+                    href={card.link?.href}
+                    cta={card.link ? { label: card.link.label } : undefined}
+                  />
+                </motion.div>
+              );
+            }
             return (
               <motion.article
                 key={card.title}

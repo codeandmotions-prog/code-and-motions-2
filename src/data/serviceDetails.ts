@@ -506,12 +506,14 @@ export const serviceDetails: ServiceDetail[] = [
       {
         id: "hire-shopify-developers",
         eyebrow: "Hire",
+        serviceCards: true,
         heading: "Hire Shopify Developers for Your Store",
         intro:
           "If you are looking to hire Shopify developers, bring us the work your store needs. Design, development and store configuration sit with one team, so you are not coordinating separate specialists for theme, apps and checkout. We work on both fixed-price and hourly Shopify development projects, and we take individual tasks as well as complete projects. If you need Shopify developers for hire for a defined task, tell us what it is and we will scope it.",
         items: [
           {
             title: "A new Shopify store build",
+            art: "svc-shopify-new",
             icon: "web",
             description:
               "Full store builds: theme setup, catalog structure, and payments, shipping and checkout configuration.",
@@ -522,11 +524,13 @@ export const serviceDetails: ServiceDetail[] = [
           },
           {
             title: "A custom Shopify 2.0 theme",
+            art: "svc-shopify-theme",
             icon: "custom",
             description: "A fully custom theme on Shopify 2.0, or changes to the theme you already have.",
           },
           {
             title: "App integrations and custom apps",
+            art: "svc-shopify-apps",
             icon: "api",
             description:
               "The apps your store relies on, connected without bloating load time, or a custom Shopify app when an off-the-shelf one does not fit.",
@@ -537,11 +541,13 @@ export const serviceDetails: ServiceDetail[] = [
           },
           {
             title: "Speed and Core Web Vitals",
+            art: "svc-shopify-speed",
             icon: "automation",
             description: "An audit and optimization of an existing store's load time and Core Web Vitals.",
           },
           {
             title: "Support after launch",
+            art: "svc-shopify-support",
             icon: "support",
             description: "Checkout, payments and speed tested at launch, then ongoing optimization.",
             link: {

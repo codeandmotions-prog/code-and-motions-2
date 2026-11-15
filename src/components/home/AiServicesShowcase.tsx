@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion, MotionConfig, type Variants } from "framer-motion";
 import { aiServiceHref, aiServices } from "@/data/aiServices";
-import AiServiceArt from "@/components/ai-services/AiServiceArt";
+import ServiceCardShell from "@/components/services/card/ServiceCardShell";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -74,60 +74,17 @@ export default function AiServicesShowcase() {
               const tablet = index === aiServices.length - 1 ? "sm:col-span-2" : "";
               return (
                 <motion.li key={service.slug} variants={rise} className={`${span} ${tablet}`}>
-                  <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-(--color-line) bg-white transition duration-300 hover:-translate-y-1.5 hover:border-(--color-blue)/45 hover:shadow-[0_30px_60px_-34px_rgba(21,71,224,0.45)] focus-within:border-(--color-blue)">
-                    <div className="relative h-[190px] overflow-hidden" style={{ background: service.gradient }}>
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 opacity-30"
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)",
-                          backgroundSize: "28px 28px",
-                        }}
-                      />
-                      <div className="relative h-full transition-transform duration-500 group-hover:scale-[1.03]">
-                        <AiServiceArt kind={service.kind} />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-6 sm:p-7">
-                      <div className="flex items-center gap-3">
-                        <span
-                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white"
-                          style={{ background: service.gradient }}
-                        >
-                          <Icon size={19} strokeWidth={1.75} aria-hidden="true" />
-                        </span>
-                        <h3 className="text-[20px] font-extrabold leading-snug tracking-[-0.01em] text-(--color-ink)">
-                          {service.name}
-                        </h3>
-                      </div>
-                      <p className="mt-4 flex-1 text-[15px] leading-relaxed text-(--color-ink-soft)">
-                        {service.cardDescription}
-                      </p>
-                      <ul className="mt-5 flex flex-wrap gap-2" aria-label={`${service.name} highlights`}>
-                        {service.cardTags.map((tag) => (
-                          <li
-                            key={tag}
-                            className="rounded-full border border-(--color-line) bg-(--color-surface) px-3 py-1 text-[12px] font-medium text-(--color-ink-soft)"
-                          >
-                            {tag}
-                          </li>
-                        ))}
-                      </ul>
-                      <Link
-                        href={aiServiceHref(service.slug)}
-                        className="mt-6 inline-flex min-h-11 items-center gap-1.5 text-[14.5px] font-semibold text-(--color-blue) after:absolute after:inset-0 after:rounded-3xl after:content-[''] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--color-blue)"
-                      >
-                        Explore {service.name}
-                        <ArrowUpRight
-                          size={17}
-                          aria-hidden="true"
-                          className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                        />
-                      </Link>
-                    </div>
-                  </article>
+                  <ServiceCardShell
+                    name={service.name}
+                    description={service.cardDescription}
+                    icon={Icon}
+                    illustration={`ai-kind-${service.kind}`}
+                    chips={service.cardTags}
+                    chipsLabel={`${service.name} highlights`}
+                    href={aiServiceHref(service.slug)}
+                    cta={{ label: `Explore ${service.name}` }}
+                    overlayLink
+                  />
                 </motion.li>
               );
             })}

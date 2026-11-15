@@ -33,6 +33,8 @@ export type RichServiceItem = {
   description: string;
   icon: RichIconKey;
   link?: RichLink;
+  /** Illustration key for groups rendered as service cards (see ServiceIllustration). */
+  art?: string;
   /** Optional labelled lines shown under the description (e.g. "Best when" / "Less suited when"). */
   points?: { label: string; text: string }[];
 };
@@ -43,6 +45,8 @@ export type RichServiceGroup = {
   eyebrow: string;
   heading: string;
   intro?: string;
+  /** Render the items as illustrated service cards (service lists), not info cards. */
+  serviceCards?: boolean;
   items: RichServiceItem[];
 };
 
@@ -110,18 +114,21 @@ export type ServiceRichSections = {
 export const softwareDevelopmentRichSections: ServiceRichSections = {
   services: {
     eyebrow: "Services",
+    serviceCards: true,
     heading: "Custom Software Development Services We Offer",
     intro:
       "Seven areas of work, from building a first product to connecting and automating the systems you already run.",
     items: [
       {
         title: "Custom Software Development",
+        art: "svc-sw-custom",
         icon: "custom",
         description:
           "Business software designed around your own processes: internal systems, customer portals and tools that replace spreadsheets and repeated manual steps.",
       },
       {
         title: "SaaS Development",
+        art: "svc-sw-saas",
         icon: "saas",
         description:
           "Subscription-style software products, from a first working version to a platform you can extend, including user accounts, roles and admin tools.",
@@ -129,12 +136,14 @@ export const softwareDevelopmentRichSections: ServiceRichSections = {
       },
       {
         title: "Web Application Development",
+        art: "svc-sw-webapp",
         icon: "web",
         description:
           "Browser-based applications with dashboards, workflows and data entry, built with modern front-end and back-end frameworks.",
       },
       {
         title: "CRM & ERP Development",
+        art: "svc-sw-crm",
         icon: "crm",
         description:
           "Custom CRM and ERP systems where an off-the-shelf tool no longer fits, plus extensions and integrations for the platforms you already use.",
@@ -145,6 +154,7 @@ export const softwareDevelopmentRichSections: ServiceRichSections = {
       },
       {
         title: "AI Software Development",
+        art: "svc-sw-ai",
         icon: "ai",
         description:
           "AI-powered features and applications, from intelligent workflows to assistants built into your own product.",
@@ -155,12 +165,14 @@ export const softwareDevelopmentRichSections: ServiceRichSections = {
       },
       {
         title: "API Development & Integrations",
+        art: "svc-sw-api",
         icon: "api",
         description:
           "APIs and connections between your existing tools, so data moves between systems without manual copying.",
       },
       {
         title: "Business Automation Solutions",
+        art: "svc-sw-automation",
         icon: "automation",
         description:
           "Automation for repetitive internal work such as approvals, data handling, notifications and reporting.",
@@ -383,12 +395,14 @@ export const websiteDevelopmentPageSections: PageSection[] = [
     group: {
       id: "website-services",
       eyebrow: "Services",
+      serviceCards: true,
       heading: "Website Services We Offer",
       intro:
         "Seven kinds of website work, each designed and built by the same team and supported after launch.",
       items: [
         {
           title: "Custom Website Design and Development",
+          art: "svc-web-custom",
           icon: "custom",
           description:
             "Fully custom-coded websites with a design shaped around your brand, built on modern frameworks for projects where performance and flexibility matter most.",
@@ -396,12 +410,14 @@ export const websiteDevelopmentPageSections: PageSection[] = [
         },
         {
           title: "Business Websites",
+          art: "svc-web-business",
           icon: "web",
           description:
             "Professional websites that present your business and services clearly to customers, designed and built to match your brand.",
         },
         {
           title: "WordPress Development",
+          art: "svc-web-wordpress",
           icon: "crm",
           description:
             "WordPress sites for when a client-editable CMS is the priority, including WooCommerce online stores.",
@@ -409,6 +425,7 @@ export const websiteDevelopmentPageSections: PageSection[] = [
         },
         {
           title: "Elementor Development",
+          art: "svc-web-elementor",
           icon: "saas",
           description:
             "Elementor-built pages and sites on WordPress, for teams that want to edit layouts and content themselves.",
@@ -416,12 +433,14 @@ export const websiteDevelopmentPageSections: PageSection[] = [
         },
         {
           title: "Landing Pages",
+          art: "svc-web-landing",
           icon: "api",
           description:
             "Standalone landing pages optimized for a single conversion goal, designed to work with paid campaigns and A/B testing.",
         },
         {
           title: "Web Applications",
+          art: "svc-web-app",
           icon: "ai",
           description:
             "Browser-based applications and portals, built by the same engineering team that delivers our software projects.",
@@ -429,6 +448,7 @@ export const websiteDevelopmentPageSections: PageSection[] = [
         },
         {
           title: "Redesign and Maintenance",
+          art: "svc-web-redesign",
           icon: "automation",
           description:
             "Redesigns of existing sites, migrations from other platforms, and ongoing maintenance and support after launch.",
