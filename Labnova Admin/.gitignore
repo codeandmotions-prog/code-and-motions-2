@@ -1,0 +1,15 @@
+# dependencies
+node_modules
+
+# Next.js build output
+.next
+
+# secrets — never commit these (.env.example is the safe template)
+.env
+.env.local
+.env.*.local
+
+# generated / cache / OS files
+*.tsbuildinfo
+*.log
+.DS_Store
